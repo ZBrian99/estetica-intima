@@ -31,7 +31,9 @@ const filtersToQueryString = (filters?: ServicesFiltersType): string => {
 
 export const fetchServices = async (filters?: ServicesFiltersType): Promise<ServicesResponse> => {
 	try {
-		const response = await fetch(`${getBaseUrl()}/api/services?${filtersToQueryString(filters)}`);
+		const response = await fetch(`${getBaseUrl()}/api/services?${filtersToQueryString(filters)}`, {
+			cache: 'force-cache',
+		});
 
 		if (!response.ok) {
 			throw new Error(`Error ${response.status}: ${response.statusText}`);
