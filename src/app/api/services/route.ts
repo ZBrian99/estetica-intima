@@ -9,7 +9,7 @@ export const GET = async (req: Request) => {
 		const admin = await isAdmin();
 
 		const validatedFilters = parseQueryParams(req, urlServiceFiltersSchema);
-
+    console.log(validatedFilters)
 		const response = await getPaginatedServices(validatedFilters, admin);
 
 		return NextResponse.json(response);

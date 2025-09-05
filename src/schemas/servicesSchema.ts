@@ -195,7 +195,7 @@ export const urlServiceFiltersSchema = z
 				return val === 'true';
 			}),
 		sortBy: SortByFields.default('createdAt'),
-		sortOrder: SortOrder.default('desc'),
+		sortOrder: SortOrder.default('asc'),
 	})
 	.refine(
 		(data) => {

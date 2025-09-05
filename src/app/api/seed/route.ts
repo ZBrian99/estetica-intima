@@ -35,7 +35,7 @@ function generateRandomDuration(): number {
 
 // Función para generar precio promocional aleatorio (10% a 90% del precio original)
 function generatePromoPrice(originalPrice: number): number | null {
-	if (Math.random() > 0.7) return null; // 30% de probabilidad de tener promo
+	if (Math.random() > 0.8) return null; // 30% de probabilidad de tener promo
 	const discountPercent = Math.random() * 0.8 + 0.1; // 10% a 90%
 	return Math.floor(originalPrice * discountPercent);
 }
@@ -55,9 +55,9 @@ function generateRandomCategories(): string[] {
 // Función para generar flags booleanos aleatorios para servicios
 function generateServiceFlags() {
 	return {
-		isPopular: generateRandomBoolean(0.2),
-		isFeatured: generateRandomBoolean(0.15),
-		isNew: generateRandomBoolean(0.25),
+		isPopular: generateRandomBoolean(0.1),
+		isFeatured: generateRandomBoolean(0.1),
+		isNew: generateRandomBoolean(0.1),
 	};
 }
 
