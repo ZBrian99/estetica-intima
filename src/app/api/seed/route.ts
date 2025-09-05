@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { Gender } from '@prisma/client';
 import {
 	getAllIndividualServices,
 	getAllComboServices,
@@ -12,7 +11,7 @@ import {
 	type ComboServiceData,
 	type PackServiceData,
 } from '@/data/servicesData';
-import { ServiceType } from '@/schemas/servicesSchema';
+import { GenderType, ServiceType } from '@/schemas/servicesSchema';
 
 // Función para obtener elementos aleatorios de un array
 function getRandomElements<T>(array: T[], count: number): T[] {
@@ -81,8 +80,8 @@ function generateServiceDescription(serviceName: string, type: ServiceType, dura
 }
 
 // Función para generar género aleatorio
-function generateRandomGender(): Gender {
-	const genders: Gender[] = ['MALE', 'FEMALE', 'UNISEX'];
+function generateRandomGender(): GenderType {
+	const genders: GenderType[] = ['MALE', 'FEMALE', 'UNISEX'];
 	return genders[Math.floor(Math.random() * genders.length)];
 }
 
