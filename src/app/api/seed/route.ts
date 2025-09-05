@@ -219,9 +219,12 @@ export async function GET(request: NextRequest) {
 
 		console.log(`🎯 Total de servicios a crear: ${allServices.length}`);
 
+		// Desordenar el array de servicios para que no queden agrupados por tipo
+		const shuffledServices = [...allServices].sort(() => Math.random() - 0.5);
+
 		// Crear servicios en la base de datos
 		const createdServices = await prisma.service.createMany({
-			data: allServices,
+			data: shuffledServices,
 			skipDuplicates: true,
 		});
 
