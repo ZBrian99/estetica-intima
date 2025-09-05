@@ -1,3 +1,5 @@
+'use client'
+
 import { debounce } from '@/lib/utils';
 import { useState, useEffect, useCallback } from 'react';
 

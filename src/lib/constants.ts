@@ -1,0 +1,1 @@
+export const API_GLOBAL_LIMIT =100;

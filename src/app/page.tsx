@@ -1,30 +1,34 @@
-import { getBaseUrl } from '@/lib/utils';
-import { ServiceResponse } from '@/types/types';
-import Link from 'next/link';
+import Hero from '@/components/Hero';
+import Categorias from '@/components/Categorias';
+import Populares from '@/components/Populares';
+// import AntesYDespues from '@/components/AntesYDespues';
+import Testimonios from '@/components/Testimonios';
+import PorQueElegirnos from '@/components/PorQueElegirnos';
+import ContactoYUbicacion from '@/components/ContactoYUbicacion';
 
-const getServices = async (): Promise<ServiceResponse> => {
-	const res = await fetch(`${getBaseUrl()}/api/services`, {
-		cache: 'no-store', // evita cache en server
-	});
-	return res.json();
-};
-
-export default async function Page() {
-	const { data: services } = await getServices();
-
-	if (!services) {
-		return <div>Error al cargar servicios</div>;
-	}
+export default function HomePage() {
 	return (
-		<main style={{ padding: '2rem' }}>
-			<h1>Lista de servicios</h1>
-			<ul>
-				{services.map((s) => (
-					<li key={s.id}>{s.name}</li>
-				))}
-			</ul>
+		<main className="min-h-screen">
+			{/* Hero Section */}
+			<Hero />
 
-			<Link href='/new'>➕ Crear un nuevo servicio</Link>
+			{/* Categories Section */}
+			<Categorias />
+
+			{/* Popular Treatments Section */}
+			<Populares />
+
+			{/* Before and After Section */}
+			{/* <AntesYDespues /> */}
+
+			{/* Why Choose Us Section */}
+			<PorQueElegirnos />
+
+			{/* Testimonials Section */}
+			<Testimonios />
+
+			{/* Contact and Location Section */}
+			<ContactoYUbicacion />
 		</main>
 	);
 }

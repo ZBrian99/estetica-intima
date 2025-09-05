@@ -1,3 +1,5 @@
+'use client';
+
 import {
 	Pagination,
 	PaginationContent,
@@ -5,17 +7,15 @@ import {
 	PaginationLink,
 	PaginationButton,
 } from '@/components/ui/pagination';
-import { PaginationMeta } from '@/types/types';
+import { PaginationMeta } from '@/types/commonTypes';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ChevronLeftIcon, ChevronRightIcon, EllipsisIcon } from 'lucide-react';
 
-
-// 
+//
 // TODO: Hay que optimizar mejorar la logica de la paginacion.
 // Tambien hay que mejorar el responsive.
-// 
-
+//
 
 interface GlobalPaginationProps {
 	pagination: PaginationMeta;
@@ -31,15 +31,15 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 	// Función para generar el array de páginas según el dispositivo
 	const generatePages = (): PageItem[] => {
 		// Si hay 7 páginas o menos, mostrar todas
-		if (totalPages <= 7) {
-			return Array.from({ length: totalPages }, (_, i) => i + 1);
-		}
+		// if (totalPages <= 7) {
+		// 	return Array.from({ length: totalPages }, (_, i) => i + 1);
+		// }
 
 		// Móvil: muestra 3 páginas cuando es posible
 		if (isMobile) {
-			if (totalPages <= 7) {
-				return Array.from({ length: totalPages }, (_, i) => i + 1);
-			}
+			// if (totalPages <= 7) {
+			// 	return Array.from({ length: totalPages }, (_, i) => i + 1);
+			// }
 
 			const pages: PageItem[] = [];
 
@@ -186,19 +186,11 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 								<EllipsisIcon className='h-4 w-4' />
 							</div>
 						) : isMobile ? (
-							<PaginationLink
-								href='#'
-								onClick={(e) => handleLinkClick(e, page)}
-								isActive={page === currentPage}
-							>
+							<PaginationLink href='#' onClick={(e) => handleLinkClick(e, page)} isActive={page === currentPage}>
 								{page}
 							</PaginationLink>
 						) : (
-							<PaginationLink
-								href='#'
-								onClick={(e) => handleLinkClick(e, page)}
-								isActive={page === currentPage}
-							>
+							<PaginationLink href='#' onClick={(e) => handleLinkClick(e, page)} isActive={page === currentPage}>
 								{page}
 							</PaginationLink>
 						)}

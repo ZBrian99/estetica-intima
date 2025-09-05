@@ -103,8 +103,9 @@ export const deleteServiceSchema = z.object({
 // Schema para filtros (usado internamente)
 export const serviceFiltersSchema = z
 	.object({
-		page: z.number().int().min(1).default(1),
-		limit: z.number().int().min(1).max(100).default(10),
+		page: z.number().int().min(1).optional(),
+		// page: z.number().int().min(1).optional().default(1),
+		// limit: z.number().int().min(1).max(100).optional().default(10),
 		search: z.string().optional(),
 		type: ServiceType.optional(),
 		categories: z.array(z.string()).optional(),
@@ -118,8 +119,10 @@ export const serviceFiltersSchema = z
 		isFeatured: z.boolean().optional(),
 		isPopular: z.boolean().optional(),
 		isNew: z.boolean().optional(),
-		sortBy: SortByFields.default('createdAt'),
-		sortOrder: SortOrder.default('desc'),
+		sortBy: SortByFields.optional(),
+		sortOrder: SortOrder.optional(),
+		// sortBy: SortByFields.optional().default('createdAt'),
+		// sortOrder: SortOrder.optional().default('desc'),
 	})
 	.refine(
 		(data) => {
@@ -138,7 +141,7 @@ export const serviceFiltersSchema = z
 export const urlServiceFiltersSchema = z
 	.object({
 		page: z.coerce.number().int().min(1).default(1),
-		limit: z.coerce.number().int().min(1).max(100).default(10),
+		// limit: z.coerce.number().int().min(1).max(100).default(10),
 		search: z.string().optional(),
 		type: ServiceType.optional(),
 		categories: z
@@ -209,13 +212,13 @@ export const urlServiceFiltersSchema = z
 
 // Tipos TypeScript inferidos
 export type ServiceInput = z.infer<typeof serviceSchema>;
-export type ServiceTypeEnum = z.infer<typeof ServiceType>;
-export type GenderEnum = z.infer<typeof Gender>;
+export type ServiceType = z.infer<typeof ServiceType>;
+export type GenderType = z.infer<typeof Gender>;
 export type CreateServiceInput = z.infer<typeof createServiceSchema>;
 export type UpdateServiceInput = z.infer<typeof updateServiceSchema>;
 export type DeleteServiceInput = z.infer<typeof deleteServiceSchema>;
-export type ServiceFilters = z.infer<typeof serviceFiltersSchema>;
-export type UrlServiceFilters = z.infer<typeof urlServiceFiltersSchema>;
+export type ServicesFiltersType = z.infer<typeof serviceFiltersSchema>;
+export type UrlServicesFiltersType = z.infer<typeof urlServiceFiltersSchema>;
 
 export type ServiceResponse = ServiceInput & {
 	id: string;

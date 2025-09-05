@@ -1,7 +1,8 @@
 import { ZodType } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
-import { deleteServiceSchema, UrlServiceFilters } from '@/schemas/servicesSchema';
+import { deleteServiceSchema, UrlServicesFiltersType } from '@/schemas/servicesSchema';
+import { API_GLOBAL_LIMIT } from '@/lib/constants';
 
 export const parseQueryParams = <T>(req: Request, schema: ZodType<T>) => {
 	const { searchParams } = new URL(req.url);
@@ -18,7 +19,7 @@ export const parseBody = async <T>(req: Request, schema: ZodType<T>) => {
 	return parseBody;
 };
 
-export const buildServiceFilters = (filters: UrlServiceFilters, isAdmin: boolean) => {
+export const buildServiceFilters = (filters: UrlServicesFiltersType, isAdmin: boolean) => {
 	const {
 		type,
 		gender,
@@ -113,8 +114,8 @@ export const buildPagination = (currentPage: number, itemsPerPage: number, total
 	};
 };
 
-export const getPaginatedServices = async (filters: UrlServiceFilters, isAdmin: boolean) => {
-	const { sortBy, sortOrder, page, limit } = filters;
+export const getPaginatedServices = async (filters: UrlServicesFiltersType, isAdmin: boolean) => {
+	const { sortBy, sortOrder, page } = filters;
 
 	const where = buildServiceFilters(filters, isAdmin);
 
@@ -124,8 +125,8 @@ export const getPaginatedServices = async (filters: UrlServiceFilters, isAdmin: 
 		prisma.service.findMany({
 			where,
 			select,
-			skip: (page - 1) * limit,
-			take: limit,
+			skip: (page - 1) * API_GLOBAL_LIMIT,
+			take: API_GLOBAL_LIMIT,
 			orderBy: {
 				[sortBy]: sortOrder,
 			},
@@ -135,7 +136,7 @@ export const getPaginatedServices = async (filters: UrlServiceFilters, isAdmin: 
 		}),
 	]);
 
-	const pagination = buildPagination(page, limit, totalCount);
+	const pagination = buildPagination(page, API_GLOBAL_LIMIT, totalCount);
 
 	return {
 		data: services,

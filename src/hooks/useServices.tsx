@@ -1,27 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
+'use client';
+
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { ServicesFiltersType } from '@/schemas/servicesSchema';
 import { fetchServices } from '@/services/client/servicesService';
-import { Service, ServiceResponse } from '@/types/types';
-import { useState } from 'react';
 
-interface UseServicesProps {
-	initialData?: ServiceResponse;
-	params?: {
-		page?: number;
-		limit?: number;
-	};
-}
-
-export function useServices({ params, initialData }: UseServicesProps) {
-	const [initialParams] = useState(params);
-	const hasParamsChanged = JSON.stringify(params) !== JSON.stringify(initialParams);
-
-	console.log('initialData?', !!initialData);
+export function useServices(filters: ServicesFiltersType) {
 	const { data, ...rest } = useQuery({
-		queryKey: ['services', { page: params?.page, limit: params?.limit }],
-		queryFn: () => fetchServices(params),
-		initialData,
-		staleTime: 1000 * 60 * 5, // 5 minutos
-		enabled: hasParamsChanged || !initialData,
+		queryKey: ['services', filters],
+		queryFn: () => fetchServices(filters),
+    placeholderData: keepPreviousData,
+    staleTime: 1000 * 60 * 5,
 	});
 
 	return {
