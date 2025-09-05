@@ -58,7 +58,7 @@ const ServicesClientWrapper = () => {
 			<div className='md:ml-64 min-h-[calc(100vh-4rem)] flex flex-col p-4 xs:p-6 gap-4 xs:gap-6   '>
 				{isLoading ? (
 					<div className='flex items-center justify-center min-h-[400px]'>
-						<LoadingSpinner size='lg' text='Cargando servicios...' showLogo={true} />
+						<LoadingSpinner size='lg' />
 					</div>
 				) : error ? (
 					<EmptyState

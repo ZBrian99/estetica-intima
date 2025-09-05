@@ -5,7 +5,6 @@ export default function Loading() {
 		<div className='flex items-center justify-center min-h-[calc(100vh-4rem)] bg-primary-50'>
 			<LoadingSpinner 
 				size='lg' 
-				text='Cargando servicios...' 
 			/>
 		</div>
 	);
