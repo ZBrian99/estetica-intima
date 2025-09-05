@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { ServiceType, Gender } from '@prisma/client';
+import { Gender } from '@prisma/client';
 import {
 	getAllIndividualServices,
 	getAllComboServices,
@@ -12,6 +12,7 @@ import {
 	type ComboServiceData,
 	type PackServiceData,
 } from '@/data/servicesData';
+import { ServiceType } from '@/schemas/servicesSchema';
 
 // Función para obtener elementos aleatorios de un array
 function getRandomElements<T>(array: T[], count: number): T[] {
