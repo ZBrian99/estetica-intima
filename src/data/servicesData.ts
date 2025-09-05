@@ -1,4 +1,4 @@
-import { ServiceType, Gender } from '@prisma/client';
+import { GenderType } from "@/schemas/servicesSchema";
 
 // Tipos para los datos de servicios
 export interface BaseServiceData {
@@ -6,7 +6,7 @@ export interface BaseServiceData {
   price: number;
   bodyParts: string[];
   duration: number;
-  gender?: Gender;
+  gender?: GenderType;
   imageUrl: string;
 }
 
@@ -14,7 +14,7 @@ export interface ComboServiceData {
   name: string;
   price: number;
   includedServices: string[];
-  gender?: Gender;
+  gender?: GenderType;
   imageUrl: string;
 }
 
@@ -23,7 +23,7 @@ export interface PackServiceData {
   price: number;
   sessions: number;
   includedServices: string[];
-  gender?: Gender;
+  gender?: GenderType;
   imageUrl: string;
 }
 
@@ -338,7 +338,7 @@ export function getAllPackServices(): PackServiceData[] {
 }
 
 // FUNCIÓN PARA OBTENER SERVICIOS POR GÉNERO
-export function getServicesByGender(gender: Gender): BaseServiceData[] {
+export function getServicesByGender(gender: GenderType): BaseServiceData[] {
   const allServices = getAllIndividualServices();
   return allServices.filter(service => 
     !service.gender || service.gender === gender || service.gender === 'UNISEX'
