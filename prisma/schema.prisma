@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER // Registrado sin compras
+  CLIENT // Ha realizado compras
+  ADMIN // Administrador
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNISEX
+}
+
+enum ServiceType {
+  INDIVIDUAL // Servicio individual (ej: Axila)
+  COMBO // Combinación de servicios (ej: Piernas + Axilas)
+  PACK // Múltiples sesiones del mismo servicio/combo
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  BUY_X_GET_Y // Para promociones como "3x2"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Tabla unificada para servicios, combos y packs
+model Service {
+  id   String      @id @default(cuid())
+  type ServiceType // Discriminador principal
+
+  // Información básica (común a todos los tipos)
+  name        String // "Axila", "Piernas + Axilas", "Pack 4 Maderoterapia"
+  description String?
+  slug        String  @unique // Para URLs amigables
+
+  // Precios
+  price      Decimal  @db.Decimal(10, 2)
+  promoPrice Decimal? @db.Decimal(10, 2) // Precio promocional
+
+  // Características generales
+  duration Int? // Duración en minutos (INDIVIDUAL y algunos COMBO)
+  sessions Int? // Cantidad de sesiones (solo PACK)
+  gender   Gender @default(UNISEX)
+
+  // Categorización flexible con arrays
+  categories String[] // ["Depilación", "Facial", "Corporal"]
+  bodyParts  String[] // ["Piernas", "Axilas", "Cavado"] - para filtros
+  tags       String[] // ["Popular", "Nuevo", "Promoción", "Verano"]
+
+  // Composición (para COMBO y PACK)
+  includedServices String[] // IDs de servicios incluidos o descripción
+  //  orderBy: [
+  //       { order: 'asc' },     // 0 va al final, 1,2,3... van primero
+  //       { isFeatured: 'desc' },      // true primero
+  //       { isPopular: 'desc' },       // true primero
+  //       { isNew: 'desc' },           // true primero
+  //       { hasPromo: 'desc' },        // true primero
+  //       { orderCount: 'desc' },      // mayor número primero
+  //       { price: 'asc' },            // menor precio primero
+  //     ],
+
+  // Metadatos y estado
+  imageUrl   String?
+  images     String[] // URLs de imágenes adicionales
+  isActive   Boolean  @default(true)
+  order      Int?     @default(0) // Campo manual (0 = sin orden específico)
+  isFeatured Boolean  @default(false) // Para destacar en home
+  isPopular  Boolean  @default(false) // Badge "Popular"
+  isNew      Boolean  @default(false) // Badge "Nuevo"
+
+  // SEO y marketing
+  // metaTitle       String?
+  // metaDescription String?
+
+  // Estadísticas (para analytics)
+  // viewCount  Int @default(0)
+  // orderCount Int @default(0)
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // @@index([isActive, order, isFeatured, isPopular, isNew, promoPrice, orderCount, price])
+  // @@index([isActive, isFeatured, orderCount]) // Para queries de destacados
+  // @@index([isActive, isPopular, orderCount]) // Para queries de populares
+  // @@index([isActive, price]) // Para queries por precio
+  // @@index([type, isActive]) // Filtrar por tipo activo
+  // @@index([isActive, isFeatured]) // Servicios destacados
+  // @@index([isActive, isNew]) // Servicios nuevos
+  // @@index([isActive, isPopular]) // Servicios populares
+  // @@index([categories]) // Filtros por categoría
+  // @@index([bodyParts]) // Filtros por parte del cuerpo
+  // @@index([price]) // Filtros por precio
+  // @@index([createdAt]) // Ordenar por fecha
+  // @@index([slug]) // Búsqueda por URL
+}
+
+model Promotion {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  code        String? @unique // Código de descuento opcional
+
+  // Tipo y valor del descuento
+  discountType  DiscountType
+  discountValue Decimal      @db.Decimal(10, 2)
+
+  // Vigencia
+  startDate DateTime
+  endDate   DateTime
+  isActive  Boolean  @default(true)
+
+  // Aplicabilidad
+  applicableToServices Boolean @default(false)
+  applicableToCombos   Boolean @default(false)
+  applicableToPackages Boolean @default(false)
+
+  // Restricciones
+  minPurchaseAmount Decimal? @db.Decimal(10, 2)
+  maxUses           Int? // Límite de usos
+  currentUses       Int      @default(0)
+
+  // Servicios específicos (opcional)
+  applicableServiceIds String[] // IDs de servicios específicos
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, startDate, endDate])
+  @@index([code])
+}
