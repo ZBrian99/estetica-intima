@@ -5,10 +5,11 @@ import Populares from '@/components/Populares';
 import Testimonios from '@/components/Testimonios';
 import PorQueElegirnos from '@/components/PorQueElegirnos';
 import ContactoYUbicacion from '@/components/ContactoYUbicacion';
+import Footer from '@/components/layout/Footer';
 
 export default function HomePage() {
 	return (
-		<main className="min-h-screen">
+		<main className='min-h-screen'>
 			{/* Hero Section */}
 			<Hero />
 
@@ -29,6 +30,8 @@ export default function HomePage() {
 
 			{/* Contact and Location Section */}
 			<ContactoYUbicacion />
+
+			<Footer />
 		</main>
 	);
 }

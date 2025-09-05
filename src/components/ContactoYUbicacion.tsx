@@ -44,8 +44,8 @@ const ContactoYUbicacion = () => {
 			codigoPostal: '7600'
 		},
 		telefono: {
-			principal: '+54 223 456-7890',
-			whatsapp: '+54 9 223 456-7890'
+			principal: '+54 223 550-7949',
+			whatsapp: '+54 9 223 550-7949'
 		},
 		email: {
 			principal: 'info@intimamdq.com.ar',
@@ -99,7 +99,7 @@ const ContactoYUbicacion = () => {
 
 	const openWhatsApp = () => {
 		const message = encodeURIComponent('¡Hola! Me gustaría obtener más información sobre los tratamientos de Íntima MDQ.');
-		window.open(`https://wa.me/5492234567890?text=${message}`, '_blank');
+		window.open(`https://wa.me/5492235507949?text=${message}`, '_blank');
 	};
 
 	const openGoogleMaps = () => {

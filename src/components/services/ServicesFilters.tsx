@@ -135,7 +135,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 		<>
 			{/* Botón móvil flotante para abrir filtros */}
 			<button
-				className='md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-medium text-sm backdrop-blur-sm border border-primary-500/20'
+				className='md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-primary-600 hover:bg-primary-700 text-white px-6 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-medium text-sm backdrop-blur-sm border border-primary-500'
 				onClick={() => setIsMobileOpen(true)}
 			>
 				<Filter className='h-4 w-4' />

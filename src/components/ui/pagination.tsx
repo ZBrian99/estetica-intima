@@ -58,7 +58,7 @@ function PaginationButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "flex h-10 min-w-10 items-center justify-center rounded-md text-base font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer touch-manipulation border",
+        "flex h-10 min-w-10 items-center justify-center rounded-md text-base font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer touch-manipulation ",
         className
       )}
       title={title}

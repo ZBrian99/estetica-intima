@@ -31,15 +31,15 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 	// Función para generar el array de páginas según el dispositivo
 	const generatePages = (): PageItem[] => {
 		// Si hay 7 páginas o menos, mostrar todas
-		// if (totalPages <= 7) {
-		// 	return Array.from({ length: totalPages }, (_, i) => i + 1);
-		// }
+		if (totalPages <= 7) {
+			return Array.from({ length: totalPages }, (_, i) => i + 1);
+		}
 
 		// Móvil: muestra 3 páginas cuando es posible
 		if (isMobile) {
-			// if (totalPages <= 7) {
-			// 	return Array.from({ length: totalPages }, (_, i) => i + 1);
-			// }
+			if (totalPages <= 7) {
+				return Array.from({ length: totalPages }, (_, i) => i + 1);
+			}
 
 			const pages: PageItem[] = [];
 
