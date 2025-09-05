@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import Providers from './providers';
 // import { FallBackLoader } from './(servicesOld)/serviciosOld/components/Extras';
 import NavBar from '@/components/layout/NavBar';
+import Footer from '@/components/layout/Footer';
 // import { useState } from 'react';
 
 const inter = Inter({
@@ -42,7 +43,8 @@ export default function RootLayout({
 				<Providers>
 					<NavBar />
 					{/* <Suspense fallback={<FallBackLoader />}> */}
-						{children}
+					{children}
+
 					{/* </Suspense> */}
 				</Providers>
 			</body>

@@ -74,7 +74,7 @@ const ServicesClientWrapper = () => {
 					<>
 						<ServicesList services={services} />
 						{pagination && (
-							<div className='mt-auto'>
+							<div className='mt-auto mb-20 md:mb-0'>
 								<GlobalPagination pagination={pagination} onPageChange={onPageChange} />
 							</div>
 						)}

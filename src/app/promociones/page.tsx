@@ -218,7 +218,7 @@ const PromocionesPage = () => {
 		const mensaje = encodeURIComponent(
 			`¡Hola! Me interesa la promoción "${promocion.titulo}". ¿Podrían darme más información?`
 		);
-		window.open(`https://wa.me/5492234567890?text=${mensaje}`, '_blank');
+		window.open(`https://wa.me/5492235507949?text=${mensaje}`, '_blank');
 	};
 
 	return (

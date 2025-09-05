@@ -116,7 +116,7 @@ const NosotrosPage = () => {
 		const mensaje = encodeURIComponent(
 			'¡Hola! Me gustaría conocer más sobre Íntima MDQ y sus tratamientos. ¿Podrían brindarme más información?'
 		);
-		window.open(`https://wa.me/5492234567890?text=${mensaje}`, '_blank');
+		window.open(`https://wa.me/5492235507949?text=${mensaje}`, '_blank');
 	};
 
 	return (
@@ -162,14 +162,14 @@ const NosotrosPage = () => {
 									<Phone className="w-5 h-5 mr-3 text-purple-200" />
 									<div>
 										<p className="font-semibold">Teléfono</p>
-										<p className="text-purple-100">(0223) 456-7890</p>
+										<p className="text-purple-100">(0223) 550-7949</p>
 									</div>
 								</div>
 								<div className="flex items-center">
 									<MessageCircle className="w-5 h-5 mr-3 text-purple-200" />
 									<div>
 										<p className="font-semibold">WhatsApp</p>
-										<p className="text-purple-100">(0223) 456-7890</p>
+										<p className="text-purple-100">(0223) 550-7949</p>
 									</div>
 								</div>
 								<div className="flex items-center">

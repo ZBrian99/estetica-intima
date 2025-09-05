@@ -25,7 +25,7 @@ const ServiceCard = ({ service }: { service: ServiceResponse }) => {
 		setIsReserving(false);
 		// Aquí iría la lógica de WhatsApp
 		const message = `Hola! Me interesa reservar el servicio: ${service.name}`;
-		const whatsappUrl = `https://wa.me/5492235123456?text=${encodeURIComponent(message)}`;
+		const whatsappUrl = `https://wa.me/5492235507949?text=${encodeURIComponent(message)}`;
 		window.open(whatsappUrl, '_blank');
 	};
 
