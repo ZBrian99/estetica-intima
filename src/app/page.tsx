@@ -6,6 +6,7 @@ import Testimonios from '@/components/Testimonios';
 import PorQueElegirnos from '@/components/PorQueElegirnos';
 import ContactoYUbicacion from '@/components/ContactoYUbicacion';
 import Footer from '@/components/layout/Footer';
+import AntesYDespues from '@/components/AntesYDespues';
 
 export default function HomePage() {
 	return (
@@ -16,7 +17,7 @@ export default function HomePage() {
 
 			<Populares />
 
-			{/* <AntesYDespues /> */}
+			<AntesYDespues />
 
 			<PorQueElegirnos />
 
