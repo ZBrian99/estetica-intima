@@ -1,428 +1,475 @@
-'use client';
-import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import {
-	Star,
-	Clock,
-	Calendar,
-	Tag,
-	Gift,
-	Sparkles,
-	Heart,
-	Zap,
-	Phone,
-	MessageCircle,
-	ArrowRight,
-	CheckCircle,
-	Percent,
-	TrendingUp,
-} from 'lucide-react';
+import { Gift, Percent, Users, Sparkles, Heart, Calendar, Phone, MessageCircle, Sun, Snowflake, Instagram, Facebook, Star, Clock, Zap, DollarSign, CheckCircle, AlertCircle } from 'lucide-react';
 
-interface Promocion {
-	id: string;
-	titulo: string;
-	descripcion: string;
-	descuentoOriginal: number;
-	descuentoActual: number;
-	precioOriginal: number;
-	precioFinal: number;
-	validoHasta: string;
-	incluye: string[];
-	condiciones: string[];
-	imagen: string;
-	colorFallback: string;
-	destacada?: boolean;
-	limitado?: boolean;
-}
-
-const PromocionesPage = () => {
-	const [filtroActivo, setFiltroActivo] = useState<'todas' | 'destacadas' | 'limitadas'>('todas');
-
-	// Promociones disponibles
-	const promociones: Promocion[] = [
-		{
-			id: 'pase-libre-intima',
-			titulo: 'Pase Libre Íntima',
-			descripcion:
-				'Acceso ilimitado a todos nuestros tratamientos durante 3 meses. La mejor forma de cuidar tu piel y cuerpo.',
-			descuentoOriginal: 50,
-			descuentoActual: 60,
-			precioOriginal: 180000,
-			precioFinal: 72000,
-			validoHasta: '31 de Enero 2025',
-			incluye: [
-				'Depilación láser ilimitada',
-				'Tratamientos faciales',
-				'Radiofrecuencia corporal',
-				'Limpieza de cutis profunda',
-				'Consultas de seguimiento',
-			],
-			condiciones: [
-				'Válido por 3 meses desde la compra',
-				'No acumulable con otras promociones',
-				'Requiere reserva previa',
-				'Transferible a familiar directo',
-			],
-			imagen: '/images/promociones/pase-libre.jpg',
-			colorFallback: '#ec4899',
-			destacada: true,
-			limitado: true,
-		},
-		{
-			id: 'depilacion-verano',
-			titulo: 'Depilación de Verano',
-			descripcion:
-				'Preparate para el verano con nuestra promoción especial en depilación láser para piernas completas.',
-			descuentoOriginal: 30,
-			descuentoActual: 40,
-			precioOriginal: 45000,
-			precioFinal: 27000,
-			validoHasta: '15 de Febrero 2025',
-			incluye: [
-				'6 sesiones de láser',
-				'Evaluación inicial gratuita',
-				'Crema post-tratamiento',
-				'Seguimiento personalizado',
-			],
-			condiciones: [
-				'Válido para piernas completas',
-				'Sesiones cada 4-6 semanas',
-				'No válido en embarazo',
-				'Consulta previa obligatoria',
-			],
-			imagen: '/images/promociones/depilacion-verano.jpg',
-			colorFallback: '#06b6d4',
-			destacada: true,
-		},
-		{
-			id: 'facial-renovacion',
-			titulo: 'Renovación Facial',
-			descripcion: 'Tratamiento completo de renovación facial con las últimas tecnologías para una piel radiante.',
-			descuentoOriginal: 25,
-			descuentoActual: 35,
-			precioOriginal: 28000,
-			precioFinal: 18200,
-			validoHasta: '28 de Febrero 2025',
-			incluye: [
-				'Limpieza profunda',
-				'Peeling químico suave',
-				'Hidratación intensiva',
-				'Masaje facial relajante',
-				'Productos para el hogar',
-			],
-			condiciones: [
-				'Una sesión por persona',
-				'Duración aproximada: 90 min',
-				'No recomendado en acné activo',
-				'Incluye consulta dermatológica',
-			],
-			imagen: '/images/promociones/facial-renovacion.jpg',
-			colorFallback: '#8b5cf6',
-		},
-		{
-			id: 'combo-novia',
-			titulo: 'Combo Novia Perfecta',
-			descripcion:
-				'El paquete completo para lucir radiante en tu día especial. Incluye todos los tratamientos esenciales.',
-			descuentoOriginal: 45,
-			descuentoActual: 50,
-			precioOriginal: 95000,
-			precioFinal: 47500,
-			validoHasta: '30 de Abril 2025',
-			incluye: [
-				'Depilación completa (6 sesiones)',
-				'Tratamientos faciales (4 sesiones)',
-				'Radiofrecuencia corporal',
-				'Manicura y pedicura',
-				'Asesoramiento personalizado',
-			],
-			condiciones: [
-				'Válido por 6 meses',
-				'Ideal comenzar 4 meses antes',
-				'Incluye prueba de maquillaje',
-				'Plan de tratamiento personalizado',
-			],
-			imagen: '/images/promociones/combo-novia.jpg',
-			colorFallback: '#f59e0b',
-			destacada: true,
-			limitado: true,
-		},
-		{
-			id: 'criolipolisis-express',
-			titulo: 'Criolipólisis Express',
-			descripcion: 'Elimina la grasa localizada de forma no invasiva con nuestra tecnología de última generación.',
-			descuentoOriginal: 20,
-			descuentoActual: 30,
-			precioOriginal: 35000,
-			precioFinal: 24500,
-			validoHasta: '20 de Marzo 2025',
-			incluye: [
-				'Una sesión de criolipólisis',
-				'Evaluación corporal completa',
-				'Drenaje linfático post-tratamiento',
-				'Plan nutricional básico',
-			],
-			condiciones: [
-				'Una zona por sesión',
-				'Resultados visibles en 2-3 meses',
-				'No apto para embarazadas',
-				'Evaluación médica previa',
-			],
-			imagen: '/images/promociones/criolipolisis.jpg',
-			colorFallback: '#10b981',
-		},
-		{
-			id: 'amigas-descuento',
-			titulo: 'Descuento Amigas',
-			descripcion: 'Vení con tu amiga y ambas obtienen un descuento especial en cualquier tratamiento.',
-			descuentoOriginal: 15,
-			descuentoActual: 25,
-			precioOriginal: 0, // Variable según tratamiento
-			precioFinal: 0, // Variable según tratamiento
-			validoHasta: 'Válido todo el año',
-			incluye: [
-				'Descuento en cualquier tratamiento',
-				'Válido para ambas personas',
-				'Consulta gratuita',
-				'Asesoramiento personalizado',
-			],
-			condiciones: [
-				'Ambas deben ser nuevas clientas',
-				'Tratamientos el mismo día',
-				'No acumulable con otras promos',
-				'Mínimo 2 sesiones por persona',
-			],
-			imagen: '/images/promociones/amigas.jpg',
-			colorFallback: '#ef4444',
-		},
-	];
-
-	// Filtrar promociones
-	const promocionesFiltradas = promociones.filter((promo) => {
-		if (filtroActivo === 'destacadas') return promo.destacada;
-		if (filtroActivo === 'limitadas') return promo.limitado;
-		return true;
-	});
-
-	const formatearPrecio = (precio: number) => {
-		if (precio === 0) return 'Consultar';
-		return new Intl.NumberFormat('es-AR', {
-			style: 'currency',
-			currency: 'ARS',
-			minimumFractionDigits: 0,
-		}).format(precio);
-	};
-
-	const abrirWhatsApp = (promocion: Promocion) => {
-		const mensaje = encodeURIComponent(
-			`¡Hola! Me interesa la promoción "${promocion.titulo}". ¿Podrían darme más información?`
-		);
-		window.open(`https://wa.me/5492235507949?text=${mensaje}`, '_blank');
-	};
-
+export default function Promociones() {
 	return (
 		<div className='min-h-screen bg-gray-50'>
 			{/* Hero Section */}
-			<section className='bg-gradient-to-r from-primary-500 to-purple-600 text-white py-16'>
-				<div className='max-w-7xl mx-auto px-4 text-center'>
-					<div className='inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6'>
-						<Gift className='w-8 h-8' />
-					</div>
-					<h1 className='text-4xl md:text-5xl font-bold mb-4'>Promociones Especiales</h1>
-					<p className='text-xl text-primary-100 max-w-2xl mx-auto mb-8'>
-						Descubrí nuestras ofertas exclusivas y aprovechá los mejores precios en tratamientos de estética integral
+			<section className='relative bg-gradient-to-r from-pink-100 to-purple-100 py-20 overflow-hidden'>
+				<img
+					src='https://image.pollinations.ai/prompt/luxury-spa-promotion-banner-aesthetic-clinic-special-offers-modern-elegant-design?width=1200&height=400&model=flux-realism&enhance=true&nologo=true'
+					alt='Promociones Íntima MDQ'
+					className='absolute inset-0 w-full h-full object-cover opacity-20'
+				/>
+				<div className='relative max-w-7xl mx-auto px-4 text-center'>
+					<h1 className='text-4xl font-bold text-gray-900 mb-4'>PROMOCIONES Y OFERTAS ESPECIALES</h1>
+					<p className='text-lg text-gray-600'>
+						Descubrí nuestras promociones exclusivas y ahorrá en tus tratamientos favoritos
 					</p>
-					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-						<button
-							onClick={() => abrirWhatsApp(promociones[0])}
-							className='inline-flex items-center px-8 py-4 bg-white text-primary-600 font-semibold rounded-full hover:bg-primary-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'
-						>
-							<MessageCircle className='w-5 h-5 mr-2' />
-							Consultar por WhatsApp
-						</button>
-						<Link
-							href='/#contacto'
-							className='inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-primary-600 transition-all duration-300'
-						>
-							<Phone className='w-5 h-5 mr-2' />
-							Reservar Turno
-						</Link>
+					<div className='flex items-center justify-center gap-2 mt-4 text-pink-600'>
+						<Percent className='w-5 h-5' />
+						<span className='font-semibold'>Descuentos especiales todo el año</span>
 					</div>
 				</div>
 			</section>
 
-			{/* Filters */}
-			<section className='py-8'>
-				<div className='max-w-7xl mx-auto px-4'>
-					<div className='flex justify-center mb-8'>
-						<div className='flex bg-white rounded-lg p-1 shadow-sm'>
-							<button
-								onClick={() => setFiltroActivo('todas')}
-								className={`px-6 py-3 rounded-md text-sm font-medium transition-colors ${
-									filtroActivo === 'todas' ? 'bg-primary-500 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
-								}`}
-							>
-								Todas las Promociones
+			{/* Promoción Destacada - Pase Libre */}
+			<section className='py-16 max-w-7xl mx-auto px-4'>
+				<div className='relative bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-8 text-white mb-12 overflow-hidden'>
+					<img
+						src='https://image.pollinations.ai/prompt/spa-pass-multiple-treatments-luxury-wellness-center-promotional-banner?width=800&height=300&model=flux-realism&enhance=true&nologo=true'
+						alt='Pase Libre Íntima'
+						className='absolute inset-0 w-full h-full object-cover opacity-20'
+					/>
+					<div className='relative z-10'>
+						{/* Header */}
+						<div className='text-center mb-12'>
+							<div className='inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-4'>
+								<Star className='w-5 h-5 text-yellow-300' />
+								<span className='text-sm font-semibold'>PROMOCIÓN EXCLUSIVA</span>
+								<Star className='w-5 h-5 text-yellow-300' />
+							</div>
+							<h2 className='text-4xl md:text-5xl font-bold mb-4'>PASE LIBRE ÍNTIMA</h2>
+							<p className='text-xl md:text-2xl mb-2'>Dos horas de tratamiento por día... A tu ritmo, a tu elección</p>
+							<p className='text-lg opacity-90'>La mejor inversión en tu belleza y bienestar</p>
+						</div>
+
+						{/* Precio Destacado */}
+						<div className='text-center mb-12'>
+							<div className='inline-block bg-white/25 backdrop-blur-sm rounded-xl p-6 border-2 border-yellow-400'>
+								<div className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-4 flex items-center gap-2'>
+									<Zap className='w-4 h-4' />
+									PRECIO ESPECIAL
+									<Zap className='w-4 h-4' />
+								</div>
+								<div className='mb-2'>
+									<span className='text-5xl font-bold'>$25.000</span>
+								</div>
+								<div className='bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-2 flex items-center gap-2'>
+									<DollarSign className='w-4 h-4' />
+									AHORRÁS MÁS DEL 40%
+								</div>
+								<p className='text-sm opacity-90'>Valor individual: $45.000+</p>
+							</div>
+						</div>
+
+						{/* Beneficios y Condiciones */}
+						<div className='grid md:grid-cols-2 gap-8 mb-10'>
+							{/* Incluye */}
+							<div className='bg-white/15 backdrop-blur-sm rounded-xl p-6'>
+								<h3 className='text-2xl font-bold mb-6 flex items-center gap-2'>
+									<Gift className='w-6 h-6 text-yellow-300' />
+									¿Qué incluye?
+								</h3>
+								<div className='space-y-3'>
+									<div className='flex items-center gap-3'>
+										<CheckCircle className='w-5 h-5 text-yellow-300' />
+										<span>Mio Up - Tonificación muscular</span>
+									</div>
+									<div className='flex items-center gap-3'>
+										<CheckCircle className='w-5 h-5 text-yellow-300' />
+										<span>Alpha Synergy - Reducción de grasa</span>
+									</div>
+									<div className='flex items-center gap-3'>
+										<CheckCircle className='w-5 h-5 text-yellow-300' />
+										<span>PushUp - Levantamiento de glúteos</span>
+									</div>
+									<div className='flex items-center gap-3'>
+										<CheckCircle className='w-5 h-5 text-yellow-300' />
+										<span>Presoterapia - Drenaje linfático</span>
+									</div>
+									<div className='flex items-center gap-3'>
+										<CheckCircle className='w-5 h-5 text-yellow-300' />
+										<span>Mantas térmicas - Relajación</span>
+									</div>
+									<div className='flex items-center gap-3'>
+										<CheckCircle className='w-5 h-5 text-yellow-300' />
+										<span>LipoLED - Reducción localizada</span>
+									</div>
+									<div className='flex items-center gap-3'>
+										<CheckCircle className='w-5 h-5 text-yellow-300' />
+										<span>Limpieza facial completa</span>
+									</div>
+								</div>
+							</div>
+
+							{/* Condiciones */}
+							<div className='bg-white/15 backdrop-blur-sm rounded-xl p-6'>
+								<h3 className='text-2xl font-bold mb-6 flex items-center gap-2'>
+									<Calendar className='w-6 h-6 text-blue-300' />
+									Condiciones
+								</h3>
+								<div className='space-y-4'>
+									<div className='flex items-start gap-3'>
+										<Clock className='w-5 h-5 text-blue-300 mt-1' />
+										<div>
+											<p className='font-semibold'>2 horas por día</p>
+											<p className='text-sm opacity-80'>Máximo tiempo de tratamiento diario</p>
+										</div>
+									</div>
+									<div className='flex items-start gap-3'>
+										<Users className='w-5 h-5 text-blue-300 mt-1' />
+										<div>
+											<p className='font-semibold'>Según disponibilidad</p>
+											<p className='text-sm opacity-80'>Sujeto a horarios del centro</p>
+										</div>
+									</div>
+									<div className='flex items-start gap-3'>
+										<Calendar className='w-5 h-5 text-blue-300 mt-1' />
+										<div>
+											<p className='font-semibold'>Con turno previo</p>
+											<p className='text-sm opacity-80'>Reserva con 24hs de anticipación</p>
+										</div>
+									</div>
+									<div className='flex items-start gap-3'>
+										<AlertCircle className='w-5 h-5 text-blue-300 mt-1' />
+										<div>
+											<p className='font-semibold'>Válido por 30 días</p>
+											<p className='text-sm opacity-80'>Desde la fecha de compra</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{/* CTA */}
+						<div className='text-center'>
+							<div className='inline-flex flex-col sm:flex-row gap-4'>
+								<button className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-8 py-4 rounded-xl font-bold text-lg hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2'>
+									<Zap className='w-5 h-5' />
+									¡Quiero mi Pase Libre!
+								</button>
+								<button className='bg-white/20 backdrop-blur-sm border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/30 transition-all duration-300 flex items-center gap-2 whitespace-nowrap'>
+									<MessageCircle className='w-5 h-5' />
+									Más Info por WhatsApp
+								</button>
+							</div>
+							<div className='flex items-center justify-center gap-2 text-sm opacity-80 mt-4'>
+								<AlertCircle className='w-4 h-4 text-red-300' />
+								<span>Oferta limitada - Solo los primeros 50 pases</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			{/* Promociones Activas */}
+			<section className='py-16 max-w-7xl mx-auto px-4'>
+				<h2 className='text-3xl font-bold text-center mb-12'>PROMOCIONES ACTIVAS</h2>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+					{/* Promoción 1 - Depilación Femenina */}
+					<div className='bg-white rounded-lg shadow-md overflow-hidden'>
+						<div className='relative h-48'>
+							<img
+								src='https://image.pollinations.ai/prompt/laser-hair-removal-woman-legs-professional-aesthetic-clinic-modern-equipment?width=400&height=200&model=flux-realism&enhance=true&nologo=true'
+								alt='Depilación Láser Femenina'
+								className='w-full h-full object-cover'
+							/>
+							<div className='absolute top-4 right-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold'>
+								DESDE $6.000
+							</div>
+						</div>
+						<div className='p-6'>
+							<h4 className='font-semibold mb-3 flex items-center gap-2'>
+								<Sparkles className='w-5 h-5 text-pink-500' />
+								Depilación Definitiva Femenina
+							</h4>
+							<p className='text-gray-600 text-sm mb-4'>
+								Combos especiales con descuentos increíbles. Efectivo o transferencia.
+							</p>
+							<ul className='text-sm text-gray-600 mb-4 space-y-1'>
+								<li>• Pierna entera + cavado + axilas: $21.000</li>
+								<li>• Rostro completo: $15.000</li>
+								<li>• Zonas individuales desde $6.000</li>
+							</ul>
+							<button className='w-full bg-pink-500 mt-6 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition-colors'>
+								Ver Promociones
 							</button>
-							<button
-								onClick={() => setFiltroActivo('destacadas')}
-								className={`px-6 py-3 rounded-md text-sm font-medium transition-colors ${
-									filtroActivo === 'destacadas'
-										? 'bg-primary-500 text-white shadow-sm'
-										: 'text-gray-600 hover:text-gray-900'
-								}`}
-							>
-								Destacadas
+						</div>
+					</div>
+
+					{/* Promoción 2 - Maderoterapia */}
+					<div className='bg-white rounded-lg shadow-md overflow-hidden'>
+						<div className='relative h-48'>
+							<img
+								src='https://image.pollinations.ai/prompt/wood-therapy-maderoterapia-massage-wooden-tools-body-contouring-spa-treatment?width=400&height=200&model=flux-realism&enhance=true&nologo=true'
+								alt='Maderoterapia'
+								className='w-full h-full object-cover'
+							/>
+							<div className='absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold'>
+								PACK 4: $79.000
+							</div>
+						</div>
+						<div className='p-6'>
+							<h4 className='font-semibold mb-3 flex items-center gap-2'>
+								<Heart className='w-5 h-5 text-orange-500' />
+								Maderoterapia 30'
+							</h4>
+							<p className='text-gray-600 text-sm mb-4'>
+								Técnica ancestral para reducir celulitis, tonificar y relajar.
+							</p>
+							<ul className='text-sm text-gray-600 mb-4 space-y-1'>
+								<li>• Sesión individual: $21.000</li>
+								<li>• Pack 4 sesiones: $79.000</li>
+								<li>• Estimula circulación</li>
+								<li>• Reduce retención de líquidos</li>
+							</ul>
+							<button className='w-full bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors'>
+								Reservar Turno
 							</button>
-							<button
-								onClick={() => setFiltroActivo('limitadas')}
-								className={`px-6 py-3 rounded-md text-sm font-medium transition-colors ${
-									filtroActivo === 'limitadas'
-										? 'bg-primary-500 text-white shadow-sm'
-										: 'text-gray-600 hover:text-gray-900'
-								}`}
-							>
-								Tiempo Limitado
+						</div>
+					</div>
+
+					{/* Promoción 3 - Microblading */}
+					<div className='bg-white rounded-lg shadow-md overflow-hidden'>
+						<div className='relative h-48'>
+							<img
+								src='https://image.pollinations.ai/prompt/microblading-eyebrow-treatment-professional-beauty-salon-precise-technique?width=400&height=200&model=flux-realism&enhance=true&nologo=true'
+								alt='Microblading'
+								className='w-full h-full object-cover'
+							/>
+							<div className='absolute top-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold'>
+								PROMO $100.000
+							</div>
+						</div>
+						<div className='p-6'>
+							<h4 className='font-semibold mb-3 flex items-center gap-2'>
+								<Sparkles className='w-5 h-5 text-purple-500' />
+								Microblading Cejas
+							</h4>
+							<p className='text-gray-600 text-sm mb-4'>
+								Mirada impactante con cejas perfectas. Técnica semipermanente.
+							</p>
+							<ul className='text-sm text-gray-600 mb-4 space-y-1'>
+								<li>• Primera sesión: $100.000 (promo)</li>
+								<li>• Retoque al mes: $80.000</li>
+								<li>• Duración: 1.5 a 2 años</li>
+								<li>• Reserva con 20% del valor</li>
+							</ul>
+							<button className='w-full bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors'>
+								Consultar Disponibilidad
+							</button>
+						</div>
+					</div>
+
+					{/* Promoción 4 - Alpha Synergy */}
+					<div className='bg-white rounded-lg shadow-md overflow-hidden'>
+						<div className='relative h-48'>
+							<img
+								src='https://image.pollinations.ai/prompt/alpha-synergy-body-treatment-radiofrequency-aesthetic-technology-modern-clinic?width=400&height=200&model=flux-realism&enhance=true&nologo=true'
+								alt='Alpha Synergy'
+								className='w-full h-full object-cover'
+							/>
+							<div className='absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold'>
+								3x2 PROMO
+							</div>
+						</div>
+						<div className='p-6'>
+							<h4 className='font-semibold mb-3 flex items-center gap-2'>
+								<Sparkles className='w-5 h-5 text-blue-500' />
+								Alpha Synergy Corporal
+							</h4>
+							<p className='text-gray-600 text-sm mb-4'>
+								Reducí circunferencia, tratá flacidez y celulitis con tecnología avanzada.
+							</p>
+							<ul className='text-sm text-gray-600 mb-4 space-y-1'>
+								<li>• 1 Zona: $15.000</li>
+								<li>• 2 Zonas: $25.000</li>
+								<li>• Promo Jueves/Viernes: 3x2</li>
+								<li>• Temperatura 42°-43°</li>
+							</ul>
+							<button className='w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors'>
+								Agendar Sesión
+							</button>
+						</div>
+					</div>
+
+					{/* Promoción 5 - Beauty Nails */}
+					<div className='bg-white rounded-lg shadow-md overflow-hidden'>
+						<div className='relative h-48'>
+							<img
+								src='https://image.pollinations.ai/prompt/nail-art-manicure-pedicure-beauty-salon-professional-nail-care-elegant-hands?width=400&height=200&model=flux-realism&enhance=true&nologo=true'
+								alt='Beauty Nails'
+								className='w-full h-full object-cover'
+							/>
+							<div className='absolute top-4 right-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold'>
+								COMBO $20.000
+							</div>
+						</div>
+						<div className='p-6'>
+							<h4 className='font-semibold mb-3 flex items-center gap-2'>
+								<Heart className='w-5 h-5 text-pink-500' />
+								Beauty Nails
+							</h4>
+							<p className='text-gray-600 text-sm mb-4'>
+								Embellecé tus manos y pies con nuestros tratamientos profesionales.
+							</p>
+							<ul className='text-sm text-gray-600 mb-4 space-y-1'>
+								<li>• Esmaltado semipermanente: $10.000</li>
+								<li>• Capping Polygel: $14.500</li>
+								<li>• Combo manos + pies: $20.000</li>
+								<li>• Spa de pies incluido</li>
+							</ul>
+							<button className='w-full bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition-colors'>
+								Reservar Cita
+							</button>
+						</div>
+					</div>
+
+					{/* Promoción 6 - Combo Glúteos */}
+					<div className='bg-white rounded-lg shadow-md overflow-hidden'>
+						<div className='relative h-48'>
+							<img
+								src='https://image.pollinations.ai/prompt/buttocks-enhancement-vacuum-therapy-mio-up-aesthetic-treatment-professional-clinic?width=400&height=200&model=flux-realism&enhance=true&nologo=true'
+								alt='Combo Glúteos'
+								className='w-full h-full object-cover'
+							/>
+							<div className='absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold'>
+								PACK $140.000
+							</div>
+						</div>
+						<div className='p-6'>
+							<h4 className='font-semibold mb-3 flex items-center gap-2'>
+								<Gift className='w-5 h-5 text-red-500' />
+								Combo Glúteos Completo
+							</h4>
+							<p className='text-gray-600 text-sm mb-4'>
+								Tratamiento súper completo para tonificar y reafirmar desde la primera sesión.
+							</p>
+							<ul className='text-sm text-gray-600 mb-4 space-y-1'>
+								<li>• Mio Up + Maderoterapia + Alpha</li>
+								<li>• Sesión: $38.000</li>
+								<li>• Pack 4 sesiones: $140.000</li>
+								<li>• Duración: 1h 30min</li>
+							</ul>
+							<button className='w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors'>
+								Empezar Ahora
 							</button>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			{/* Promociones Grid */}
-			<section className='pb-16'>
+			{/* Promociones por Temporada */}
+			<section className='bg-gray-100 py-16'>
 				<div className='max-w-7xl mx-auto px-4'>
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-						{promocionesFiltradas.map((promocion, index) => (
-							<div
-								key={promocion.id}
-								className='rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col'
-								style={{ animationDelay: `${index * 100}ms` }}
-							>
-								{/* Badges */}
-								<div className='relative'>
-									{/* Image */}
-									<div
-										className='h-48 flex items-center justify-center text-white font-bold text-lg'
-										style={{ backgroundColor: promocion.colorFallback }}
-									>
-										<Sparkles className='w-12 h-12' />
-									</div>
-
-									{/* Badges */}
-									<div className='absolute top-4 left-4 flex flex-col gap-2'>
-										{promocion.destacada && (
-											<span className='inline-flex items-center px-3 py-1 bg-yellow-500 text-white text-xs font-semibold rounded-full'>
-												<Star className='w-3 h-3 mr-1' />
-												Destacada
-											</span>
-										)}
-										{promocion.limitado && (
-											<span className='inline-flex items-center px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded-full'>
-												<Zap className='w-3 h-3 mr-1' />
-												Limitada
-											</span>
-										)}
-									</div>
-
-									{/* Discount Badge */}
-									<div className='absolute top-4 right-4'>
-										<div className='bg-white text-primary-600 px-3 py-2 rounded-full font-bold text-lg shadow-lg'>
-											-{promocion.descuentoActual}%
-										</div>
-									</div>
+					<h2 className='text-3xl font-bold text-center mb-12'>PROMOCIONES ESTACIONALES</h2>
+					<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+						{/* Verano */}
+						<div className='relative bg-white rounded-lg shadow-md p-8 overflow-hidden'>
+							<img
+								src='https://image.pollinations.ai/prompt/summer-beauty-treatments-tanning-depilation-beach-ready-aesthetic-clinic?width=600&height=400&model=flux-realism&enhance=true&nologo=true'
+								alt='Especial Verano'
+								className='absolute inset-0 w-full h-full object-cover opacity-10'
+							/>
+							<div className='relative z-10'>
+								<div className='text-center mb-6'>
+									<span className='text-4xl mb-4 block'>☀️</span>
+									<h3 className='text-xl font-bold'>VERANO 2025</h3>
+									<p className='text-gray-600'>Preparate para la temporada</p>
 								</div>
-
-								{/* Content */}
-								<div className='p-6 flex flex-col h-full'>
-									{/* Title and Description */}
-									<h3 className='text-xl font-bold text-gray-900 mb-2'>{promocion.titulo}</h3>
-									<p className='text-gray-600 text-sm mb-4 leading-relaxed'>{promocion.descripcion}</p>
-
-									{/* Price */}
-									{promocion.precioOriginal > 0 && (
-										<div className='mb-4'>
-											<div className='flex items-center gap-2 mb-1'>
-												<span className='text-gray-400 line-through text-sm'>
-													{formatearPrecio(promocion.precioOriginal)}
-												</span>
-												<span className='bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold'>
-													Ahorrás {formatearPrecio(promocion.precioOriginal - promocion.precioFinal)}
-												</span>
-											</div>
-											<div className='text-2xl font-bold text-primary-600'>{formatearPrecio(promocion.precioFinal)}</div>
-										</div>
-									)}
-
-									{/* Validity */}
-									<div className='flex items-center text-sm text-gray-500 mb-4'>
-										<Calendar className='w-4 h-4 mr-2' />
-										Válido hasta: {promocion.validoHasta}
-									</div>
-
-									{/* Includes */}
-									<div className='mb-4'>
-										<h4 className='font-semibold text-gray-900 mb-2 text-sm'>Incluye:</h4>
-										<ul className='space-y-1'>
-											{promocion.incluye.slice(0, 3).map((item, idx) => (
-												<li key={idx} className='flex items-center text-sm text-gray-600'>
-													<CheckCircle className='w-3 h-3 text-green-500 mr-2 flex-shrink-0' />
-													{item}
-												</li>
-											))}
-											{promocion.incluye.length > 3 && (
-												<li className='text-sm text-gray-500 italic'>+{promocion.incluye.length - 3} beneficios más</li>
-											)}
-										</ul>
-									</div>
-
-									{/* CTA Button */}
-									<button
-										onClick={() => abrirWhatsApp(promocion)}
-										className='w-full bg-gradient-to-r from-primary-500 to-rose-400 text-white font-semibold py-3 px-4 rounded-lg hover:from-primary-600 hover:to-rose-500 transition-all duration-300 flex items-center justify-center group mt-auto'
-									>
-										<MessageCircle className='w-4 h-4 mr-2' />
-										Consultar Promoción
-										<ArrowRight className='w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform' />
-									</button>
-								</div>
+								<ul className='space-y-3 text-sm'>
+									<li className='flex items-center'>
+										<span className='text-green-500 mr-2'>✓</span>
+										Depilación definitiva - 30% OFF
+									</li>
+									<li className='flex items-center'>
+										<span className='text-green-500 mr-2'>✓</span>
+										Tratamientos reductivos intensivos
+									</li>
+									<li className='flex items-center'>
+										<span className='text-green-500 mr-2'>✓</span>
+										Paquetes de bronceado y cuidado
+									</li>
+								</ul>
+								<button className='w-full mt-6 bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors'>
+									Ver Promociones de Verano
+								</button>
 							</div>
-						))}
+						</div>
+
+						{/* Invierno */}
+						<div className='relative bg-white rounded-lg shadow-md p-8 overflow-hidden'>
+							<img
+								src='https://image.pollinations.ai/prompt/winter-skincare-hydration-anti-aging-facial-treatments-cozy-spa-atmosphere?width=600&height=400&model=flux-realism&enhance=true&nologo=true'
+								alt='Especial Invierno'
+								className='absolute inset-0 w-full h-full object-cover opacity-10'
+							/>
+							<div className='relative z-10'>
+								<div className='text-center mb-6'>
+									<span className='text-4xl mb-4 block'>❄️</span>
+									<h3 className='text-xl font-bold'>INVIERNO 2025</h3>
+									<p className='text-gray-600'>Cuidate durante el frío</p>
+								</div>
+								<ul className='space-y-3 text-sm'>
+									<li className='flex items-center'>
+										<span className='text-green-500 mr-2'>✓</span>
+										Tratamientos faciales hidratantes
+									</li>
+									<li className='flex items-center'>
+										<span className='text-green-500 mr-2'>✓</span>
+										Paquetes de relajación y bienestar
+									</li>
+									<li className='flex items-center'>
+										<span className='text-green-500 mr-2'>✓</span>
+										Preparación para la próxima temporada
+									</li>
+								</ul>
+								<button className='w-full mt-6 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors'>
+									Ver Promociones de Invierno
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
 
-			{/* CTA Section */}
-			<section className='bg-gradient-to-r from-purple-600 to-primary-500 text-white py-16'>
-				<div className='max-w-4xl mx-auto px-4 text-center'>
-					<div className='inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6'>
-						<Heart className='w-8 h-8' />
-					</div>
-					<h2 className='text-3xl md:text-4xl font-bold mb-4'>¿No Encontraste lo que Buscabas?</h2>
-					<p className='text-xl text-purple-100 mb-8 max-w-2xl mx-auto'>
-						Contactanos y armamos una promoción especial para vos. Tenemos opciones para todos los presupuestos.
+			{/* CTA Final */}
+			<section className='relative bg-gradient-to-r from-pink-500 to-purple-600 py-16 overflow-hidden'>
+				<img
+					src='https://image.pollinations.ai/prompt/luxury-spa-promotion-call-to-action-elegant-beauty-salon-contact-us?width=800&height=400&model=flux-realism&enhance=true&nologo=true'
+					alt='Contactanos'
+					className='absolute inset-0 w-full h-full object-cover opacity-10'
+				/>
+				<div className='relative z-10 max-w-4xl mx-auto px-4 text-center text-white'>
+					<h2 className='text-3xl font-bold mb-4'>¿Tenés dudas sobre nuestras promociones?</h2>
+					<p className='text-lg mb-8'>
+						Contactanos por WhatsApp y te asesoramos para que elijas la mejor opción para vos.
 					</p>
-					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-						<button
-							onClick={() => abrirWhatsApp(promociones[0])}
-							className='inline-flex items-center px-8 py-4 bg-white text-purple-600 font-semibold rounded-full hover:bg-purple-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'
+					<div className='flex flex-col sm:flex-row gap-4 justify-center mb-6'>
+						<a
+							href='https://wa.me/5492236698045'
+							target='_blank'
+							rel='noopener noreferrer'
+							className='bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600 font-semibold transition-colors flex items-center gap-2 justify-center'
 						>
-							<MessageCircle className='w-5 h-5 mr-2' />
-							Consulta Personalizada
-						</button>
-						<Link
-							href='/'
-							className='inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-purple-600 transition-all duration-300'
+							<MessageCircle className='w-5 h-5' />
+							Consultar por WhatsApp
+						</a>
+						<a
+							href='tel:+5492236698045'
+							className='bg-white text-pink-600 px-8 py-3 rounded-lg hover:bg-gray-100 font-semibold transition-colors flex items-center gap-2 justify-center'
 						>
-							<TrendingUp className='w-5 h-5 mr-2' />
-							Ver Todos los Tratamientos
-						</Link>
+							<Phone className='w-5 h-5' />
+							Llamar Ahora
+						</a>
+					</div>
+					<div className='flex justify-center gap-4'>
+						<Calendar className='w-6 h-6 text-white/80' />
+						<span className='text-white/80'>Horarios: Lun a Vie 9-20hs | Sáb 9-17hs</span>
 					</div>
 				</div>
 			</section>
 		</div>
 	);
-};
-
-export default PromocionesPage;
+}

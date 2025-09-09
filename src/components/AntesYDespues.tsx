@@ -1,392 +1,267 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Calendar, User, Award, Zap } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
-interface TratamientoData {
-	id: string;
-	nombre: string;
-	descripcion: string;
-	fecha: string;
-	sesiones: number;
-	profesional: string;
-	categoria: string;
-	imagenAntes: string;
-	imagenDespues: string;
-	fallbackColor: string;
-	resultados: string[];
-}
+// Datos de ejemplo para los tratamientos
+const tratamientosData = [
+	{
+		id: 1,
+		nombre: 'Depilación Láser Piernas',
+		descripcion:
+			'Depilación definitiva con láser de diodo en piernas completas. Resultados visibles desde la primera sesión.',
+		fecha: 'Marzo 2025',
+		sesiones: '6 sesiones',
+		profesional: 'Dra. Erica',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/woman%20legs%20with%20hair%20before%20laser%20treatment%20professional%20medical%20spa%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/woman%20smooth%20hairless%20legs%20after%20laser%20treatment%20professional%20result%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		categoria: 'Depilación Definitiva',
+	},
+	{
+		id: 2,
+		nombre: 'Tratamiento Facial Rejuvenecedor',
+		descripcion: 'Tratamiento con radiofrecuencia y plasma rico en plaquetas para rejuvenecer la piel del rostro.',
+		fecha: 'Febrero 2025',
+		sesiones: '4 sesiones',
+		profesional: 'Juli',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/woman%20face%20with%20wrinkles%20aging%20skin%20before%20facial%20rejuvenation%20treatment%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/woman%20youthful%20smooth%20face%20after%20rejuvenation%20treatment%20glowing%20skin%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		categoria: 'Rejuvenecimiento Facial',
+	},
+	{
+		id: 3,
+		nombre: 'Limpieza Facial Profunda',
+		descripcion: 'Limpieza facial con microdermoabrasión y punta de diamante. Piel renovada y luminosa.',
+		fecha: 'Abril 2025',
+		sesiones: '1 sesión',
+		profesional: 'Dani',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/woman%20face%20with%20acne%20blackheads%20before%20facial%20treatment%20professional%20spa%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/woman%20clear%20glowing%20skin%20face%20after%20facial%20treatment%20professional%20result%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		categoria: 'Belleza Total',
+	},
+	{
+		id: 4,
+		nombre: 'Microblading Cejas',
+		descripcion: 'Maquillaje semipermanente para cejas con técnica de microblading. Cejas perfectamente definidas.',
+		fecha: 'Enero 2025',
+		sesiones: '2 sesiones',
+		profesional: 'Erica',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/woman%20sparse%20thin%20eyebrows%20before%20microblading%20treatment%20professional%20spa%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/woman%20perfect%20defined%20eyebrows%20after%20microblading%20treatment%20professional%20result%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		categoria: 'Belleza Total',
+	},
+	{
+		id: 5,
+		nombre: 'Lifting de Pestañas',
+		descripcion: 'Tratamiento de lifting y tinte de pestañas para una mirada más intensa y definida.',
+		fecha: 'Enero 2025',
+		sesiones: '1 sesión',
+		profesional: 'Ana',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/close-up-woman-eyes-straight-short-eyelashes-before-lash-lift-treatment-realistic-photography?width=400&height=400&seed=505',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/close-up-woman-eyes-long-curved-lifted-eyelashes-after-lash-lift-treatment-realistic-photography?width=400&height=400&seed=505',
+		categoria: 'Belleza Facial',
+	},
+	{
+		id: 7,
+		nombre: 'Hidratación Facial Profunda',
+		descripcion: 'Tratamiento intensivo de hidratación con ácido hialurónico para rostro luminoso.',
+		fecha: 'Febrero 2025',
+		sesiones: '3 sesiones',
+		profesional: 'Dani',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/rostro-femenino-piel-seca-deshidratada-opaca-antes-hidratacion-facial?width=400&height=400&seed=70',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/rostro-femenino-piel-hidratada-luminosa-radiante-despues-tratamiento-acido-hialuronico?width=400&height=400&seed=70',
+		categoria: 'Belleza Facial',
+	},
+	{
+		id: 8,
+		nombre: 'Microblading Cejas',
+		descripcion: 'Micropigmentación de cejas con técnica pelo a pelo para un resultado natural.',
+		fecha: 'Marzo 2025',
+		sesiones: '1 sesión',
+		profesional: 'Juli',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/mujer-con-cejas-despobladas-sin-maquillaje-rostro-natural-antes-microblading?width=400&height=400&seed=80',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/mujer-con-cejas-perfectas-microblading-definidas-naturales-despues-tratamiento?width=400&height=400&seed=80',
+		categoria: 'Belleza Facial',
+	},
+	{
+		id: 6,
+		nombre: 'Depilación Masculina Espalda',
+		descripcion: 'Depilación láser definitiva en espalda completa. Resultados duraderos y piel suave.',
+		fecha: 'Marzo 2025',
+		sesiones: '5 sesiones',
+		profesional: 'Dani',
+		imagenAntes:
+			'https://image.pollinations.ai/prompt/man%20back%20with%20hair%20before%20laser%20treatment%20professional%20medical%20spa%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		imagenDespues:
+			'https://image.pollinations.ai/prompt/man%20smooth%20hairless%20back%20after%20laser%20treatment%20professional%20result%20realistic%20photography?width=800&height=600&model=flux-realism&enhance=true&nologo=true',
+		categoria: 'Depilación Definitiva',
+	},
+];
 
 const AntesYDespues = () => {
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const [isComparing, setIsComparing] = useState<{ [key: string]: boolean }>({});
-	const [sliderPosition, setSliderPosition] = useState<{ [key: string]: number }>({});
+	const [tratamientoSeleccionado, setTratamientoSeleccionado] = useState(tratamientosData[0]);
+	const comparadorRef = useRef<HTMLDivElement>(null);
 
-	// Datos hardcodeados de casos de éxito
-	const tratamientosData: TratamientoData[] = [
-		{
-			id: 'depilacion-laser-piernas',
-			nombre: 'Depilación Láser Piernas Completas',
-			descripcion: 'Tratamiento completo de depilación láser en piernas con tecnología Diodo',
-			fecha: '2024-03-15',
-			sesiones: 6,
-			profesional: 'Dra. María González',
-			categoria: 'Depilación Definitiva',
-			imagenAntes: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20laser%20hair%20removal%20before%20treatment%20clinical%20photography%20clean%20medical%20environment%20neutral%20background?width=400&height=600&model=flux-realism&enhance=true&nologo=true&seed=10001',
-			imagenDespues: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20laser%20hair%20removal%20after%20treatment%20results%20clinical%20photography%20clean%20medical%20environment%20neutral%20background?width=400&height=600&model=flux-realism&enhance=true&nologo=true&seed=10002',
-			fallbackColor: 'bg-primary-500',
-			resultados: ['95% reducción del vello', 'Piel suave y sin irritación', 'Resultados duraderos']
-		},
-		{
-			id: 'maderoterapia-abdomen',
-			nombre: 'Maderoterapia Reductora Abdominal',
-			descripcion: 'Tratamiento de maderoterapia para reducción de medidas y tonificación abdominal',
-			fecha: '2024-02-20',
-			sesiones: 8,
-			profesional: 'Lic. Ana Martínez',
-			categoria: 'Modelado Corporal',
-			imagenAntes: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20body%20contouring%20before%20treatment%20clinical%20photography%20medical%20environment%20neutral%20background%20appropriate%20coverage?width=400&height=600&model=flux-realism&enhance=true&nologo=true&seed=20001',
-			imagenDespues: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20body%20contouring%20after%20treatment%20results%20clinical%20photography%20medical%20environment%20neutral%20background%20appropriate%20coverage?width=400&height=600&model=flux-realism&enhance=true&nologo=true&seed=20002',
-			fallbackColor: 'bg-purple-500',
-			resultados: ['8cm menos de contorno', 'Piel más firme', 'Mejora en la textura']
-		},
-		{
-			id: 'microblading-cejas',
-			nombre: 'Microblading de Cejas',
-			descripcion: 'Diseño y micropigmentación de cejas con técnica pelo a pelo',
-			fecha: '2024-01-10',
-			sesiones: 2,
-			profesional: 'Esp. Laura Rodríguez',
-			categoria: 'Micropigmentación',
-			imagenAntes: 'https://image.pollinations.ai/prompt/professional%20beauty%20clinic%20eyebrow%20microblading%20before%20treatment%20close%20up%20clinical%20photography%20clean%20medical%20lighting%20neutral%20background?width=400&height=300&model=flux-realism&enhance=true&nologo=true&seed=30001',
-			imagenDespues: 'https://image.pollinations.ai/prompt/professional%20beauty%20clinic%20eyebrow%20microblading%20after%20treatment%20results%20close%20up%20clinical%20photography%20clean%20medical%20lighting%20neutral%20background?width=400&height=300&model=flux-realism&enhance=true&nologo=true&seed=30002',
-			fallbackColor: 'bg-rose-500',
-			resultados: ['Cejas perfectamente definidas', 'Aspecto natural', 'Duración 12-18 meses']
-		},
-		{
-			id: 'facial-antiage',
-			nombre: 'Tratamiento Facial Anti-Age',
-			descripcion: 'Protocolo completo de rejuvenecimiento facial con tecnología avanzada',
-			fecha: '2024-04-05',
-			sesiones: 4,
-			profesional: 'Dra. Carmen Silva',
-			categoria: 'Tratamientos Faciales',
-			imagenAntes: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20facial%20anti%20aging%20treatment%20before%20clinical%20photography%20clean%20medical%20environment%20neutral%20background%20appropriate%20professional%20setting?width=400&height=500&model=flux-realism&enhance=true&nologo=true&seed=40001',
-			imagenDespues: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20facial%20anti%20aging%20treatment%20after%20results%20clinical%20photography%20clean%20medical%20environment%20neutral%20background%20appropriate%20professional%20setting?width=400&height=500&model=flux-realism&enhance=true&nologo=true&seed=40002',
-			fallbackColor: 'bg-emerald-500',
-			resultados: ['Reducción de arrugas 70%', 'Piel más luminosa', 'Textura mejorada']
-		},
-		{
-			id: 'depilacion-axilas',
-			nombre: 'Depilación Láser Axilas',
-			descripcion: 'Depilación definitiva en zona axilar con láser de última generación',
-			fecha: '2024-03-01',
-			sesiones: 5,
-			profesional: 'Lic. Sofía López',
-			categoria: 'Depilación Definitiva',
-			imagenAntes: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20laser%20hair%20removal%20underarm%20before%20treatment%20clinical%20photography%20clean%20medical%20environment%20neutral%20background%20appropriate%20coverage?width=400&height=400&model=flux-realism&enhance=true&nologo=true&seed=50001',
-			imagenDespues: 'https://image.pollinations.ai/prompt/professional%20medical%20spa%20laser%20hair%20removal%20underarm%20after%20treatment%20results%20clinical%20photography%20clean%20medical%20environment%20neutral%20background%20appropriate%20coverage?width=400&height=400&model=flux-realism&enhance=true&nologo=true&seed=50002',
-			fallbackColor: 'bg-indigo-500',
-			resultados: ['100% libre de vello', 'Sin irritación', 'Piel suave y uniforme']
-		}
-	];
+	const handleTratamientoSelect = (tratamiento: (typeof tratamientosData)[0]) => {
+		setTratamientoSeleccionado(tratamiento);
 
-	const nextSlide = () => {
-		setCurrentIndex((prev) => (prev + 1) % tratamientosData.length);
-	};
-
-	const prevSlide = () => {
-		setCurrentIndex((prev) => (prev - 1 + tratamientosData.length) % tratamientosData.length);
-	};
-
-	const toggleComparison = (id: string) => {
-		setIsComparing(prev => ({ ...prev, [id]: !prev[id] }));
-		if (!sliderPosition[id]) {
-			setSliderPosition(prev => ({ ...prev, [id]: 50 }));
+		// Scroll al comparador en mobile
+		if (window.innerWidth < 1024 && comparadorRef.current) {
+			comparadorRef.current.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			});
 		}
 	};
-
-	const handleSliderChange = (id: string, value: number) => {
-		setSliderPosition(prev => ({ ...prev, [id]: value }));
-	};
-
-	const currentTreatment = tratamientosData[currentIndex];
 
 	return (
-		<section className="py-16 bg-gradient-to-br from-gray-50 to-white">
-			<div className="max-w-7xl mx-auto px-4">
+		<section className='py-16 bg-gradient-to-br from-primary-50 to-white'>
+			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				{/* Header */}
-				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Antes y Después
-					</h2>
-					<p className="text-lg text-gray-600 max-w-2xl mx-auto">
-						Resultados reales de nuestros clientes. Cada transformación cuenta una historia de confianza y profesionalismo
-					</p>
+				<div className='text-center mb-8'>
+					<h2 className='text-3xl font-bold text-black mb-2'>Resultados Reales</h2>
+					<p className='text-gray-700 max-w-2xl mx-auto'>Transformaciones que hablan por sí solas</p>
 				</div>
 
-				{/* Main Carousel */}
-				<div className="relative mb-12">
-					{/* Navigation Buttons */}
-					<button
-						onClick={prevSlide}
-						className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-gray-600 hover:text-primary-600 "
-					>
-						<ChevronLeft className="w-6 h-6" />
-					</button>
-					<button
-						onClick={nextSlide}
-						className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-gray-600 hover:text-primary-600 "
-					>
-						<ChevronRight className="w-6 h-6" />
-					</button>
-
-					{/* Main Content */}
-					<div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-						<div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-							{/* Image Comparison */}
-							<div className="relative">
-								{isComparing[currentTreatment.id] ? (
-									/* Comparison Slider */
-									<div className="relative h-96 lg:h-full overflow-hidden">
-										{/* Before Image */}
-											<div className="absolute inset-0">
-												<Image
-													src={currentTreatment.imagenAntes}
-													alt={`Antes - ${currentTreatment.nombre}`}
-													fill
-													sizes="(max-width: 768px) 100vw, 50vw"
-													className="object-cover"
-													onError={(e) => {
-														const target = e.target as HTMLImageElement;
-														target.style.display = 'none';
-														const parent = target.parentElement;
-														if (parent) {
-															parent.className += ` ${currentTreatment.fallbackColor}`;
-														}
-													}}
-												/>
-											<div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-												Antes
-											</div>
+				{/* Layout Principal */}
+				<div className='grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6'>
+					{/* Comparador de Imágenes Principal - 3 columnas en desktop */}
+					<div ref={comparadorRef} className='lg:col-span-3'>
+						<div className='bg-white rounded-2xl shadow-lg p-6'>
+							{/* Header del tratamiento */}
+							<div className='mb-6'>
+								<div className=' hidden sm:flex items-center justify-between mb-3'>
+									<Badge className='bg-primary-100 text-primary-800'>{tratamientoSeleccionado.categoria}</Badge>
+									<div className='flex items-center gap-4 text-xs text-gray-600'>
+										<div className='flex items-center gap-1'>
+											<Calendar className='w-3 h-3 text-primary-500' />
+											<span>{tratamientoSeleccionado.fecha}</span>
 										</div>
-
-										{/* After Image with Clip Path */}
-											<div 
-												className="absolute inset-0"
-												style={{
-													clipPath: `inset(0 ${100 - (sliderPosition[currentTreatment.id] || 50)}% 0 0)`
-												}}
-											>
-												<Image
-													src={currentTreatment.imagenDespues}
-													alt={`Después - ${currentTreatment.nombre}`}
-													fill
-													sizes="(max-width: 768px) 100vw, 50vw"
-													className="object-cover"
-													onError={(e) => {
-														const target = e.target as HTMLImageElement;
-														target.style.display = 'none';
-														const parent = target.parentElement;
-													if (parent) {
-														parent.className += ` ${currentTreatment.fallbackColor}`;
-													}
-												}}
-											/>
-											<div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-												Después
-											</div>
+										<div className='flex items-center gap-1'>
+											<Clock className='w-3 h-3 text-primary-500' />
+											<span>{tratamientoSeleccionado.sesiones}</span>
 										</div>
-
-										{/* Slider Handle */}
-										<div 
-											className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
-											style={{ left: `${sliderPosition[currentTreatment.id] || 50}%` }}
-										>
-											<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-												<div className="w-1 h-4 bg-gray-400 rounded"></div>
-											</div>
+										<div className='flex items-center gap-1'>
+											<User className='w-3 h-3 text-primary-500' />
+											<span>{tratamientoSeleccionado.profesional}</span>
 										</div>
+									</div>
+								</div>
+								<h3 className='text-2xl font-bold text-black mb-3'>{tratamientoSeleccionado.nombre}</h3>
+								<p className='text-sm text-gray-700 leading-relaxed'>{tratamientoSeleccionado.descripcion}</p>
+							</div>
 
-										{/* Slider Input */}
-										<input
-											type="range"
-											min="0"
-											max="100"
-											value={sliderPosition[currentTreatment.id] || 50}
-											onChange={(e) => handleSliderChange(currentTreatment.id, parseInt(e.target.value))}
-											className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
+							{/* Comparador con mejor relación de aspecto */}
+							<div className='w-full h-64 md:h-80 lg:h-96 rounded-xl overflow-hidden mb-6 relative'>
+								<ReactCompareSlider
+									itemOne={
+										<ReactCompareSliderImage
+											src={tratamientoSeleccionado.imagenAntes}
+											alt={`${tratamientoSeleccionado.nombre} - Antes`}
 										/>
-									</div>
-								) : (
-									/* Side by Side View */
-									<div className="grid grid-cols-2 h-96 lg:h-full">
-										{/* Before */}
-										<div className="relative overflow-hidden">
-											<Image
-												src={currentTreatment.imagenAntes}
-												alt={`Antes - ${currentTreatment.nombre}`}
-												fill
-												className="object-cover"
-												onError={(e) => {
-													const target = e.target as HTMLImageElement;
-													target.style.display = 'none';
-													const parent = target.parentElement;
-													if (parent) {
-														parent.className += ` ${currentTreatment.fallbackColor}`;
-													}
-												}}
-											/>
-											<div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-												Antes
-											</div>
-										</div>
-										{/* After */}
-										<div className="relative overflow-hidden">
-											<Image
-												src={currentTreatment.imagenDespues}
-												alt={`Después - ${currentTreatment.nombre}`}
-												fill
-												className="object-cover"
-												onError={(e) => {
-													const target = e.target as HTMLImageElement;
-													target.style.display = 'none';
-													const parent = target.parentElement;
-													if (parent) {
-														parent.className += ` ${currentTreatment.fallbackColor}`;
-													}
-												}}
-											/>
-											<div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-												Después
-											</div>
-										</div>
-									</div>
-								)}
+									}
+									itemTwo={
+										<ReactCompareSliderImage
+											src={tratamientoSeleccionado.imagenDespues}
+											alt={`${tratamientoSeleccionado.nombre} - Después`}
+										/>
+									}
+									position={50}
+									style={{
+										display: 'flex',
+										width: '100%',
+										height: '100%',
+									}}
+								/>
 
-								{/* Comparison Toggle */}
-								<button
-									onClick={() => toggleComparison(currentTreatment.id)}
-									className="absolute bottom-4 left-4 bg-white/90 text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-all duration-300 shadow-lg z-30"
-								>
-									{isComparing[currentTreatment.id] ? 'Ver Separado' : 'Comparar'}
-								</button>
+								{/* Etiquetas Antes y Después superpuestas */}
+								<div className='absolute top-4 left-4 z-10'>
+									<span className='bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold'>Antes</span>
+								</div>
+								<div className='absolute top-4 right-4 z-10'>
+									<span className='bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold'>Después</span>
+								</div>
+
+								{/* Texto instructivo centrado */}
+								<div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10'>
+									<p className='bg-black/70 text-white px-4 py-2 rounded-full text-xs whitespace-nowrap text-center'>
+										Deslizá para comparar los resultados
+									</p>
+								</div>
 							</div>
 
-							{/* Treatment Info */}
-							<div className="p-8 lg:p-12">
-								{/* Category Badge */}
-								<div className="inline-flex items-center px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
-									<Zap className="w-4 h-4 mr-2" />
-									{currentTreatment.categoria}
-								</div>
-
-								{/* Title */}
-								<h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-									{currentTreatment.nombre}
-								</h3>
-
-								{/* Description */}
-								<p className="text-gray-600 mb-6 leading-relaxed">
-									{currentTreatment.descripcion}
-								</p>
-
-								{/* Treatment Details */}
-								<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-									<div className="flex items-center text-gray-600">
-										<Calendar className="w-5 h-5 mr-3 text-primary-500" />
-										<div>
-											<div className="text-sm text-gray-500">Fecha</div>
-											<div className="font-medium">{new Date(currentTreatment.fecha).toLocaleDateString('es-AR')}</div>
-										</div>
-									</div>
-									<div className="flex items-center text-gray-600">
-										<Award className="w-5 h-5 mr-3 text-primary-500" />
-										<div>
-											<div className="text-sm text-gray-500">Sesiones</div>
-											<div className="font-medium">{currentTreatment.sesiones}</div>
-										</div>
-									</div>
-									<div className="flex items-center text-gray-600">
-										<User className="w-5 h-5 mr-3 text-primary-500" />
-										<div>
-											<div className="text-sm text-gray-500">Profesional</div>
-											<div className="font-medium">{currentTreatment.profesional}</div>
-										</div>
-									</div>
-								</div>
-
-								{/* Results */}
-								<div className="mb-8">
-									<h4 className="text-lg font-semibold text-gray-900 mb-3">Resultados Obtenidos</h4>
-									<ul className="space-y-2">
-										{currentTreatment.resultados.map((resultado, index) => (
-											<li key={index} className="flex items-center text-gray-600">
-												<div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
-												{resultado}
-											</li>
-										))}
-									</ul>
-								</div>
-
-								{/* CTA */}
-								<button className="w-full bg-gradient-to-r from-primary-500 to-rose-400 text-white py-4 px-6 rounded-xl font-semibold hover:from-primary-600 hover:to-rose-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-									Quiero Este Tratamiento
-								</button>
-							</div>
+							{/* CTA debajo del comparador */}
+							<Button className='w-full bg-primary-600 hover:bg-primary-700 text-lg py-3'>
+								Quiero estos resultados
+								<ArrowRight className='w-5 h-5 ml-2' />
+							</Button>
 						</div>
 					</div>
 
-					{/* Carousel Indicators */}
-					<div className="flex justify-center mt-8 space-x-2">
-						{tratamientosData.map((_, index) => (
-							<button
-								key={index}
-								onClick={() => setCurrentIndex(index)}
-								className={`w-3 h-3 rounded-full transition-all duration-300 ${
-									index === currentIndex
-										? 'bg-primary-500 w-8'
-										: 'bg-gray-300 hover:bg-gray-400'
-								}`}
-							/>
-						))}
+					{/* Panel lateral con grid 2x4 en desktop, 2x2 en mobile */}
+					<div className='lg:col-span-2 bg-white rounded-2xl shadow-lg p-3 lg:p-4'>
+						<h4 className='text-base lg:text-lg font-semibold text-gray-900 mb-3 lg:mb-4'>Otros Resultados</h4>
+						<div className='grid grid-cols-2 gap-2 lg:gap-3'>
+							{tratamientosData.map((tratamiento) => (
+								<Card
+									key={tratamiento.id}
+									className={` cursor-pointer transition-all duration-200 hover:shadow-md overflow-hidden group ${
+										tratamientoSeleccionado.id === tratamiento.id
+											? 'ring-2 ring-primary-500 shadow-md'
+											: 'hover:ring-1 hover:ring-gray-300'
+									} p-0`}
+									onClick={() => handleTratamientoSelect(tratamiento)}
+								>
+									<CardContent className='p-0 '>
+										<div className='grid grid-cols-2 h-24 lg:h-32 relative'>
+											<div className='relative overflow-hidden'>
+												<Image
+													src={tratamiento.imagenAntes}
+													alt={`${tratamiento.nombre} - Antes`}
+													fill
+													className='object-cover  transition-transform group-hover:scale-105'
+													sizes='(max-width: 768px) 25vw, 15vw'
+												/>
+											</div>
+											<div className='relative overflow-hidden'>
+												<Image
+													src={tratamiento.imagenDespues}
+													alt={`${tratamiento.nombre} - Después`}
+													fill
+													className='object-cover  transition-transform group-hover:scale-105'
+													sizes='(max-width: 768px) 25vw, 15vw'
+												/>
+											</div>
+											{/* Overlay con nombre en hover */}
+											<div className='absolute inset-0 bg-black/0 group-hover:bg-black/70 transition-all duration-200 flex items-center justify-center'>
+												<span className='text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity text-center px-1 lg:px-2'>
+													{tratamiento.nombre}
+												</span>
+											</div>
+										</div>
+									</CardContent>
+								</Card>
+							))}
+						</div>
 					</div>
-				</div>
-
-				{/* Thumbnails Grid */}
-				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-					{tratamientosData.map((tratamiento, index) => (
-						<button
-							key={tratamiento.id}
-							onClick={() => setCurrentIndex(index)}
-							className={`group relative overflow-hidden rounded-xl transition-all duration-300 ${
-								index === currentIndex
-									? 'ring-4 ring-primary-500 transform scale-105'
-									: 'hover:transform hover:scale-105'
-							}`}
-						>
-							<div className="aspect-square relative">
-								<Image
-									src={tratamiento.imagenDespues}
-									alt={tratamiento.nombre}
-									fill
-									className="object-cover group-hover:scale-110 transition-transform duration-500"
-									onError={(e) => {
-										const target = e.target as HTMLImageElement;
-										target.style.display = 'none';
-										const parent = target.parentElement;
-										if (parent) {
-											parent.className += ` ${tratamiento.fallbackColor}`;
-										}
-									}}
-								/>
-								<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-								<div className="absolute bottom-2 left-2 right-2 text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-									{tratamiento.categoria}
-								</div>
-							</div>
-						</button>
-					))}
 				</div>
 			</div>
 		</section>
