@@ -8,18 +8,15 @@ interface PageLoaderProps {
 	className?: string;
 }
 
-const PageLoader = ({ 
-	variant = 'container',
-	className 
-}: PageLoaderProps) => {
+const PageLoader = ({ variant = 'container', className }: PageLoaderProps) => {
 	const containerClasses = {
-		fullscreen: 'fixed inset-0 z-50 bg-white/80 backdrop-blur-sm',
-		container: 'flex items-center justify-center min-h-[400px] w-full',
+		fullscreen: 'fixed inset-0 flex items-center justify-center z-50 bg-white/10 backdrop-blur-sm',
+		container: 'flex items-center justify-center min-h-[calc(100vh-4rem)] w-full',
 	};
 
 	return (
 		<div className={cn(containerClasses[variant], className)}>
-			<LoadingSpinner size="lg" />
+			<LoadingSpinner />
 		</div>
 	);
 };

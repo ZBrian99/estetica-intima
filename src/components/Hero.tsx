@@ -120,7 +120,7 @@ const Hero = () => {
 	const currentSlideData = slides[currentSlide];
 
 	return (
-		<section className="relative h-screen overflow-hidden">
+		<section className="relative h-[calc(100svh-4rem)] overflow-hidden">
 			{/* Embla Carousel Container */}
 			<div className="embla h-full" ref={emblaRef}>
 				<div className="embla__container h-full flex">

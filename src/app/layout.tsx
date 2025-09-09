@@ -7,6 +7,8 @@ import Providers from './providers';
 // import { FallBackLoader } from './(servicesOld)/serviciosOld/components/Extras';
 import NavBar from '@/components/layout/NavBar';
 import Footer from '@/components/layout/Footer';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
+import PageLoader from '@/components/common/PageLoader';
 // import { useState } from 'react';
 
 const inter = Inter({
@@ -42,10 +44,8 @@ export default function RootLayout({
 			<body>
 				<Providers>
 					<NavBar />
-					{/* <Suspense fallback={<FallBackLoader />}> */}
-					{children}
-
-					{/* </Suspense> */}
+          <Suspense fallback={<PageLoader />}>{children}</Suspense>
+          {/* <Footer/> */}
 				</Providers>
 			</body>
 		</html>

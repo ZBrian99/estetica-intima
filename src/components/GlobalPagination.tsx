@@ -15,27 +15,25 @@ import { ChevronLeftIcon, ChevronRightIcon, EllipsisIcon } from 'lucide-react';
 //
 // TODO: Hay que optimizar mejorar la logica de la paginacion.
 // Tambien hay que mejorar el responsive.
-//
+// !Hay un error de sincronizacion con el servidor, se aplico solucion temporal.
 
 interface GlobalPaginationProps {
 	pagination: PaginationMeta;
 	onPageChange: (page: number) => void;
+	className?: string;
 }
 
 type PageItem = number | '...';
 
-const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) => {
+const GlobalPagination = ({ pagination, onPageChange, className = '' }: GlobalPaginationProps) => {
 	const { currentPage, totalPages, hasNextPage, hasPreviousPage } = pagination;
 	const { isMobile, isTablet } = useMediaQuery();
 
-	// Función para generar el array de páginas según el dispositivo
 	const generatePages = (): PageItem[] => {
-		// Si hay 7 páginas o menos, mostrar todas
 		if (totalPages <= 7) {
 			return Array.from({ length: totalPages }, (_, i) => i + 1);
 		}
 
-		// Móvil: muestra 3 páginas cuando es posible
 		if (isMobile) {
 			if (totalPages <= 7) {
 				return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -43,7 +41,6 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 
 			const pages: PageItem[] = [];
 
-			// Siempre mostrar 3 números de página
 			if (currentPage === 1) {
 				pages.push(1, 2, 3);
 			} else if (currentPage === totalPages) {
@@ -55,24 +52,20 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 			return pages;
 		}
 
-		// Tablet: 9 elementos fijos
 		if (isTablet) {
 			const pages: PageItem[] = [1];
 			const showLeftDots = currentPage > 4;
 			const showRightDots = currentPage < totalPages - 3;
 
-			// Agregar puntos o número después del 1
 			if (showLeftDots) {
 				pages.push('...');
 			} else {
 				pages.push(2);
 			}
 
-			// Calcular el rango central
 			let start = currentPage - 1;
 			let end = currentPage + 1;
 
-			// Ajustar el rango si estamos cerca del inicio o final
 			if (currentPage <= 4) {
 				start = 3;
 				end = 5;
@@ -81,41 +74,34 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 				end = totalPages - 2;
 			}
 
-			// Agregar números centrales
 			for (let i = start; i <= end; i++) {
 				pages.push(i);
 			}
 
-			// Agregar puntos o número antes del último
 			if (showRightDots) {
 				pages.push('...');
 			} else {
 				pages.push(totalPages - 1);
 			}
 
-			// Agregar última página
 			pages.push(totalPages);
 
 			return pages;
 		}
 
-		// Desktop: 11 elementos fijos
 		const pages: PageItem[] = [1];
 		const showLeftDots = currentPage > 5;
 		const showRightDots = currentPage < totalPages - 4;
 
-		// Agregar puntos o número después del 1
 		if (showLeftDots) {
 			pages.push('...');
 		} else {
 			pages.push(2);
 		}
 
-		// Calcular el rango central
 		let start = currentPage - 2;
 		let end = currentPage + 2;
 
-		// Ajustar el rango si estamos cerca del inicio o final
 		if (currentPage <= 5) {
 			start = 3;
 			end = 7;
@@ -124,34 +110,29 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 			end = totalPages - 2;
 		}
 
-		// Agregar números centrales
 		for (let i = start; i <= end; i++) {
 			pages.push(i);
 		}
 
-		// Agregar puntos o número antes del último
 		if (showRightDots) {
 			pages.push('...');
 		} else {
 			pages.push(totalPages - 1);
 		}
 
-		// Agregar última página
 		pages.push(totalPages);
 
 		return pages;
 	};
 
-	// Prevenir el comportamiento por defecto de los enlaces
 	const handleLinkClick = (e: React.MouseEvent, page: number) => {
 		e.preventDefault();
 		onPageChange(page);
 	};
 
 	return (
-		<Pagination>
+		<Pagination className={className}>
 			<PaginationContent>
-				{/* Botón Primera (solo en móvil) */}
 				{isMobile && (
 					<PaginationItem>
 						<PaginationButton
@@ -168,7 +149,6 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 					</PaginationItem>
 				)}
 
-				{/* Botón Anterior */}
 				<PaginationItem>
 					<PaginationButton
 						disabled={!hasPreviousPage}
@@ -178,7 +158,6 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 					/>
 				</PaginationItem>
 
-				{/* Páginas fijas según dispositivo */}
 				{generatePages().map((page, index) => (
 					<PaginationItem key={`${page}-${index}`}>
 						{page === '...' ? (
@@ -197,7 +176,6 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 					</PaginationItem>
 				))}
 
-				{/* Botón Siguiente */}
 				<PaginationItem>
 					<PaginationButton
 						disabled={!hasNextPage}
@@ -207,7 +185,6 @@ const GlobalPagination = ({ pagination, onPageChange }: GlobalPaginationProps) =
 					/>
 				</PaginationItem>
 
-				{/* Botón Última (solo en móvil) */}
 				{isMobile && (
 					<PaginationItem>
 						<PaginationButton

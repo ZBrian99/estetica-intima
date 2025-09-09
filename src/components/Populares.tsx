@@ -16,7 +16,7 @@ const Populares = () => {
 						<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Tratamientos Destacados</h2>
 					</div>
 					<div className='flex justify-center'>
-						<LoadingSpinner size='lg' />
+						<LoadingSpinner />
 					</div>
 				</div>
 			</section>

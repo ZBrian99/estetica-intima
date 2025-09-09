@@ -10,25 +10,18 @@ import Footer from '@/components/layout/Footer';
 export default function HomePage() {
 	return (
 		<main className='min-h-screen'>
-			{/* Hero Section */}
 			<Hero />
 
-			{/* Categories Section */}
 			<Categorias />
 
-			{/* Popular Treatments Section */}
 			<Populares />
 
-			{/* Before and After Section */}
 			{/* <AntesYDespues /> */}
 
-			{/* Why Choose Us Section */}
 			<PorQueElegirnos />
 
-			{/* Testimonials Section */}
 			<Testimonios />
 
-			{/* Contact and Location Section */}
 			<ContactoYUbicacion />
 
 			<Footer />
