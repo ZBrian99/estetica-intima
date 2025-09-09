@@ -2,7 +2,9 @@
 
 ## Descripción del Proyecto
 
-Actualmente me encuentro desarrollando un sitio web integral para un centro de estética que combina una tienda online con una landing page informativa. El proyecto nació de la necesidad de la clienta de tener una presencia digital moderna donde mostrar y vender sus servicios, manteniendo los precios actualizados y promocionando sus ofertas especiales.
+Actualmente me encuentro desarrollando un sitio web integral para un centro de estética que combina una tienda online con una landing page informativa. El proyecto nació de la necesidad de la clienta de tener una presencia digital moderna donde mostrar y vender sus servicios, manteniendo los precios actualizados y promocionando sus ofertas especiales. 
+
+Puedes ver una versión funcional en: [Estetica Intima](https://estetica-intima.vercel.app/)
 
 ## Enfoque Técnico
 
