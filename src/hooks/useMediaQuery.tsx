@@ -1,22 +1,17 @@
-'use client'
+'use client';
 
 import { debounce } from '@/lib/utils';
 import { useState, useEffect, useCallback } from 'react';
 
-type Breakpoints = {
-	isMobile: boolean;
-	isTablet: boolean;
-	isDesktop: boolean;
-};
+// Hook temporal para los breakpoints
+// TODO: Buscar alternativa para breakpoints en stado global optimizado
 
-export const useMediaQuery = (delay = 200): Breakpoints => {
-	const getMatches = useCallback((): Breakpoints => {
+export const useMediaQuery = (delay = 200) => {
+	const [breakpoints, setBreakpoints] = useState({ isMobile: true, isTablet: false, isDesktop: false });
+
+	const getMatches = useCallback(() => {
 		if (typeof window === 'undefined') {
-			return {
-				isMobile: false,
-				isTablet: false,
-				isDesktop: true,
-			};
+			return { isMobile: true, isTablet: false, isDesktop: false };
 		}
 
 		const width = window.innerWidth;
@@ -27,9 +22,9 @@ export const useMediaQuery = (delay = 200): Breakpoints => {
 		};
 	}, []);
 
-	const [breakpoints, setBreakpoints] = useState<Breakpoints>(getMatches);
-
 	useEffect(() => {
+		setBreakpoints(getMatches());
+
 		const handleResize = debounce(() => {
 			const newBreakpoints = getMatches();
 			setBreakpoints((prev) =>
@@ -41,11 +36,9 @@ export const useMediaQuery = (delay = 200): Breakpoints => {
 			);
 		}, delay);
 
-		if (typeof window !== 'undefined') {
-			window.addEventListener('resize', handleResize);
-			return () => window.removeEventListener('resize', handleResize);
-		}
-	}, [delay, getMatches]);
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, [delay]);
 
 	return breakpoints;
 };

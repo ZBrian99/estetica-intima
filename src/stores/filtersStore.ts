@@ -13,7 +13,6 @@ type FiltersState = {
 	resetToDefaults: () => void;
 };
 
-
 export const useFiltersStore = create<FiltersState>()((set, get) => ({
 	filters: initialFilters,
 
@@ -23,7 +22,7 @@ export const useFiltersStore = create<FiltersState>()((set, get) => ({
 				...state.filters,
 				[key]: value,
 				// Reset página cuando cambien filtros (excepto paginación y orden)
-				// ...(key !== 'page' && key !== 'sortBy' && key !== 'sortOrder' ? { page: 1 } : {}),
+				...(key !== 'page' ? { page: 1 } : {}),
 			},
 		}));
 	},

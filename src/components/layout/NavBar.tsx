@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
-import SearchBar from '@/components/common/SearchBar';
+import SearchBar from '@/components/services/SearchBar';
+import Image from 'next/image';
 
 const NavBar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,34 +48,22 @@ const NavBar = () => {
 	}, [isMenuOpen]);
 
 	return (
-		<nav className='fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200/50 h-16'>
-			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full'>
+		<nav className='fixed top-0 left-0 right-0 z-50 bg-white h-16 shadow-sm'>
+			<div className='mx-auto px-4 h-full'>
 				<div className='flex items-center justify-between h-full gap-4'>
-					{/* Logo y nombre - Izquierda */}
-					<Link href={'/'} className='flex items-center space-x-3 flex-shrink-0'>
-						<div className='w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-sm overflow-hidden'>
-							<img src='/logo-text-sin-fondo.webp' alt='logo intima' className='w-full h-full object-contain' />
-						</div>
-						<span className='text-xl font-bold text-gray-900 hidden sm:block lg:block'>Estética Íntima</span>
-						{/* <div className='sm:hidden w-24 h-8 relative overflow-hidden'>
-							<img 
-								src='/logo-text-sin-fondo.webp' 
-								alt='logo intima' 
-								className='w-full h-full object-contain'
-							/>
-						</div> */}
+					<Link href={'/'} className='flex items-center '>
+						{/* <div className='w-14 h-14 flex items-center justify-center overflow-hidden'> */}
+						<Image src='/logo-text-sin-fondo.webp' alt='logo intima' width={64} height={64} />
+						{/* </div> */}
+						<span className='pl-3 text-xl font-bold text-gray-900 hidden sm:block'>Estetica Integral</span>
 					</Link>
 
-					{/* Barra de búsqueda - Centro (siempre visible) */}
-					<div className='flex-1 max-w-md mx-4'>
+					{/* <div className='flex-1 max-w-md mx-4'>
 						<SearchBar variant='navbar' className='w-full' />
-					</div>
+					</div> */}
 
 					{/* Links de navegación - Derecha (Desktop) */}
-					<div className='hidden lg:flex items-center space-x-6 flex-shrink-0'>
-						{/* <Link href='/' className='text-gray-700 hover:text-primary-600 transition-colors font-medium'>
-							Inicio
-						</Link> */}
+					<div className='hidden lg:flex items-center gap-6 flex-shrink-0'>
 						<Link href='/servicios' className='text-gray-700 hover:text-primary-600 transition-colors font-medium'>
 							Servicios
 						</Link>
@@ -84,9 +73,9 @@ const NavBar = () => {
 						<Link href='/nosotros' className='text-gray-700 hover:text-primary-600 transition-colors font-medium'>
 							Nosotros
 						</Link>
-						{/* <Link href='/contacto' className='text-gray-700 hover:text-primary-600 transition-colors font-medium'>
+						<Link href='#' className='text-gray-700 hover:text-primary-600 transition-colors font-medium'>
 							Contacto
-						</Link> */}
+						</Link>
 					</div>
 
 					{/* Botón menú móvil */}
@@ -100,41 +89,36 @@ const NavBar = () => {
 					</button>
 				</div>
 
-				{/* Menú móvil */}
 				{isMenuOpen && (
-					<div
-						ref={menuRef}
-						className='lg:hidden absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-lg'
-					>
-						<div className='px-4 py-6 space-y-4'>
-							{/* Links móviles */}
-							{/* <Link
-								href='/'
-								className='block py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium border-b border-gray-100'
-								onClick={() => setIsMenuOpen(false)}
-							>
-								Inicio
-							</Link> */}
+					<div ref={menuRef} className='lg:hidden absolute top-16 left-0 right-0 bg-white shadow-lg'>
+						<div className='px-4 py-6 flex flex-col gap-4'>
 							<Link
 								href='/servicios'
-								className='block py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium border-b border-gray-100'
+								className=' py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium '
 								onClick={() => setIsMenuOpen(false)}
 							>
 								Servicios
 							</Link>
 							<Link
 								href='/promociones'
-								className='block py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium border-b border-gray-100'
+								className=' py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium '
 								onClick={() => setIsMenuOpen(false)}
 							>
 								Promociones
 							</Link>
 							<Link
 								href='/nosotros'
-								className='block py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium border-b border-gray-100'
+								className=' py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium '
 								onClick={() => setIsMenuOpen(false)}
 							>
 								Nosotros
+							</Link>
+							<Link
+								href='#'
+								className=' py-3 text-gray-700 hover:text-primary-600 transition-colors font-medium '
+								onClick={() => setIsMenuOpen(false)}
+							>
+								Contacto
 							</Link>
 							{/* <Link
 								href='/contacto'

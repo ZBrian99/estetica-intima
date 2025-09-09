@@ -13,30 +13,8 @@ import { HiFire, HiStar, HiSparkles } from 'react-icons/hi2';
 import { MdLocalOffer } from 'react-icons/md';
 import { FaVenus, FaMars, FaVenusMars } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
-import { BODY_PARTS, CATEGORIES } from '@/data/servicesData';
+import { BODY_PARTS, CATEGORIES, SERVICE_TYPES } from '@/data/servicesData';
 // Opciones para los filtros
-const SERVICE_TYPES = [
-	{ value: 'INDIVIDUAL', label: 'Individual' },
-	{ value: 'COMBO', label: 'Combo' },
-	{ value: 'PACK', label: 'Pack' },
-] as const;
-
-const GENDERS = [
-	{ value: 'MALE', label: 'Hombre' },
-	{ value: 'FEMALE', label: 'Mujer' },
-	{ value: 'UNISEX', label: 'Unisex' },
-] as const;
-
-
-
-
-
-const SORT_OPTIONS = [
-	{ value: 'price-asc', label: 'Precio: Menor a Mayor' },
-	{ value: 'price-desc', label: 'Precio: Mayor a Menor' },
-	{ value: 'createdAt-desc', label: 'Más Recientes' },
-	{ value: 'order-asc', label: 'Más Populares' },
-];
 
 // const initialFormValues: ServicesFiltersType = {
 // 	search: 'dsad',
@@ -78,8 +56,8 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 				clearTimeout(debounceRef.current);
 			}
 			debounceRef.current = setTimeout(() => {
-				setFilters(values);
-			}, 500); // 500ms de delay
+				setFilters({ ...values, page: 1 });
+			}, 500);
 		},
 		[setFilters]
 	);
@@ -135,7 +113,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 		<>
 			{/* Botón móvil flotante para abrir filtros */}
 			<button
-				className='md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-primary-600 hover:bg-primary-700 text-white px-6 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-medium text-sm backdrop-blur-sm border border-primary-500'
+				className='md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-primary-500 hover:bg-primary-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-medium'
 				onClick={() => setIsMobileOpen(true)}
 			>
 				<Filter className='h-4 w-4' />
@@ -151,17 +129,17 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 			)}
 
 			{/* Panel de filtros */}
-			<div
+			<aside
 				className={cn(
 					// Estilos base
-					'flex flex-col bg-white',
+					'flex flex-col bg-white ',
 					// Móvil: panel desde abajo
 					'md:hidden fixed left-0 right-0 z-50 rounded-t-2xl shadow-2xl transform transition-all duration-300 ease-out',
 					isMobileOpen
 						? 'bottom-0 translate-y-0 h-[85vh] max-h-[600px]'
 						: 'bottom-0 translate-y-full h-[85vh] max-h-[600px]',
 					// Desktop: usa toda la altura disponible del contenedor padre
-					'md:block md:relative md:translate-y-0 md:w-full md:z-0 md:rounded-none md:shadow-none md:border-r md:h-full md:max-h-none md:top-0 '
+					'md:block  md:translate-y-0  md:z-10 md:rounded-none md:shadow-none md:border-r md:h-[calc(100vh-4rem)] md:max-h-none md:top-16 md:w-64  '
 				)}
 			>
 				{/* Header móvil con indicador de arrastre */}
@@ -183,14 +161,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 				</div>
 
 				{/* Contenido de filtros con scroll */}
-				<div
-					className='flex-1 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400 '
-					style={{
-						scrollbarWidth: 'thin',
-						scrollbarColor: '#d1d5db #f3f4f6',
-						WebkitOverflowScrolling: 'touch',
-					}}
-				>
+				<div className='flex-1 h-full overflow-y-auto shadow-sm'>
 					<Form {...form}>
 						<form className='p-4 space-y-6 pb-8'>
 							{/* Filtros de estado - Badges estilo ServiceCard */}
@@ -449,10 +420,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 						</form>
 					</Form>
 				</div>
-			</div>
+			</aside>
 		</>
 	);
 };
 
 export default ServicesFilters;
-

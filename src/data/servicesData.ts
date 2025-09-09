@@ -232,6 +232,14 @@ export const PACK_SERVICES: PackServiceData[] = [
   { name: 'Pack 10 Tratamiento Facial Anti-Edad Premium', price: 350000, sessions: 10, includedServices: ['Tratamiento Facial Premium Anti-Edad'], imageUrl: 'https://image.pollinations.ai/prompt/professional%20premium%20anti%20aging%20facial%20treatment%20package%2C%20luxury%20aesthetic%20clinic%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true' },
 ];
 
+export const SERVICE_TYPES = [
+	{ value: 'INDIVIDUAL', label: 'Individual' },
+	{ value: 'COMBO', label: 'Combo' },
+	{ value: 'PACK', label: 'Pack' },
+];
+
+
+
 // CATEGORÍAS EXPANDIDAS
 export const CATEGORIES = [
   'depilacion',

@@ -181,8 +181,7 @@
 	}
 	body {
 		/* @apply bg-foreground text-background min-h-screen antialiased scheme-light font-sans mt-20; */
-		@apply bg-background text-foreground min-h-[100vh-4rem] antialiased scheme-light font-sans mt-16;
-		scrollbar-gutter: stable;
+		@apply text-foreground min-h-[100vh-4rem] antialiased scheme-light font-sans mt-16;
 	}
 
 	/* input,

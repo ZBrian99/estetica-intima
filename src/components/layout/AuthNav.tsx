@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import LogoutButton from './LogoutButton';
 import { getAuth } from '@/lib/auth/getAuth';
-import { use } from 'react';
 
 export default async function AuthNav() {
-	const { user, isAuth, isAdmin } = await getAuth(); // ✅ No redirecciona
+	const { user, isAuth, isAdmin } = await getAuth();
 
 	if (isAuth) {
 		return (
