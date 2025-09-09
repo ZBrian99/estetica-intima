@@ -13,6 +13,8 @@ Para acelerar la fase inicial de desarrollo y validación, implementé una demo 
 - Buenas prácticas de desarrollo sin caer en sobre-ingeniería
 - Arquitectura escalable basada en Next.js
 
+Este proyecto se encuentra en una fase temprana de desarrollo iterativo, donde continuamente se identifican áreas de mejora y optimización. Como todo proyecto en evolución, hay aspectos pendientes de refinar y optimizar en futuras iteraciones.
+
 ## Características Principales
 
 El MVP en desarrollo incluye:
@@ -30,6 +32,8 @@ Post-MVP se planea implementar:
 - Cuentas de usuario
 - Métricas avanzadas
 - Sistema de recomendaciones personalizadas
+- Refactorización y optimización del código base
+- Mejora de la arquitectura de datos
 
 ## Detalles Técnicos
 
@@ -37,5 +41,6 @@ Post-MVP se planea implementar:
 - Desarrollo: 3 meses (estimado)
 - Modalidad: Freelance
 - Equipo: Desarrollo individual
+- Estado: En desarrollo activo y mejora continua
 
-La elección de Next.js como framework principal responde a la necesidad de combinar un excelente SEO con alta performance y una experiencia de usuario óptima, permitiendo además un desarrollo ágil y mantenible.
+La elección de Next.js como framework principal responde a la necesidad de combinar un excelente SEO con alta performance y una experiencia de usuario óptima, permitiendo además un desarrollo ágil y mantenible. El proyecto sigue un enfoque de desarrollo iterativo, priorizando la entrega de valor mientras se mejora continuamente la base de código.
