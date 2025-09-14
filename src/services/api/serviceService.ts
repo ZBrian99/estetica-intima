@@ -18,7 +18,7 @@ export const parseBody = async <T>(req: Request, schema: ZodType<T>) => {
 	const parseBody = schema.parse(body);
 	return parseBody;
 };
-
+// TODO: verficar todos los filtros
 export const buildServiceFilters = (filters: UrlServicesFiltersType, isAdmin: boolean) => {
 	const {
 		type,
@@ -41,10 +41,10 @@ export const buildServiceFilters = (filters: UrlServicesFiltersType, isAdmin: bo
 		isActive: true,
 		...(type && { type }),
 		...(gender && gender !== 'UNISEX' && { gender: { in: [gender, 'UNISEX'] } }),
-		...(categories?.length && { categories: { hasSome: categories } }),
-		...(bodyParts?.length && { bodyParts: { hasSome: bodyParts } }),
+		...(categories?.length && { categories: { hasEvery: categories } }),
+		...(bodyParts?.length && { bodyParts: { hasEvery: bodyParts } }),
 		// Filtro específico por tags
-		...(tags?.length && { tags: { hasSome: tags } }),
+		...(tags?.length && { tags: { hasEvery: tags } }),
 		...(minPrice && { price: { gte: minPrice } }),
 		...(maxPrice && { price: { lte: maxPrice } }),
 		// Filtro para servicios en promoción (que tengan promoPrice)
@@ -113,7 +113,7 @@ export const buildPagination = (currentPage: number, itemsPerPage: number, total
 		hasPreviousPage: currentPage > 1,
 	};
 };
-
+// TODO: solucionar sort
 export const getPaginatedServices = async (filters: UrlServicesFiltersType, isAdmin: boolean) => {
 	const { sortBy, sortOrder, page } = filters;
 
@@ -127,9 +127,9 @@ export const getPaginatedServices = async (filters: UrlServicesFiltersType, isAd
 			select,
 			skip: (page - 1) * API_GLOBAL_LIMIT,
 			take: API_GLOBAL_LIMIT,
-			orderBy: {
-				[sortBy]: sortOrder,
-			},
+			// orderBy: {
+			// 	[sortBy as string]: sortOrder,
+			// },
 		}),
 		prisma.service.count({
 			where,

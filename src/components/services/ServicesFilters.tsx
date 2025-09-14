@@ -2,77 +2,64 @@ import { useFiltersStore } from '@/stores/filtersStore';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { serviceFiltersSchema, ServicesFiltersType } from '@/schemas/servicesSchema';
-import { Input } from '../ui/input';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Button } from '../ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { Filter, X } from 'lucide-react';
 import { HiFire, HiStar, HiSparkles } from 'react-icons/hi2';
 import { MdLocalOffer } from 'react-icons/md';
-import { FaVenus, FaMars, FaVenusMars } from 'react-icons/fa';
+import { FaVenus, FaMars } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 import { BODY_PARTS, CATEGORIES, SERVICE_TYPES } from '@/data/servicesData';
-// Opciones para los filtros
-
-// const initialFormValues: ServicesFiltersType = {
-// 	search: 'dsad',
-// 	type: undefined,
-// 	gender: undefined,
-// 	categories: [],
-// 	bodyParts: [],
-// };
-
+// TODO: añadir resto de filtros y probar todas las combinaciones
+// TODO: añadir ordenamiento
+// TODO: cambiar version mobile a top bar
 const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFiltersType }) => {
-	const { filters, setFilter, setFilters, resetToDefaults } = useFiltersStore();
+	const setFilters = useFiltersStore((state) => state.setFilters);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const [isMobileOpen, setIsMobileOpen] = useState(false);
 	const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-	const defaultValues: ServicesFiltersType = {
-		search: initialFormValues.search ?? '',
-		type: initialFormValues.type ?? undefined,
-		gender: initialFormValues.gender ?? undefined,
-		categories: initialFormValues.categories ?? [],
-		bodyParts: initialFormValues.bodyParts ?? [],
-		...initialFormValues,
-	};
-
 	const form = useForm<ServicesFiltersType>({
 		resolver: zodResolver(serviceFiltersSchema),
-		defaultValues,
+		defaultValues: initialFormValues,
 	});
 
-	// Observar cambios en el formulario y aplicar filtros automáticamente
 	const watchedValues = useWatch({
 		control: form.control,
 	});
 
-	// Función debounced para aplicar filtros
-	const debouncedSetFilters = useCallback(
-		(values: ServicesFiltersType) => {
-			if (debounceRef.current) {
-				clearTimeout(debounceRef.current);
-			}
-			debounceRef.current = setTimeout(() => {
-				setFilters({ ...values, page: 1 });
-			}, 500);
-		},
-		[setFilters]
-	);
+	const debouncedSetFilters = useCallback((values: ServicesFiltersType) => {
+		if (debounceRef.current) {
+			clearTimeout(debounceRef.current);
+		}
+		debounceRef.current = setTimeout(() => {
+			const cleanedValues = Object.entries(values).reduce((acc, [key, value]) => {
+				if (
+					value === '' ||
+					value === undefined ||
+					value === null ||
+					value === false ||
+					(Array.isArray(value) && value.length === 0)
+				) {
+					return acc;
+				}
+				return { ...acc, [key]: value };
+			}, {});
+			console.log('aply filters', values);
+			console.log('cleaned filters', cleanedValues);
+			setFilters({ page: 1, ...cleanedValues });
+		}, 300);
+	}, []);
 
-	// Aplicar filtros cada vez que cambien los valores del formulario con debounce
 	useEffect(() => {
-		// Evitar aplicar filtros en el primer render con valores por defecto
 		if (!isFirstLoad) {
 			debouncedSetFilters(watchedValues);
 		} else {
 			setIsFirstLoad(false);
 		}
-	}, [watchedValues, debouncedSetFilters]);
+	}, [watchedValues]);
 
-	// Cleanup del timeout al desmontar el componente
 	useEffect(() => {
 		return () => {
 			if (debounceRef.current) {
@@ -81,33 +68,18 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 		};
 	}, []);
 
-	// function onSubmit(data: ServicesFiltersType) {
-	// 	// Ya no es necesario setFilters aquí porque se hace automáticamente
-	// 	console.log('Form submitted:', data);
-	// }
-
-	// const onReset = () => {
-	// 	// Cancelar cualquier debounce pendiente
-	// 	if (debounceRef.current) {
-	// 		clearTimeout(debounceRef.current);
-	// 	}
-	// 	// Limpiar completamente los filtros del store
-	// 	resetToDefaults();
-	// 	// Resetear el formulario a valores completamente vacíos
-	// 	form.reset({
-	// 		search: undefined,
-	// 		type: undefined,
-	// 		gender: undefined,
-	// 		categories: [],
-	// 		bodyParts: [],
-	// 		minPrice: undefined,
-	// 		maxPrice: undefined,
-	// 		isPopular: undefined,
-	// 		isNew: undefined,
-	// 		sortBy: undefined,
-	// 		sortOrder: undefined,
-	// 	});
-	// };
+	const resetFilters = () => {
+		form.reset({
+			type: null,
+			gender: null,
+			categories: [],
+			bodyParts: [],
+			isPopular: false,
+			isNew: false,
+			isFeatured: false,
+			hasPromo: false,
+		});
+	};
 
 	return (
 		<>
@@ -181,9 +153,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-white shadow-lg border-primary-500'
 														: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<HiStar size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<HiStar size={14} />
 												Destacados
 											</button>
 										)}
@@ -201,9 +173,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white shadow-lg border-red-500'
 														: 'bg-white text-gray-600 hover:bg-red-50 hover:text-red-700 border-gray-200 hover:border-red-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<MdLocalOffer size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<MdLocalOffer size={14} />
 												Ofertas
 											</button>
 										)}
@@ -221,9 +193,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 text-white shadow-lg border-amber-500'
 														: 'bg-white text-gray-600 hover:bg-orange-50 hover:text-orange-700 border-gray-200 hover:border-orange-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<HiFire size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<HiFire size={14} />
 												Populares
 											</button>
 										)}
@@ -242,9 +214,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-600 text-white shadow-lg border-green-500'
 														: 'bg-white text-gray-600 hover:bg-green-50 hover:text-green-700 border-gray-200 hover:border-green-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<HiSparkles size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<HiSparkles size={14} />
 												Nuevos
 											</button>
 										)}
@@ -269,7 +241,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														return (
 															<button
 																type='button'
-																onClick={() => field.onChange(field.value === type.value ? undefined : type.value)}
+																onClick={() => field.onChange(field.value === type.value ? null : type.value)}
 																className={cn(
 																	'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 border',
 																	field.value === type.value
@@ -299,7 +271,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 											{[
 												{ value: 'FEMALE', label: 'Mujer', icon: FaVenus },
 												{ value: 'MALE', label: 'Hombre', icon: FaMars },
-												{ value: 'UNISEX', label: 'Unisex', icon: FaVenusMars },
+												// { value: 'UNISEX', label: 'Unisex', icon: FaVenusMars },
 											].map(({ value, label, icon: Icon }) => (
 												<FormField
 													key={value}
@@ -309,7 +281,8 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														return (
 															<button
 																type='button'
-																onClick={() => field.onChange(field.value === value ? undefined : value)}
+																// onClick={() => field.onChange(field.value === value ? undefined : value)}
+																onClick={() => field.onChange(field.value === value ? null : value)}
 																className={cn(
 																	'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 border flex items-center gap-2',
 																	field.value === value
@@ -317,7 +290,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 																		: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
 																)}
 															>
-																{/* <Icon size={12} /> */}
+																<Icon size={14} />
 																{label}
 															</button>
 														);
@@ -417,6 +390,10 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 									</FormItem>
 								)}
 							/>
+							{/* boton de reset */}
+							<Button onClick={resetFilters} className='w-full' type='reset'>
+								Limpiar filtros
+							</Button>
 						</form>
 					</Form>
 				</div>

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Enums que coinciden con Prisma
-export const ServiceType = z.enum(['INDIVIDUAL', 'COMBO', 'PACK']);
+export const Type = z.enum(['INDIVIDUAL', 'COMBO', 'PACK']);
 export const Gender = z.enum(['MALE', 'FEMALE', 'UNISEX']);
 export const SortByFields = z.enum(['name', 'price', 'createdAt', 'order', 'type']);
 export const SortOrder = z.enum(['asc', 'desc']);
@@ -78,7 +78,7 @@ export const updateServiceSchema = z
 		isPopular: z.boolean().optional(),
 		isNew: z.boolean().optional(),
 		// Campos específicos por tipo
-		type: ServiceType.optional(),
+		type: Type.optional(),
 		sessions: z.number().int().positive().optional(),
 		includedServices: z.array(z.string()).optional(),
 	})
@@ -107,11 +107,11 @@ export const serviceFiltersSchema = z
 		// page: z.number().int().min(1).optional().default(1),
 		// limit: z.number().int().min(1).max(100).optional().default(10),
 		search: z.string().optional(),
-		type: ServiceType.optional(),
+		type: Type.nullish(),
 		categories: z.array(z.string()).optional(),
 		bodyParts: z.array(z.string()).optional(),
 		tags: z.array(z.string()).optional(),
-		gender: Gender.optional(),
+		gender: Gender.nullish(),
 		minPrice: z.number().min(0).optional(),
 		maxPrice: z.number().min(0).optional(),
 		hasPromo: z.boolean().optional(),
@@ -143,7 +143,7 @@ export const urlServiceFiltersSchema = z
 		page: z.coerce.number().int().min(1).default(1),
 		// limit: z.coerce.number().int().min(1).max(100).default(10),
 		search: z.string().optional(),
-		type: ServiceType.optional(),
+		type: Type.optional(),
 		categories: z
 			.string()
 			.optional()
@@ -194,8 +194,8 @@ export const urlServiceFiltersSchema = z
 				if (val === undefined) return undefined;
 				return val === 'true';
 			}),
-		sortBy: SortByFields.default('createdAt'),
-		sortOrder: SortOrder.default('asc'),
+		sortBy: SortByFields.optional(),
+		sortOrder: SortOrder.optional(),
 	})
 	.refine(
 		(data) => {
@@ -212,7 +212,7 @@ export const urlServiceFiltersSchema = z
 
 // Tipos TypeScript inferidos
 export type ServiceInput = z.infer<typeof serviceSchema>;
-export type ServiceType = z.infer<typeof ServiceType>;
+export type ServiceType = z.infer<typeof Type>;
 export type GenderType = z.infer<typeof Gender>;
 export type CreateServiceInput = z.infer<typeof createServiceSchema>;
 export type UpdateServiceInput = z.infer<typeof updateServiceSchema>;

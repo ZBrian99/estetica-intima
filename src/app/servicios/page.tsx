@@ -21,22 +21,16 @@ const ServicesPage = async ({ params, searchParams }: ServicesPageProps) => {
 	// console.log('Search params:', resolvedSearchParams);
 	// Si la URL es /servicios/facial/limpieza?page=2&limit=10
 	// resolvedSearchParams = { page: '2', limit: '10' }
-
-	// const validateParams = urlServiceFiltersSchema.parse({ ...resolvedSearchParams, ...resolvedParams });
+	const validateParams = urlServiceFiltersSchema.parse({ ...resolvedSearchParams, ...resolvedParams });
 
 	await queryClient.prefetchQuery({
-		queryKey: ['services', {}],
-    queryFn: () => fetchServices({}),
+		queryKey: ['services', validateParams],
+		queryFn: () => fetchServices(validateParams),
 	});
-	// await queryClient.prefetchQuery({
-	// 	queryKey: ['services', validateParams],
-	// 	queryFn: () => fetchServices(validateParams),
-	// });
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<ServicesClientWrapper />
-			{/* <ServicesClientWrapper initialFilters={validateParams} /> */}
+			<ServicesClientWrapper initialFilters={validateParams} />
 		</HydrationBoundary>
 	);
 };

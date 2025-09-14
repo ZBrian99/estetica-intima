@@ -1,7 +1,8 @@
 import { getBaseUrl } from '@/lib/utils';
 import { ServicesFiltersType, UrlServicesFiltersType } from '@/schemas/servicesSchema';
 import { ServicesResponse } from '@/types/servicesTypes';
-
+// TODO: evitar doble transformacion de filtros, unificar
+// TODO: añadir ssr dinamico con isr
 const filtersToQueryString = (filters?: ServicesFiltersType): string => {
 	if (!filters) {
 		return '';
