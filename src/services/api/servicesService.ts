@@ -43,11 +43,12 @@ export const buildServiceFilters = (filters: UrlServicesFiltersType, isAdmin: bo
 		...(categories?.length && { categories: { hasEvery: categories } }),
 		...(bodyParts?.length && { bodyParts: { hasEvery: bodyParts } }),
 		...(tags?.length && { tags: { hasEvery: tags } }),
-		...(minPrice && { price: { gte: minPrice } }),
-		...(maxPrice && { price: { lte: maxPrice } }),
-		...(hasPromo !== undefined && {
-			promoPrice: hasPromo ? { not: null } : null,
-		}),
+		...(minPrice && { finalPrice: { gte: minPrice } }),
+		...(maxPrice && { finalPrice: { lte: maxPrice } }),
+		// ...(hasPromo !== undefined && {
+		// 	promoPrice: hasPromo ? { not: null } : null,
+		// }),
+		...(hasPromo !== undefined && { hasPromo }),
 		...(isFeatured !== undefined && { isFeatured }),
 		...(isNew !== undefined && { isNew }),
 		...(isPopular !== undefined && { isPopular }),
@@ -76,13 +77,14 @@ export const getSelectFields = (isAdmin: boolean) => {
 		id: true,
 		name: true,
 		description: true,
-		price: true,
+		basePrice: true,
 		categories: true,
 		bodyParts: true,
 		tags: true,
 		type: true,
 		gender: true,
-		promoPrice: true,
+		finalPrice: true,
+		hasPromo: true,
 		isFeatured: true,
 		isNew: true,
 		isPopular: true,
@@ -116,43 +118,22 @@ export const buildSort = (
 	sort?: SortType | null
 ): Prisma.ServiceOrderByWithRelationInput | Prisma.ServiceOrderByWithRelationInput[] => {
 	if (!sort || sort === 'relevance') {
-		return [
-			{ order: 'asc' },
-			{ isFeatured: 'desc' },
-			{ isPopular: 'desc' },
-			{ isNew: 'desc' },
-			{ promoPrice: 'desc' },
-			{ updatedAt: 'asc' },
-		];
+		return [{ order: 'asc' }, { isFeatured: 'desc' }, { isPopular: 'desc' }, { updatedAt: 'asc' }];
 	}
 
 	if (sort === 'popularity') {
-		return [
-			{ isPopular: 'desc' },
-			{ order: 'asc' },
-			{ isFeatured: 'desc' },
-			{ isNew: 'desc' },
-			{ promoPrice: 'desc' },
-			{ updatedAt: 'asc' },
-		];
+		return [{ isPopular: 'desc' }, { order: 'asc' }, { isFeatured: 'desc' }, { updatedAt: 'asc' }];
 	}
 
 	if (sort === 'price-asc') {
-		return [{ promoPrice: 'asc' }, { price: 'asc' }];
+		return { finalPrice: 'asc' };
 	}
 
 	if (sort === 'price-desc') {
-		return [{ promoPrice: 'desc' }, { price: 'desc' }];
+		return { finalPrice: 'desc' };
 	}
 
-	return [
-		{ order: 'asc' },
-		{ isFeatured: 'desc' },
-		{ isPopular: 'desc' },
-		{ isNew: 'desc' },
-		{ promoPrice: 'desc' },
-		{ updatedAt: 'asc' },
-	];
+	return [{ order: 'asc' }, { isFeatured: 'desc' }, { isPopular: 'desc' }, { updatedAt: 'asc' }];
 };
 
 export const getPaginatedServices = async (filters: UrlServicesFiltersType, isAdmin: boolean) => {
@@ -197,20 +178,34 @@ export const getServiceById = async (id: string, isAdmin: boolean) => {
 };
 
 export const createService = async (data: Prisma.ServiceCreateInput) => {
+	const { basePrice, finalPrice, ...rest } = data;
+
 	const service = await prisma.service.create({
-		data,
+		data: {
+			basePrice,
+			finalPrice,
+			hasPromo: finalPrice < basePrice,
+			...rest,
+		},
 		select: getSelectFields(true),
 	});
 
 	return service;
 };
-
+// TODO: Buscar manera para el patch como calcular hasPromo si no vienen ambos price en el update
 export const updateService = async (id: string, data: Prisma.ServiceUpdateInput) => {
+	const { basePrice, finalPrice, ...rest } = data;
+
 	const service = await prisma.service.update({
 		where: {
 			id,
 		},
-		data,
+		data: {
+			basePrice,
+			finalPrice,
+			hasPromo: finalPrice !== undefined && basePrice !== undefined ? finalPrice < basePrice : false,
+			...rest,
+		},
 		select: getSelectFields(true),
 	});
 

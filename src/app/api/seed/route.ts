@@ -4,14 +4,12 @@ import {
 	getAllIndividualServices,
 	getAllComboServices,
 	getAllPackServices,
-	CATEGORIES,
-	TAGS,
-	BODY_PARTS,
 	type BaseServiceData,
 	type ComboServiceData,
 	type PackServiceData,
 } from '@/data/servicesData';
 import { GenderType, ServiceType } from '@/schemas/servicesSchema';
+import { BODY_PARTS, CATEGORIES } from '@/lib/constants';
 
 // Función para obtener elementos aleatorios de un array
 function getRandomElements<T>(array: T[], count: number): T[] {
@@ -34,10 +32,10 @@ function generateRandomDuration(): number {
 }
 
 // Función para generar precio promocional aleatorio (10% a 90% del precio original)
-function generatePromoPrice(originalPrice: number): number | null {
-	if (Math.random() > 0.8) return null; // 30% de probabilidad de tener promo
+function generatePromoPrice(basePrice: number): number {
+	if (Math.random() > 0.3) return basePrice; // 30% de probabilidad de tener promo
 	const discountPercent = Math.random() * 0.8 + 0.1; // 10% a 90%
-	return Math.floor(originalPrice * discountPercent);
+	return Math.floor(basePrice * discountPercent);
 }
 
 // Función para generar partes del cuerpo aleatorias
@@ -62,11 +60,20 @@ function generateServiceFlags() {
 }
 
 // Función para generar descripción genérica del servicio
-function generateServiceDescription(serviceName: string, type: ServiceType, duration?: number, sessions?: number): string {
+function generateServiceDescription(
+	serviceName: string,
+	type: ServiceType,
+	duration?: number,
+	sessions?: number
+): string {
 	const descriptions = {
-		INDIVIDUAL: 'Servicio profesional de estética realizado por especialistas certificados con equipos de última generación.',
-		COMBO: 'Combo de servicios estéticos profesionales diseñado para brindarte una experiencia completa y resultados óptimos.',
-		PACK: `Paquete de ${sessions || 4} sesiones que te permite obtener mejores resultados con un precio preferencial. Ideal para tratamientos que requieren continuidad.`,
+		INDIVIDUAL:
+			'Servicio profesional de estética realizado por especialistas certificados con equipos de última generación.',
+		COMBO:
+			'Combo de servicios estéticos profesionales diseñado para brindarte una experiencia completa y resultados óptimos.',
+		PACK: `Paquete de ${
+			sessions || 4
+		} sesiones que te permite obtener mejores resultados con un precio preferencial. Ideal para tratamientos que requieren continuidad.`,
 	};
 
 	let baseDescription = descriptions[type];
@@ -123,8 +130,8 @@ export async function GET(request: NextRequest) {
 
 		// Procesar servicios individuales
 		for (const service of individualServices) {
-			const price = generateRandomPrice();
-			const promoPrice = generatePromoPrice(price);
+			const basePrice = generateRandomPrice();
+			const finalPrice = generatePromoPrice(basePrice);
 			const duration = generateRandomDuration();
 			const bodyParts = generateRandomBodyParts();
 			const categories = generateRandomCategories();
@@ -136,8 +143,9 @@ export async function GET(request: NextRequest) {
 				name: service.name,
 				slug: generateSlug(service.name),
 				description,
-				price,
-				promoPrice,
+				basePrice,
+				finalPrice,
+				hasPromo: finalPrice < basePrice,
 				duration,
 				type: 'INDIVIDUAL' as ServiceType,
 				gender,
@@ -154,8 +162,8 @@ export async function GET(request: NextRequest) {
 
 		// Procesar servicios combo
 		for (const combo of comboServices) {
-			const price = generateRandomPrice();
-			const promoPrice = generatePromoPrice(price);
+			const basePrice = generateRandomPrice();
+			const finalPrice = generatePromoPrice(basePrice);
 			const duration = generateRandomDuration();
 			const bodyParts = generateRandomBodyParts();
 			const categories = generateRandomCategories();
@@ -167,8 +175,9 @@ export async function GET(request: NextRequest) {
 				name: combo.name,
 				slug: generateSlug(combo.name),
 				description,
-				price,
-				promoPrice,
+				basePrice,
+				finalPrice,
+				hasPromo: finalPrice < basePrice,
 				duration,
 				type: 'COMBO' as ServiceType,
 				gender,
@@ -186,8 +195,8 @@ export async function GET(request: NextRequest) {
 
 		// Procesar servicios pack
 		for (const pack of packServices) {
-			const price = generateRandomPrice();
-			const promoPrice = generatePromoPrice(price);
+			const basePrice = generateRandomPrice();
+			const finalPrice = generatePromoPrice(basePrice);
 			const duration = generateRandomDuration();
 			const bodyParts = generateRandomBodyParts();
 			const categories = generateRandomCategories();
@@ -199,8 +208,9 @@ export async function GET(request: NextRequest) {
 				name: pack.name,
 				slug: generateSlug(pack.name),
 				description,
-				price,
-				promoPrice,
+				basePrice,
+				finalPrice,
+				hasPromo: finalPrice < basePrice,
 				duration,
 				type: 'PACK' as ServiceType,
 				gender,

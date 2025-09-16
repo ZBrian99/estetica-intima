@@ -27,6 +27,15 @@ export const getBaseUrl = () => {
 	return process.env.BASE_URL || 'http://localhost:3000';
 };
 
+export const formatPrice = (price: number) => {
+	return new Intl.NumberFormat('es-AR', {
+		style: 'currency',
+		currency: 'ARS',
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 0,
+	}).format(price);
+};
+
 export const filtersToUrlParams = (filters?: ServicesFiltersType) => {
 	if (!filters) {
 		return '';

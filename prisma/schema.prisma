@@ -58,13 +58,17 @@ model Service {
   slug        String  @unique // Para URLs amigables
 
   // Precios
-  price      Decimal  @db.Decimal(10, 2)
-  promoPrice Decimal? @db.Decimal(10, 2) // Precio promocional
-
+  // price         Decimal? @db.Decimal(10, 2)
+  // promoPrice    Decimal? @db.Decimal(10, 2)
+  // originalPrice Decimal? @db.Decimal(10, 2)
+  // currentPrice  Decimal? @db.Decimal(10, 2)
+  basePrice  Decimal @db.Decimal(10, 2)
+  finalPrice Decimal @db.Decimal(10, 2)
+  hasPromo   Boolean @default(false)
   // Características generales
-  duration Int? // Duración en minutos (INDIVIDUAL y algunos COMBO)
-  sessions Int? // Cantidad de sesiones (solo PACK)
-  gender   Gender @default(UNISEX)
+  duration   Int? // Duración en minutos (INDIVIDUAL y algunos COMBO)
+  sessions   Int? // Cantidad de sesiones (solo PACK)
+  gender     Gender  @default(UNISEX)
 
   // Categorización flexible con arrays
   categories String[] // ["Depilación", "Facial", "Corporal"]

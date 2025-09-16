@@ -4,18 +4,10 @@ import { useState } from 'react';
 import { ServiceResponse } from '@/schemas/servicesSchema';
 import { FaWhatsapp } from 'react-icons/fa';
 import { HiFire, HiSparkles } from 'react-icons/hi2';
+import { formatPrice } from '@/lib/utils';
 
 const ServiceCard = ({ service }: { service: ServiceResponse }) => {
 	const [isReserving, setIsReserving] = useState(false);
-
-	const formatPrice = (price: number) => {
-		return new Intl.NumberFormat('es-AR', {
-			style: 'currency',
-			currency: 'ARS',
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 0,
-		}).format(price);
-	};
 
 	const handleReserve = async (e: React.MouseEvent) => {
 		e.stopPropagation();
@@ -36,7 +28,7 @@ const ServiceCard = ({ service }: { service: ServiceResponse }) => {
 	};
 
 	// Determinar si tiene precio promocional
-	const hasPromoPrice = service.promoPrice && service.promoPrice < service.price;
+	// const hasPromoPrice = service.promoPrice && service.promoPrice < service.price;
 
 	return (
 		<div className='bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:border-gray-300 hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col relative'>
@@ -58,26 +50,22 @@ const ServiceCard = ({ service }: { service: ServiceResponse }) => {
 					</div>
 				)}
 
-				{/* Badge Popular - Izquierda arriba */}
-				{service.isPopular && (
+				{service.hasPromo ? (
+					<div className='absolute top-3 left-3 bg-gradient-to-r from-red-500 to-red-600 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg'>
+						{Math.round(((service.basePrice - service.finalPrice!) / service.basePrice) * 100)}% OFF
+					</div>
+				) : service.isPopular ? (
 					<div className='absolute top-3 left-3 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 bg-opacity-95 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg'>
 						<HiFire size={14} className='drop-shadow-sm' />
 						Popular
 					</div>
-				)}
-
-				{/* Badge de nuevo - Solo si no es popular ni tiene oferta */}
-				{!service.isPopular && service.isNew && (
+				) : service.isNew ? (
 					<div className='absolute top-3 left-3 bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-600 bg-opacity-95 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg'>
 						<HiSparkles size={14} className='drop-shadow-sm' />
 						Nuevo
 					</div>
-				)}
-				{/* Badge de oferta - Derecha arriba */}
-				{!service.isPopular && !service.isNew && service.promoPrice && (
-					<div className='absolute top-3 left-3 bg-gradient-to-r from-red-500 to-red-600 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg'>
-						{Math.round(((service.price - service.promoPrice!) / service.price) * 100)}% OFF
-					</div>
+				) : (
+					''
 				)}
 			</div>
 
@@ -95,13 +83,13 @@ const ServiceCard = ({ service }: { service: ServiceResponse }) => {
 
 				{/* Precio */}
 				<div className='flex items-center gap-2 mt-auto'>
-					{service.promoPrice ? (
+					{service.hasPromo ? (
 						<div className='flex items-center gap-2'>
-							<span className='text-lg sm:text-xl font-bold text-primary-600'>{formatPrice(service.promoPrice!)}</span>
-							<span className='text-sm text-gray-400 line-through'>{formatPrice(service.price)}</span>
+							<span className='text-lg sm:text-xl font-bold text-red-600'>{formatPrice(service.finalPrice!)}</span>
+							<span className='text-sm text-gray-400 line-through'>{formatPrice(service.basePrice)}</span>
 						</div>
 					) : (
-						<span className='text-lg sm:text-xl font-bold text-primary-600'>{formatPrice(service.price)}</span>
+						<span className='text-lg sm:text-xl font-bold text-primary-600'>{formatPrice(service.basePrice)}</span>
 					)}
 				</div>
 

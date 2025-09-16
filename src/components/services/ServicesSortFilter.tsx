@@ -3,8 +3,8 @@
 import { useFiltersStore } from '@/stores/filtersStore';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { memo, useEffect, useState } from 'react';
-import { SORT_OPTIONS } from '@/data/servicesData';
 import { SortType } from '@/schemas/servicesSchema';
+import { SORT_OPTIONS } from '@/lib/constants';
 
 const ServicesSortFilter = ({ initialSort = 'relevance' }: { initialSort?: SortType }) => {
 	const setFilter = useFiltersStore((state) => state.setFilter);

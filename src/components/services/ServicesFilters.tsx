@@ -12,7 +12,7 @@ import { HiFire, HiStar, HiSparkles } from 'react-icons/hi2';
 import { MdLocalOffer } from 'react-icons/md';
 import { FaVenus, FaMars } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
-import { BODY_PARTS, CATEGORIES, SERVICE_TYPES } from '@/data/servicesData';
+import { BODY_PARTS, CATEGORIES, SERVICE_TYPES } from '@/lib/constants';
 // import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 // TODO: añadir resto de filtros y probar todas las combinaciones
 // TODO: añadir ordenamiento
