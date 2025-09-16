@@ -2,7 +2,7 @@ import { isAdmin, requireAdminAPI } from '@/lib/auth/utils';
 import { handleApiError } from '@/lib/handleApiError';
 import { prisma } from '@/lib/prisma';
 import { updateServiceSchema } from '@/schemas/servicesSchema';
-import { deleteService, getServiceById, parseBody, updateService } from '@/services/api/serviceService';
+import { deleteService, getServiceById, parseBody, updateService } from '@/services/api/servicesService';
 import { NextResponse } from 'next/server';
 
 export const GET = async (req: Request, { params }: { params: Promise<{ id: string }> }) => {

@@ -26,13 +26,11 @@ export const useFiltersStore = create<FiltersState>()((set, get) => ({
 	},
 
 	setFilters: (newFilters) => {
-		set((state) => ({
+		set({
 			filters: {
-				// ...state.filters,
 				...newFilters,
-				// page: 1,
 			},
-		}));
+		});
 	},
 
 	clearFilters: () => {

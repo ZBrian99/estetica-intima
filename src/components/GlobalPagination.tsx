@@ -30,12 +30,8 @@ const GlobalPagination = ({ pagination, onPageChange, className = '' }: GlobalPa
 	const { isMobile, isTablet } = useMediaQuery();
 
 	const generatePages = (): PageItem[] => {
-		if (totalPages <= 7) {
-			return Array.from({ length: totalPages }, (_, i) => i + 1);
-		}
-
 		if (isMobile) {
-			if (totalPages <= 7) {
+			if (totalPages <= 3) {
 				return Array.from({ length: totalPages }, (_, i) => i + 1);
 			}
 
@@ -53,6 +49,10 @@ const GlobalPagination = ({ pagination, onPageChange, className = '' }: GlobalPa
 		}
 
 		if (isTablet) {
+			if (totalPages <= 7) {
+				return Array.from({ length: totalPages }, (_, i) => i + 1);
+			}
+
 			const pages: PageItem[] = [1];
 			const showLeftDots = currentPage > 4;
 			const showRightDots = currentPage < totalPages - 3;
@@ -88,7 +88,9 @@ const GlobalPagination = ({ pagination, onPageChange, className = '' }: GlobalPa
 
 			return pages;
 		}
-
+		if (totalPages <= 7) {
+			return Array.from({ length: totalPages }, (_, i) => i + 1);
+		}
 		const pages: PageItem[] = [1];
 		const showLeftDots = currentPage > 5;
 		const showRightDots = currentPage < totalPages - 4;
@@ -161,7 +163,7 @@ const GlobalPagination = ({ pagination, onPageChange, className = '' }: GlobalPa
 				{generatePages().map((page, index) => (
 					<PaginationItem key={`${page}-${index}`}>
 						{page === '...' ? (
-							<div className='flex h-10 min-w-10 select-none items-center justify-center text-sm font-medium text-muted-foreground'>
+							<div className='flex  h-10 w-8 us:min-w-10 select-none items-center justify-center text-sm font-medium text-muted-foreground'>
 								<EllipsisIcon className='h-4 w-4' />
 							</div>
 						) : isMobile ? (

@@ -3,8 +3,7 @@ import { z } from 'zod';
 // Enums que coinciden con Prisma
 export const Type = z.enum(['INDIVIDUAL', 'COMBO', 'PACK']);
 export const Gender = z.enum(['MALE', 'FEMALE', 'UNISEX']);
-export const SortByFields = z.enum(['name', 'price', 'createdAt', 'order', 'type']);
-export const SortOrder = z.enum(['asc', 'desc']);
+export const Sort = z.enum(['relevance', 'popularity', 'price-asc', 'price-desc']);
 
 // Schema base común para todos los servicios
 const baseServiceSchema = z.object({
@@ -101,7 +100,7 @@ export const deleteServiceSchema = z.object({
 });
 
 // Schema para filtros (usado internamente)
-export const serviceFiltersSchema = z
+export const servicesFiltersSchema = z
 	.object({
 		page: z.number().int().min(1).optional(),
 		// page: z.number().int().min(1).optional().default(1),
@@ -119,10 +118,7 @@ export const serviceFiltersSchema = z
 		isFeatured: z.boolean().optional(),
 		isPopular: z.boolean().optional(),
 		isNew: z.boolean().optional(),
-		sortBy: SortByFields.optional(),
-		sortOrder: SortOrder.optional(),
-		// sortBy: SortByFields.optional().default('createdAt'),
-		// sortOrder: SortOrder.optional().default('desc'),
+		sort: Sort.nullish(),
 	})
 	.refine(
 		(data) => {
@@ -194,8 +190,7 @@ export const urlServiceFiltersSchema = z
 				if (val === undefined) return undefined;
 				return val === 'true';
 			}),
-		sortBy: SortByFields.optional(),
-		sortOrder: SortOrder.optional(),
+		sort: Sort.nullish(),
 	})
 	.refine(
 		(data) => {
@@ -214,10 +209,11 @@ export const urlServiceFiltersSchema = z
 export type ServiceInput = z.infer<typeof serviceSchema>;
 export type ServiceType = z.infer<typeof Type>;
 export type GenderType = z.infer<typeof Gender>;
+export type SortType = z.infer<typeof Sort>;
 export type CreateServiceInput = z.infer<typeof createServiceSchema>;
 export type UpdateServiceInput = z.infer<typeof updateServiceSchema>;
 export type DeleteServiceInput = z.infer<typeof deleteServiceSchema>;
-export type ServicesFiltersType = z.infer<typeof serviceFiltersSchema>;
+export type ServicesFiltersType = z.infer<typeof servicesFiltersSchema>;
 export type UrlServicesFiltersType = z.infer<typeof urlServiceFiltersSchema>;
 
 export type ServiceResponse = ServiceInput & {

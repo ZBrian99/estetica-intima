@@ -1,5 +1,5 @@
 import { handleApiError } from '@/lib/handleApiError';
-import { createService, getPaginatedServices, parseBody, parseQueryParams } from '@/services/api/serviceService';
+import { createService, getPaginatedServices, parseBody, parseQueryParams } from '@/services/api/servicesService';
 import { NextResponse } from 'next/server';
 import { isAdmin, requireAdminAPI } from '@/lib/auth/utils';
 import { createServiceSchema, urlServiceFiltersSchema } from '@/schemas/servicesSchema';

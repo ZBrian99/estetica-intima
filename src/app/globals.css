@@ -179,6 +179,11 @@
 	html {
 		overflow-y: scroll;
 	}
+  body[data-scroll-locked] {
+  margin-right: 0px !important; 
+  margin-left: 0px !important;  
+  overflow: visible !important;
+}
 	body {
 		/* @apply bg-foreground text-background min-h-screen antialiased scheme-light font-sans mt-20; */
 		@apply text-foreground min-h-[100vh-4rem] antialiased scheme-light font-sans mt-16;

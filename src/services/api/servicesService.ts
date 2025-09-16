@@ -1,7 +1,7 @@
 import { ZodType } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
-import { deleteServiceSchema, UrlServicesFiltersType } from '@/schemas/servicesSchema';
+import { deleteServiceSchema, SortType, UrlServicesFiltersType } from '@/schemas/servicesSchema';
 import { API_GLOBAL_LIMIT } from '@/lib/constants';
 
 export const parseQueryParams = <T>(req: Request, schema: ZodType<T>) => {
@@ -37,17 +37,14 @@ export const buildServiceFilters = (filters: UrlServicesFiltersType, isAdmin: bo
 	} = filters;
 
 	const baseWhere: Prisma.ServiceWhereInput = {
-		// Solo aplicar isActive si se proporciona, sino usar true por defecto
 		isActive: true,
 		...(type && { type }),
 		...(gender && gender !== 'UNISEX' && { gender: { in: [gender, 'UNISEX'] } }),
 		...(categories?.length && { categories: { hasEvery: categories } }),
 		...(bodyParts?.length && { bodyParts: { hasEvery: bodyParts } }),
-		// Filtro específico por tags
 		...(tags?.length && { tags: { hasEvery: tags } }),
 		...(minPrice && { price: { gte: minPrice } }),
 		...(maxPrice && { price: { lte: maxPrice } }),
-		// Filtro para servicios en promoción (que tengan promoPrice)
 		...(hasPromo !== undefined && {
 			promoPrice: hasPromo ? { not: null } : null,
 		}),
@@ -114,8 +111,52 @@ export const buildPagination = (currentPage: number, itemsPerPage: number, total
 	};
 };
 // TODO: solucionar sort
+
+export const buildSort = (
+	sort?: SortType | null
+): Prisma.ServiceOrderByWithRelationInput | Prisma.ServiceOrderByWithRelationInput[] => {
+	if (!sort || sort === 'relevance') {
+		return [
+			{ order: 'asc' },
+			{ isFeatured: 'desc' },
+			{ isPopular: 'desc' },
+			{ isNew: 'desc' },
+			{ promoPrice: 'desc' },
+			{ updatedAt: 'asc' },
+		];
+	}
+
+	if (sort === 'popularity') {
+		return [
+			{ isPopular: 'desc' },
+			{ order: 'asc' },
+			{ isFeatured: 'desc' },
+			{ isNew: 'desc' },
+			{ promoPrice: 'desc' },
+			{ updatedAt: 'asc' },
+		];
+	}
+
+	if (sort === 'price-asc') {
+		return [{ promoPrice: 'asc' }, { price: 'asc' }];
+	}
+
+	if (sort === 'price-desc') {
+		return [{ promoPrice: 'desc' }, { price: 'desc' }];
+	}
+
+	return [
+		{ order: 'asc' },
+		{ isFeatured: 'desc' },
+		{ isPopular: 'desc' },
+		{ isNew: 'desc' },
+		{ promoPrice: 'desc' },
+		{ updatedAt: 'asc' },
+	];
+};
+
 export const getPaginatedServices = async (filters: UrlServicesFiltersType, isAdmin: boolean) => {
-	const { sortBy, sortOrder, page } = filters;
+	const { sort, page } = filters;
 
 	const where = buildServiceFilters(filters, isAdmin);
 
@@ -127,15 +168,14 @@ export const getPaginatedServices = async (filters: UrlServicesFiltersType, isAd
 			select,
 			skip: (page - 1) * API_GLOBAL_LIMIT,
 			take: API_GLOBAL_LIMIT,
-			// orderBy: {
-			// 	[sortBy as string]: sortOrder,
-			// },
+			orderBy: buildSort(sort),
 		}),
 		prisma.service.count({
 			where,
 		}),
 	]);
-
+	// await new Promise((resolve) => setTimeout(resolve, 3000));
+	// console.log('LOAD DESDE BACKEND', 0, filters);
 	const pagination = buildPagination(page, API_GLOBAL_LIMIT, totalCount);
 
 	return {
