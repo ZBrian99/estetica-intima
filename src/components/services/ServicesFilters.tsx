@@ -12,7 +12,7 @@ import { HiFire, HiStar, HiSparkles } from 'react-icons/hi2';
 import { MdLocalOffer } from 'react-icons/md';
 import { FaVenus, FaMars } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
-import { BODY_PARTS, CATEGORIES, SERVICE_TYPES } from '@/lib/constants';
+import { BODY_PARTS, CATEGORIES, SERVICE_TYPES, TAGS } from '@/lib/constants';
 // import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 // TODO: añadir resto de filtros y probar todas las combinaciones
 // TODO: añadir ordenamiento
@@ -84,6 +84,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 			isNew: false,
 			isFeatured: false,
 			hasPromo: false,
+			tags: [],
 			// sort: null,
 		});
 	};
@@ -396,6 +397,50 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 																)}
 															>
 																{bodyPart}
+															</button>
+														);
+													}}
+												/>
+											))}
+										</div>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							{/* Filtro de Tags */}
+							<FormField
+								control={form.control}
+								name='tags'
+								render={() => (
+									<FormItem>
+										<FormLabel className='font-semibold text-gray-900 text-sm'>Tags</FormLabel>
+										<div className='flex flex-wrap gap-2'>
+											{TAGS.map((tag) => (
+												<FormField
+													key={tag}
+													control={form.control}
+													name='tags'
+													render={({ field }) => {
+														const isSelected = field.value?.includes(tag) || false;
+														return (
+															<button
+																type='button'
+																onClick={() => {
+																	const currentTags = field.value || [];
+																	if (isSelected) {
+																		field.onChange(currentTags.filter((t) => t !== tag));
+																	} else {
+																		field.onChange([...currentTags, tag]);
+																	}
+																}}
+																className={cn(
+																	'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 border',
+																	isSelected
+																		? 'bg-primary-600 text-white shadow-lg border-primary-600'
+																		: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
+																)}
+															>
+																{tag}
 															</button>
 														);
 													}}

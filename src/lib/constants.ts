@@ -42,19 +42,19 @@ export const BODY_PARTS = [
 ];
 
 export const TAGS = [
-	'popular',
-	'nuevo',
-	'verano',
+  'tendencia',
 	'invierno',
-	'destacado',
 	'limitado',
 	'exclusivo',
-	'tendencia',
-	'premium',
+	'nuevo',
+	'destacado',
 	'express',
 	'intensivo',
+	'popular',
 	'relajante',
+	'premium',
 	'anti-edad',
+	'verano',
 	'hidratante',
 ];
 
