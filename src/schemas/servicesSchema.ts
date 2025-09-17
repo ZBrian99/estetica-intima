@@ -10,8 +10,8 @@ const baseServiceSchema = z.object({
 	name: z.string().min(1, 'El nombre es requerido'),
 	description: z.string().optional(),
 	slug: z.string().min(1, 'El slug es requerido'),
-	basePrice: z.number().positive('El precio debe ser positivo'),
-	finalPrice: z.number().positive().optional(),
+	basePrice: z.number().positive('El precio base debe ser positivo'),
+	finalPrice: z.number().positive('El precio final debe ser positivo'),
 	hasPromo: z.boolean().default(false),
 	duration: z.number().int().positive().optional(),
 	sessions: z.number().int().positive().optional(),
@@ -27,6 +27,9 @@ const baseServiceSchema = z.object({
 	isFeatured: z.boolean().default(false),
 	isPopular: z.boolean().default(false),
 	isNew: z.boolean().default(false),
+	rating: z.number().min(0).max(5).default(0),
+	reviewCount: z.number().int().default(0),
+	bookings: z.number().int().default(0),
 });
 
 // Schemas específicos por tipo de servicio
@@ -64,8 +67,8 @@ export const updateServiceSchema = z
 		description: z.string().optional(),
 		slug: z.string().min(1, 'El slug es requerido').optional(),
 		basePrice: z.number().positive('El precio debe ser positivo').optional(),
-    finalPrice: z.number().positive().optional(),
-    hasPromo: z.boolean().default(false),
+		finalPrice: z.number().positive().optional(),
+		hasPromo: z.boolean().default(false),
 		duration: z.number().int().positive().optional(),
 		gender: Gender.optional(),
 		categories: z.array(z.string()).min(1, 'Debe tener al menos una categoría').optional(),
@@ -78,6 +81,9 @@ export const updateServiceSchema = z
 		isFeatured: z.boolean().optional(),
 		isPopular: z.boolean().optional(),
 		isNew: z.boolean().optional(),
+		rating: z.number().min(0).max(5).optional(),
+		reviewCount: z.number().int().optional(),
+		bookings: z.number().int().optional(),
 		// Campos específicos por tipo
 		type: Type.optional(),
 		sessions: z.number().int().positive().optional(),

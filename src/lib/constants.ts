@@ -6,7 +6,6 @@ export const SERVICE_TYPES = [
 	{ value: 'PACK', label: 'Pack' },
 ];
 
-// CATEGORÍAS EXPANDIDAS
 export const CATEGORIES = [
 	'depilacion',
 	'tratamientos-corporales',
@@ -24,7 +23,6 @@ export const CATEGORIES = [
 	'estetica-integral',
 ];
 
-// PARTES DEL CUERPO EXPANDIDAS
 export const BODY_PARTS = [
 	'rostro',
 	'cuello',
@@ -43,31 +41,24 @@ export const BODY_PARTS = [
 	'cuerpo-completo',
 ];
 
-// TAGS EXPANDIDOS
 export const TAGS = [
 	'popular',
 	'nuevo',
-	'promocion',
 	'verano',
 	'invierno',
 	'destacado',
-	'oferta',
-	'combo',
-	'pack',
-	'descuento',
 	'limitado',
 	'exclusivo',
-	'recomendado',
 	'tendencia',
 	'premium',
 	'express',
 	'intensivo',
 	'relajante',
 	'anti-edad',
-	'rejuvenecedor',
+	'hidratante',
 ];
 
-// OPCIONES DE ORDENAMIENTO
+// TODO: Actualizar a futuro para que sean botones y reemplazar estado en los filtros. 
 export const SORT_OPTIONS = [
 	{ value: 'relevance', label: 'Relevancia' },
 	{ value: 'popularity', label: 'Popularidad' },
@@ -75,7 +66,6 @@ export const SORT_OPTIONS = [
 	{ value: 'price-desc', label: 'Mayor Precio' },
 ];
 
-// OPCIONES DE GÉNERO
 export const GENDER_OPTIONS = [
 	{ value: 'FEMALE', label: 'Mujer' },
 	{ value: 'MALE', label: 'Hombre' },

@@ -11,6 +11,8 @@ import LoadingTopBar from '../common/LoadingTopBar';
 import ServicesSortFilter from './ServicesSortFilter';
 
 // TODO: Mejorar logica, limpiar y reordenar componentes
+// TODO: Pasar todo lo posible a ssr para seo
+
 const ServicesClientWrapper = ({ initialFilters }: { initialFilters: ServicesFiltersType }) => {
 	const setFilter = useFiltersStore((state) => state.setFilter);
 	const { services, pagination, isLoading, error, isFetching } = useServices(initialFilters);

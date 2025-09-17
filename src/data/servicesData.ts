@@ -31,7 +31,7 @@ export interface PackServiceData {
 export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 	// Depilación facial
 	{
-		name: 'Axila',
+		name: 'Depilación Axila',
 		basePrice: 6500,
 		bodyParts: ['axilas'],
 		duration: 30,
@@ -39,7 +39,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20underarm%20laser%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Bozo',
+		name: 'Depilación Bozo',
 		basePrice: 6000,
 		bodyParts: ['rostro'],
 		duration: 20,
@@ -47,7 +47,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20facial%20hair%20removal%20upper%20lip%20treatment%2C%20clean%20medical%20spa%20environment%2C%20gentle%20laser%20procedure%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Mentón',
+		name: 'Depilación Mentón',
 		basePrice: 6000,
 		bodyParts: ['rostro'],
 		duration: 20,
@@ -55,7 +55,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20chin%20hair%20removal%20treatment%2C%20facial%20laser%20procedure%2C%20clean%20medical%20spa%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Rostro Completo',
+		name: 'Depilación Rostro Completo',
 		basePrice: 15000,
 		bodyParts: ['rostro'],
 		duration: 60,
@@ -63,7 +63,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20complete%20facial%20hair%20removal%20treatment%2C%20full%20face%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Patilla',
+		name: 'Depilación Patilla',
 		basePrice: 6000,
 		bodyParts: ['rostro'],
 		duration: 15,
@@ -73,7 +73,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 
 	// Depilación íntima
 	{
-		name: 'Cavado Completo',
+		name: 'Depilación Cavado Completo',
 		basePrice: 9000,
 		bodyParts: ['intimo'],
 		duration: 45,
@@ -81,7 +81,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20hair%20removal%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20laser%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Cavado Bikini',
+		name: 'Depilación Cavado Bikini',
 		basePrice: 8000,
 		bodyParts: ['intimo'],
 		duration: 30,
@@ -89,7 +89,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20hair%20removal%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20laser%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Tira de Cola',
+		name: 'Depilación Tira de Cola',
 		basePrice: 6000,
 		bodyParts: ['intimo'],
 		duration: 20,
@@ -97,7 +97,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20hair%20removal%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20laser%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Labios Cavado',
+		name: 'Depilación Labios Cavado',
 		basePrice: 6000,
 		bodyParts: ['intimo'],
 		duration: 15,
@@ -107,7 +107,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 
 	// Depilación piernas
 	{
-		name: 'Pierna Alta',
+		name: 'Depilación Pierna Alta',
 		basePrice: 10000,
 		bodyParts: ['piernas'],
 		duration: 45,
@@ -115,7 +115,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20upper%20leg%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Pierna Baja',
+		name: 'Depilación Pierna Baja',
 		basePrice: 10000,
 		bodyParts: ['piernas'],
 		duration: 45,
@@ -123,7 +123,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20lower%20leg%20laser%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Pierna Completa',
+		name: 'Depilación Pierna Completa',
 		basePrice: 15000,
 		bodyParts: ['piernas'],
 		duration: 90,
@@ -131,7 +131,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20complete%20leg%20laser%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Rodilla',
+		name: 'Depilación Rodilla',
 		basePrice: 6000,
 		bodyParts: ['piernas'],
 		duration: 15,
@@ -141,7 +141,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 
 	// Depilación brazos y manos
 	{
-		name: 'Brazo Completo',
+		name: 'Depilación Brazo Completo',
 		basePrice: 9000,
 		bodyParts: ['brazos'],
 		duration: 60,
@@ -149,7 +149,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20complete%20arm%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Medio Brazo',
+		name: 'Depilación Medio Brazo',
 		basePrice: 8000,
 		bodyParts: ['brazos'],
 		duration: 30,
@@ -157,7 +157,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20forearm%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Mano',
+		name: 'Depilación Mano',
 		basePrice: 6000,
 		bodyParts: ['manos'],
 		duration: 15,
@@ -167,7 +167,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 
 	// Depilación cuerpo
 	{
-		name: 'Cuello',
+		name: 'Depilación Cuello',
 		basePrice: 6000,
 		bodyParts: ['cuello'],
 		duration: 20,
@@ -175,7 +175,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20neck%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Espalda Superior',
+		name: 'Depilación Espalda Superior',
 		basePrice: 7500,
 		bodyParts: ['espalda'],
 		duration: 30,
@@ -183,7 +183,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20upper%20back%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Espalda Completa',
+		name: 'Depilación Espalda Completa',
 		basePrice: 14000,
 		bodyParts: ['espalda'],
 		duration: 60,
@@ -191,7 +191,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20complete%20back%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Cintura',
+		name: 'Depilación Cintura',
 		basePrice: 7500,
 		bodyParts: ['abdomen'],
 		duration: 30,
@@ -199,7 +199,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20waistline%20laser%20treatment%2C%20aesthetic%20clinic%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Abdomen',
+		name: 'Depilación Abdomen',
 		basePrice: 8500,
 		bodyParts: ['abdomen'],
 		duration: 30,
@@ -207,7 +207,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20abdomen%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Línea Alba',
+		name: 'Depilación Línea Alba',
 		basePrice: 6000,
 		bodyParts: ['abdomen'],
 		duration: 15,
@@ -215,7 +215,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20linea%20alba%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Glúteos',
+		name: 'Depilación Glúteos',
 		basePrice: 9000,
 		bodyParts: ['gluteos'],
 		duration: 45,
@@ -223,7 +223,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20body%20contouring%20treatment%2C%20aesthetic%20clinic%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Medio Glúteo',
+		name: 'Depilación Medio Glúteo',
 		basePrice: 7500,
 		bodyParts: ['gluteos'],
 		duration: 30,
@@ -231,7 +231,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20body%20treatment%2C%20aesthetic%20clinic%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Areola del Busto',
+		name: 'Depilación Areola del Busto',
 		basePrice: 6000,
 		bodyParts: ['busto'],
 		duration: 15,
@@ -241,7 +241,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 
 	// Depilación pies
 	{
-		name: 'Empeine',
+		name: 'Depilación Empeine',
 		basePrice: 6000,
 		bodyParts: ['pies'],
 		duration: 20,
@@ -249,7 +249,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20foot%20instep%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Dedos de los Pies',
+		name: 'Depilación Dedos de los Pies',
 		basePrice: 6000,
 		bodyParts: ['pies'],
 		duration: 15,
@@ -262,7 +262,7 @@ export const INDIVIDUAL_SERVICES_FEMALE: BaseServiceData[] = [
 export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 	// Depilación facial masculina
 	{
-		name: 'Barba',
+		name: 'Depilación Barba',
 		basePrice: 14000,
 		bodyParts: ['rostro'],
 		duration: 60,
@@ -271,7 +271,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20beard%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Nuca',
+		name: 'Depilación Nuca',
 		basePrice: 6000,
 		bodyParts: ['cuello'],
 		duration: 20,
@@ -280,7 +280,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20nape%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Cuello',
+		name: 'Depilación Cuello',
 		basePrice: 6000,
 		bodyParts: ['cuello'],
 		duration: 20,
@@ -291,7 +291,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 
 	// Depilación cuerpo masculino
 	{
-		name: 'Pecho',
+		name: 'Depilación Pecho',
 		basePrice: 8000,
 		bodyParts: ['pecho'],
 		duration: 45,
@@ -300,7 +300,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20torso%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Abdomen',
+		name: 'Depilación Abdomen',
 		basePrice: 8000,
 		bodyParts: ['abdomen'],
 		duration: 30,
@@ -309,7 +309,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20abdomen%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Espalda Baja',
+		name: 'Depilación Espalda Baja',
 		basePrice: 7000,
 		bodyParts: ['espalda'],
 		duration: 30,
@@ -318,7 +318,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20lower%20back%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Espalda Alta',
+		name: 'Depilación Espalda Alta',
 		basePrice: 7000,
 		bodyParts: ['espalda'],
 		duration: 30,
@@ -327,7 +327,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20upper%20back%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Hombros',
+		name: 'Depilación Hombros',
 		basePrice: 6500,
 		bodyParts: ['hombros'],
 		duration: 30,
@@ -338,7 +338,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 
 	// Depilación brazos masculino
 	{
-		name: 'Brazos Completos',
+		name: 'Depilación Brazos Completos',
 		basePrice: 9000,
 		bodyParts: ['brazos'],
 		duration: 60,
@@ -347,7 +347,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20arms%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Medio Brazo',
+		name: 'Depilación Medio Brazo',
 		basePrice: 7000,
 		bodyParts: ['brazos'],
 		duration: 30,
@@ -356,7 +356,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20forearm%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Axilas',
+		name: 'Depilación Axilas',
 		basePrice: 6500,
 		bodyParts: ['axilas'],
 		duration: 30,
@@ -365,7 +365,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20underarm%20laser%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Manos',
+		name: 'Depilación Manos',
 		basePrice: 6000,
 		bodyParts: ['manos'],
 		duration: 15,
@@ -376,7 +376,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 
 	// Depilación íntima masculina
 	{
-		name: 'Cavado Completo',
+		name: 'Depilación Cavado Completo',
 		basePrice: 10000,
 		bodyParts: ['intimo'],
 		duration: 45,
@@ -385,7 +385,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20hair%20removal%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20laser%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Tira',
+		name: 'Depilación Tira',
 		basePrice: 6000,
 		bodyParts: ['intimo'],
 		duration: 20,
@@ -394,7 +394,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20hair%20removal%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20laser%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Pelvis',
+		name: 'Depilación Pelvis',
 		basePrice: 7000,
 		bodyParts: ['intimo'],
 		duration: 30,
@@ -403,7 +403,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20pelvis%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Glúteos',
+		name: 'Depilación Glúteos',
 		basePrice: 9500,
 		bodyParts: ['gluteos'],
 		duration: 45,
@@ -414,7 +414,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 
 	// Depilación piernas masculino
 	{
-		name: 'Pierna Entera',
+		name: 'Depilación Pierna Entera',
 		basePrice: 15000,
 		bodyParts: ['piernas'],
 		duration: 90,
@@ -423,7 +423,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20leg%20hair%20removal%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Media Pierna',
+		name: 'Depilación Media Pierna',
 		basePrice: 9000,
 		bodyParts: ['piernas'],
 		duration: 45,
@@ -434,7 +434,7 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 
 	// Depilación pies masculino
 	{
-		name: 'Empeine - Dedos del pie',
+		name: 'Depilación Empeine - Dedos del pie',
 		basePrice: 6000,
 		bodyParts: ['pies'],
 		duration: 20,
@@ -447,77 +447,77 @@ export const INDIVIDUAL_SERVICES_MALE: BaseServiceData[] = [
 // COMBOS FEMENINOS
 export const COMBO_SERVICES_FEMALE: ComboServiceData[] = [
 	{
-		name: 'Combo Pierna Entera + Cavado + Tira + Axilas',
+		name: 'Combo Depilación Pierna Entera + Cavado + Tira + Axilas',
 		basePrice: 21000,
 		includedServices: ['Pierna Completa', 'Cavado Completo', 'Tira de Cola', 'Axila'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20complete%20legs%20underarm%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Pierna + Cavado + Tira + Axilas + Bozo',
+		name: 'Combo Depilación Pierna + Cavado + Tira + Axilas + Bozo',
 		basePrice: 22500,
 		includedServices: ['Pierna Completa', 'Cavado Completo', 'Tira de Cola', 'Axila', 'Bozo'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20complete%20legs%20facial%20underarm%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Media Pierna + Cavado + Tira + Axilas',
+		name: 'Combo Depilación Media Pierna + Cavado + Tira + Axilas',
 		basePrice: 20000,
 		includedServices: ['Pierna Baja', 'Cavado Completo', 'Tira de Cola', 'Axila'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20lower%20legs%20underarm%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Media Pierna + Cavado + Tira + Axilas + Bozo',
+		name: 'Combo Depilación Media Pierna + Cavado + Tira + Axilas + Bozo',
 		basePrice: 21000,
 		includedServices: ['Pierna Baja', 'Cavado Completo', 'Tira de Cola', 'Axila', 'Bozo'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20lower%20legs%20facial%20underarm%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Cavado + Tira + Axila',
+		name: 'Combo Depilación Cavado + Tira + Axila',
 		basePrice: 17000,
 		includedServices: ['Cavado Completo', 'Tira de Cola', 'Axila'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20laser%20treatment%20combo%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Pierna + Cavado + Tira',
+		name: 'Combo Depilación Pierna + Cavado + Tira',
 		basePrice: 19500,
 		includedServices: ['Pierna Completa', 'Cavado Completo', 'Tira de Cola'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20complete%20legs%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Pierna + Axilas',
+		name: 'Combo Depilación Pierna + Axilas',
 		basePrice: 19500,
 		includedServices: ['Pierna Completa', 'Axila'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20complete%20legs%20underarm%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Media Pierna + Axilas',
+		name: 'Combo Depilación Media Pierna + Axilas',
 		basePrice: 18000,
 		includedServices: ['Pierna Baja', 'Axila'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20lower%20legs%20underarm%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Media Pierna + Cavado + Tira',
+		name: 'Combo Depilación Media Pierna + Cavado + Tira',
 		basePrice: 19500,
 		includedServices: ['Pierna Baja', 'Cavado Completo', 'Tira de Cola'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20lower%20legs%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Bozo + Mentón',
+		name: 'Combo Depilación Bozo + Mentón',
 		basePrice: 12000,
 		includedServices: ['Bozo', 'Mentón'],
 		imageUrl:
 			'https://image.pollinations.ai/prompt/professional%20female%20upper%20lip%20chin%20facial%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Axila + Bozo',
+		name: 'Combo Depilación Axila + Bozo',
 		basePrice: 14000,
 		includedServices: ['Axila', 'Bozo'],
 		imageUrl:
@@ -528,7 +528,7 @@ export const COMBO_SERVICES_FEMALE: ComboServiceData[] = [
 // COMBOS MASCULINOS
 export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 	{
-		name: 'Combo Pecho + Abdomen',
+		name: 'Combo Depilación Pecho + Abdomen',
 		basePrice: 13000,
 		includedServices: ['Pecho', 'Abdomen'],
 		gender: 'MALE',
@@ -536,7 +536,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20torso%20abdomen%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Espalda Completa',
+		name: 'Combo Depilación Espalda Completa',
 		basePrice: 13000,
 		includedServices: ['Espalda Alta', 'Espalda Baja'],
 		gender: 'MALE',
@@ -544,7 +544,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20back%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Boxer Completo',
+		name: 'Combo Depilación Boxer Completo',
 		basePrice: 16500,
 		includedServices: ['Cavado Completo', 'Tira', 'Glúteos'],
 		gender: 'MALE',
@@ -552,7 +552,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20boxer%20hair%20removal%20combo%20treatment%2C%20clean%20medical%20spa%20environment%2C%20modern%20laser%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Pecho + Espalda Completa',
+		name: 'Combo Depilación Pecho + Espalda Completa',
 		basePrice: 17500,
 		includedServices: ['Pecho', 'Espalda Alta', 'Espalda Baja'],
 		gender: 'MALE',
@@ -560,7 +560,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20torso%20complete%20back%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Espalda Completa + Pecho + Abdomen + Hombros + Axilas',
+		name: 'Combo Depilación Espalda Completa + Pecho + Abdomen + Hombros + Axilas',
 		basePrice: 27500,
 		includedServices: ['Espalda Alta', 'Espalda Baja', 'Pecho', 'Abdomen', 'Hombros', 'Axilas'],
 		gender: 'MALE',
@@ -568,7 +568,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20upper%20body%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Espalda Completa + Hombros',
+		name: 'Combo Depilación Espalda Completa + Hombros',
 		basePrice: 17500,
 		includedServices: ['Espalda Alta', 'Espalda Baja', 'Hombros'],
 		gender: 'MALE',
@@ -576,7 +576,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20back%20shoulders%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Cavado + Tira',
+		name: 'Combo Depilación Piernas + Cavado + Tira',
 		basePrice: 19000,
 		includedServices: ['Pierna Entera', 'Cavado Completo', 'Tira'],
 		gender: 'MALE',
@@ -584,7 +584,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20legs%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Pecho + Abdomen',
+		name: 'Combo Depilación Piernas + Pecho + Abdomen',
 		basePrice: 22000,
 		includedServices: ['Pierna Entera', 'Pecho', 'Abdomen'],
 		gender: 'MALE',
@@ -592,7 +592,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20legs%20torso%20abdomen%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Pecho + Abdomen + Hombros',
+		name: 'Combo Depilación Piernas + Pecho + Abdomen + Hombros',
 		basePrice: 26000,
 		includedServices: ['Pierna Entera', 'Pecho', 'Abdomen', 'Hombros'],
 		gender: 'MALE',
@@ -600,7 +600,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20legs%20torso%20abdomen%20shoulders%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Espalda Completa + Abdomen + Hombros',
+		name: 'Combo Depilación Espalda Completa + Abdomen + Hombros',
 		basePrice: 20000,
 		includedServices: ['Espalda Alta', 'Espalda Baja', 'Abdomen', 'Hombros'],
 		gender: 'MALE',
@@ -608,7 +608,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20back%20abdomen%20shoulders%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Espalda Completa + Pecho + Hombros',
+		name: 'Combo Depilación Espalda Completa + Pecho + Hombros',
 		basePrice: 20000,
 		includedServices: ['Espalda Alta', 'Espalda Baja', 'Pecho', 'Hombros'],
 		gender: 'MALE',
@@ -616,7 +616,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20back%20torso%20shoulders%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Espalda Completa',
+		name: 'Combo Depilación Piernas + Espalda Completa',
 		basePrice: 22000,
 		includedServices: ['Pierna Entera', 'Espalda Alta', 'Espalda Baja'],
 		gender: 'MALE',
@@ -624,7 +624,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20legs%20back%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Glúteos',
+		name: 'Combo Depilación Piernas + Glúteos',
 		basePrice: 19000,
 		includedServices: ['Pierna Entera', 'Glúteos'],
 		gender: 'MALE',
@@ -632,7 +632,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20legs%20glutes%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Glúteos + Cavado',
+		name: 'Combo Depilación Piernas + Glúteos + Cavado',
 		basePrice: 25000,
 		includedServices: ['Pierna Entera', 'Glúteos', 'Cavado Completo'],
 		gender: 'MALE',
@@ -640,7 +640,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20legs%20glutes%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Espalda + Pecho + Abdomen',
+		name: 'Combo Depilación Piernas + Espalda + Pecho + Abdomen',
 		basePrice: 27000,
 		includedServices: ['Pierna Entera', 'Espalda Alta', 'Espalda Baja', 'Pecho', 'Abdomen'],
 		gender: 'MALE',
@@ -648,7 +648,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20body%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Espalda + Pecho + Abdomen + Cavado',
+		name: 'Combo Depilación Piernas + Espalda + Pecho + Abdomen + Cavado',
 		basePrice: 30000,
 		includedServices: ['Pierna Entera', 'Espalda Alta', 'Espalda Baja', 'Pecho', 'Abdomen', 'Cavado Completo'],
 		gender: 'MALE',
@@ -656,7 +656,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20body%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Glúteos + Cavado + Espalda Baja',
+		name: 'Combo Depilación Piernas + Glúteos + Cavado + Espalda Baja',
 		basePrice: 28000,
 		includedServices: ['Pierna Entera', 'Glúteos', 'Cavado Completo', 'Espalda Baja'],
 		gender: 'MALE',
@@ -664,7 +664,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20legss%20glutes%20lower%20back%20har%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Piernas + Cavado + Axilas + Glúteos',
+		name: 'Combo Depilación Piernas + Cavado + Axilas + Glúteos',
 		basePrice: 28000,
 		includedServices: ['Pierna Entera', 'Cavado Completo', 'Axilas', 'Glúteos'],
 		gender: 'MALE',
@@ -672,7 +672,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20legs%20underarm%20glutes%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Espalda Completa + Axilas + Cuello',
+		name: 'Combo Depilación Espalda Completa + Axilas + Cuello',
 		basePrice: 23000,
 		includedServices: ['Espalda Alta', 'Espalda Baja', 'Axilas', 'Cuello'],
 		gender: 'MALE',
@@ -680,7 +680,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20back%20underarm%20neck%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Brazos + Axilas',
+		name: 'Combo Depilación Brazos + Axilas',
 		basePrice: 15000,
 		includedServices: ['Brazos Completos', 'Axilas'],
 		gender: 'MALE',
@@ -688,7 +688,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20arms%20underarm%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Barba + Cuello',
+		name: 'Combo Depilación Barba + Cuello',
 		basePrice: 13000,
 		includedServices: ['Barba', 'Cuello'],
 		gender: 'MALE',
@@ -696,7 +696,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20beard%20neck%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Barba + Cuello + Nuca',
+		name: 'Combo Depilación Barba + Cuello + Nuca',
 		basePrice: 18000,
 		includedServices: ['Barba', 'Cuello', 'Nuca'],
 		gender: 'MALE',
@@ -704,7 +704,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20beard%20neck%20nape%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Pecho + Abdomen + Pelvis',
+		name: 'Combo Depilación Pecho + Abdomen + Pelvis',
 		basePrice: 19000,
 		includedServices: ['Pecho', 'Abdomen', 'Pelvis'],
 		gender: 'MALE',
@@ -712,7 +712,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20torso%20abdomen%20pelvis%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Full Cuerpo Completo',
+		name: 'Combo Depilación Full Cuerpo Completo Masculina',
 		basePrice: 158000,
 		includedServices: [
 			'Pecho',
@@ -733,7 +733,7 @@ export const COMBO_SERVICES_MALE: ComboServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20male%20complete%20full%20body%20hair%20removal%20combo%20treatment%2C%20laser%20procedure%2C%20clean%20medical%20spa%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 	{
-		name: 'Combo Premium Depilación Completa Femenina',
+		name: 'Combo Depilación Premium Completa Femenina',
 		basePrice: 145000,
 		includedServices: [
 			'Pierna Completa',
@@ -1149,7 +1149,6 @@ export const PACK_SERVICES: PackServiceData[] = [
 			'https://image.pollinations.ai/prompt/professional%20premium%20anti%20aging%20facial%20treatment%20package%2C%20luxury%20aesthetic%20clinic%20environment%2C%20modern%20equipment%2C%20soft%20lighting%2C%20professional%20photography%2C%20high%20quality?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true',
 	},
 ];
-
 
 // FUNCIÓN PARA OBTENER TODOS LOS SERVICIOS INDIVIDUALES
 export function getAllIndividualServices(): BaseServiceData[] {

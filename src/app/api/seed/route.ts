@@ -1,15 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import {
-	getAllIndividualServices,
-	getAllComboServices,
-	getAllPackServices,
-	type BaseServiceData,
-	type ComboServiceData,
-	type PackServiceData,
-} from '@/data/servicesData';
+import { getAllIndividualServices, getAllComboServices, getAllPackServices } from '@/data/servicesData';
 import { GenderType, ServiceType } from '@/schemas/servicesSchema';
-import { BODY_PARTS, CATEGORIES } from '@/lib/constants';
+import { BODY_PARTS, CATEGORIES, TAGS } from '@/lib/constants';
 
 // Función para obtener elementos aleatorios de un array
 function getRandomElements<T>(array: T[], count: number): T[] {
@@ -114,6 +107,57 @@ function generateSlug(name: string): string {
 	return `${baseSlug}-${timestamp}`;
 }
 
+// Función para generar rating aleatorio (mayoritariamente alto, algunos muy bajos)
+function generateRandomRating(): number {
+	const rand = Math.random();
+	if (rand < 0.7) {
+		// 70% de probabilidad de rating alto (4.0 - 5.0)
+		return parseFloat((Math.random() * (5.0 - 4.0) + 4.0).toFixed(1));
+	} else if (rand < 0.85) {
+		// 15% de probabilidad de rating medio (2.5 - 3.9)
+		return parseFloat((Math.random() * (3.9 - 2.5) + 2.5).toFixed(1));
+	} else {
+		// 15% de probabilidad de rating bajo (1.0 - 2.4)
+		return parseFloat((Math.random() * (2.4 - 1.0) + 1.0).toFixed(1));
+	}
+}
+
+// Función para generar reviewCount aleatorio
+function generateRandomReviewCount(): number {
+	const rand = Math.random();
+	if (rand < 0.2) {
+		// 20% de probabilidad de no tener reviews
+		return 0;
+	} else if (rand < 0.6) {
+		// 40% de probabilidad de tener pocas reviews (1-10)
+		return Math.floor(Math.random() * 10) + 1;
+	} else {
+		// 40% de probabilidad de tener más reviews (11-50)
+		return Math.floor(Math.random() * 40) + 11;
+	}
+}
+
+// Función para generar bookings aleatorios
+function generateRandomBookings(): number {
+	const rand = Math.random();
+	if (rand < 0.2) {
+		// 20% de probabilidad de no tener bookings
+		return 0;
+	} else if (rand < 0.6) {
+		// 40% de probabilidad de tener pocas bookings (1-20)
+		return Math.floor(Math.random() * 20) + 1;
+	} else {
+		// 40% de probabilidad de tener más bookings (21-100)
+		return Math.floor(Math.random() * 80) + 21;
+	}
+}
+
+// Función para generar tags aleatorias
+function generateRandomTags(): string[] {
+	const count = Math.floor(Math.random() * 3) + 1; // 1 a 3 tags
+	return getRandomElements(TAGS, count);
+}
+
 export async function GET(request: NextRequest) {
 	try {
 		// Obtener todos los servicios de la data
@@ -138,6 +182,10 @@ export async function GET(request: NextRequest) {
 			const gender = generateRandomGender();
 			const description = generateServiceDescription(service.name, 'INDIVIDUAL', duration);
 			const flags = generateServiceFlags();
+			const rating = generateRandomRating();
+			const reviewCount = generateRandomReviewCount();
+			const bookings = generateRandomBookings();
+			const tags = generateRandomTags();
 
 			const serviceData = {
 				name: service.name,
@@ -151,10 +199,13 @@ export async function GET(request: NextRequest) {
 				gender,
 				bodyParts,
 				categories,
-				tags: [],
+				tags,
 				imageUrl: service.imageUrl,
 				...flags,
 				isActive: true,
+				rating: reviewCount > 0 ? rating : 0,
+				reviewCount,
+				bookings,
 			};
 
 			allServices.push(serviceData);
@@ -170,6 +221,10 @@ export async function GET(request: NextRequest) {
 			const gender = generateRandomGender();
 			const description = generateServiceDescription(combo.name, 'COMBO');
 			const flags = generateServiceFlags();
+			const rating = generateRandomRating();
+			const reviewCount = generateRandomReviewCount();
+			const bookings = generateRandomBookings();
+			const tags = generateRandomTags();
 
 			const comboData = {
 				name: combo.name,
@@ -183,11 +238,14 @@ export async function GET(request: NextRequest) {
 				gender,
 				bodyParts,
 				categories,
-				tags: [],
+				tags,
 				imageUrl: combo.imageUrl,
 				includedServices: combo.includedServices,
 				...flags,
 				isActive: true,
+				rating: reviewCount > 0 ? rating : 0,
+				reviewCount,
+				bookings,
 			};
 
 			allServices.push(comboData);
@@ -203,6 +261,10 @@ export async function GET(request: NextRequest) {
 			const gender = generateRandomGender();
 			const description = generateServiceDescription(pack.name, 'PACK', undefined, pack.sessions);
 			const flags = generateServiceFlags();
+			const rating = generateRandomRating();
+			const reviewCount = generateRandomReviewCount();
+			const bookings = generateRandomBookings();
+			const tags = generateRandomTags();
 
 			const packData = {
 				name: pack.name,
@@ -216,12 +278,15 @@ export async function GET(request: NextRequest) {
 				gender,
 				bodyParts,
 				categories,
-				tags: [],
+				tags,
 				imageUrl: pack.imageUrl,
 				includedServices: pack.includedServices,
 				sessions: pack.sessions,
 				...flags,
 				isActive: true,
+				rating: reviewCount > 0 ? rating : 0,
+				reviewCount,
+				bookings,
 			};
 
 			allServices.push(packData);

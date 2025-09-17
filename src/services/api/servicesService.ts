@@ -18,6 +18,7 @@ export const parseBody = async <T>(req: Request, schema: ZodType<T>) => {
 	const parseBody = schema.parse(body);
 	return parseBody;
 };
+
 // TODO: verficar todos los filtros
 export const buildServiceFilters = (filters: UrlServicesFiltersType, isAdmin: boolean) => {
 	const {
@@ -85,12 +86,17 @@ export const getSelectFields = (isAdmin: boolean) => {
 		gender: true,
 		finalPrice: true,
 		hasPromo: true,
+		duration: true,
+		sessions: true,
 		isFeatured: true,
 		isNew: true,
 		isPopular: true,
 		imageUrl: true,
 		isActive: true,
 		createdAt: true,
+		rating: true,
+		reviewCount: true,
+		bookings: true,
 	};
 
 	if (isAdmin) {
@@ -112,8 +118,8 @@ export const buildPagination = (currentPage: number, itemsPerPage: number, total
 		hasPreviousPage: currentPage > 1,
 	};
 };
-// TODO: solucionar sort
 
+// TODO: solucionar sort
 export const buildSort = (
 	sort?: SortType | null
 ): Prisma.ServiceOrderByWithRelationInput | Prisma.ServiceOrderByWithRelationInput[] => {

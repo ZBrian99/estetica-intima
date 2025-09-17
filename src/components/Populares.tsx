@@ -1,11 +1,11 @@
 import Link from 'next/link';
 // import { useServices } from '@/hooks/useServices';
 // import LoadingSpinner from './common/LoadingSpinner';
-import ServiceCard from './services/ServiceCard';
 import { fetchServicesServer } from '@/services/client/servicesService';
+import { ServiceCard } from './services/ServiceCard';
 
 const Populares = async () => {
-  const {data: services} = await fetchServicesServer({ sort: "relevance" });
+	const { data: services } = await fetchServicesServer({ sort: 'relevance' });
 	// Obtener los primeros 10 servicios del servidor
 	// const { services, isLoading, error } = useServices({ sort: "relevance" });
 

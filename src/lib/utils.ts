@@ -36,6 +36,10 @@ export const formatPrice = (price: number) => {
 	}).format(price);
 };
 
+export const calculateDiscount = (basePrice: number, finalPrice: number) => {
+	return Math.round(((basePrice - finalPrice) / basePrice) * 100);
+};
+
 export const filtersToUrlParams = (filters?: ServicesFiltersType) => {
 	if (!filters) {
 		return '';
