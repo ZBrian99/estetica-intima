@@ -4,53 +4,27 @@ import Link from 'next/link';
 import { ServiceCard } from './services/ServiceCard';
 import { filtersToUrlParams, getBaseUrl } from '@/lib/utils';
 import { ServicesResponse } from '@/types/servicesTypes';
+import { buildServiceFilters, buildSort, getPaginatedServices, getSelectFields } from '@/services/api/servicesService';
+import { ServiceResponse, urlServiceFiltersSchema } from '@/schemas/servicesSchema';
+import { prisma } from '@/lib/prisma';
 
 const Populares = async () => {
-	const params = filtersToUrlParams({ sort: 'relevance' });
-	const response = await fetch(`${getBaseUrl()}/api/services${params ? `?${params}` : ''}`, {
-		next: { tags: ['Services'], revalidate: Infinity },
+	// const response = await fetch(`${getBaseUrl()}/api/services${params ? `?${params}` : ''}`);
+
+	// if (!response.ok) {
+	// 	throw new Error(`Error ${response.status}: ${response.statusText}`);
+	// }
+
+	const select = getSelectFields(false);
+
+	const response = await prisma.service.findMany({
+		select,
+		skip: 0,
+		take: 10,
+		orderBy: buildSort('relevance'),
 	});
 
-	if (!response.ok) {
-		throw new Error(`Error ${response.status}: ${response.statusText}`);
-	}
-
-	const { data: services } = (await response.json()) as ServicesResponse;
-
-	// const { data: services } = await fetchServicesServer({ sort: 'relevance' });
-	// Obtener los primeros 10 servicios del servidor
-	// const { services, isLoading, error } = useServices({ sort: "relevance" });
-
-	// if (isLoading) {
-	// 	return (
-	// 		<section className='py-16 bg-white'>
-	// 			<div className='max-w-7xl mx-auto px-4'>
-	// 				<div className='text-center mb-12'>
-	// 					<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Tratamientos Destacados</h2>
-	// 				</div>
-	// 				<div className='flex justify-center'>
-	// 					<LoadingSpinner />
-	// 				</div>
-	// 			</div>
-	// 		</section>
-	// 	);
-	// }
-
-	// if (error) {
-	// 	return (
-	// 		<section className='py-16 bg-white'>
-	// 			<div className='max-w-7xl mx-auto px-4'>
-	// 				<div className='text-center mb-12'>
-	// 					<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Tratamientos Más Populares</h2>
-	// 				</div>
-	// 				<div className='text-center text-gray-600'>
-	// 					<p>Error al cargar los servicios. Intenta nuevamente más tarde.</p>
-	// 				</div>
-	// 			</div>
-	// 		</section>
-	// 	);
-	// }
-
+	const data = response as unknown as ServicesResponse;
 	return (
 		<section className='py-16 bg-white'>
 			<div className='max-w-7xl mx-auto px-4'>
@@ -64,7 +38,7 @@ const Populares = async () => {
 
 				{/* Services Grid */}
 				<div className='grid us:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4'>
-					{services?.slice(0, 8).map((service) => (
+					{data.data?.slice(0, 8).map((service) => (
 						<ServiceCard key={service.id} service={service} />
 					))}
 				</div>
