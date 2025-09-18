@@ -4,17 +4,27 @@ import Link from 'next/link';
 import { ServiceCard } from './services/ServiceCard';
 import { filtersToUrlParams, getBaseUrl } from '@/lib/utils';
 import { ServicesResponse } from '@/types/servicesTypes';
+import { buildServiceFilters, buildSort, getPaginatedServices, getSelectFields } from '@/services/api/servicesService';
+import { ServiceResponse, urlServiceFiltersSchema } from '@/schemas/servicesSchema';
+import { prisma } from '@/lib/prisma';
 
 const Populares = async () => {
-	const params = filtersToUrlParams({ sort: 'relevance' });
-	const response = await fetch(`${getBaseUrl()}/api/services${params ? `?${params}` : ''}`);
+	// const response = await fetch(`${getBaseUrl()}/api/services${params ? `?${params}` : ''}`);
 
-	if (!response.ok) {
-		throw new Error(`Error ${response.status}: ${response.statusText}`);
-	}
+	// if (!response.ok) {
+	// 	throw new Error(`Error ${response.status}: ${response.statusText}`);
+	// }
 
-	const { data: services } = (await response.json()) as ServicesResponse;
+	const select = getSelectFields(false);
 
+	const response = await prisma.service.findMany({
+		select,
+		skip: 0,
+		take: 10,
+		orderBy: buildSort('relevance'),
+	});
+
+	const data = response as unknown as ServicesResponse;
 	return (
 		<section className='py-16 bg-white'>
 			<div className='max-w-7xl mx-auto px-4'>
@@ -28,7 +38,7 @@ const Populares = async () => {
 
 				{/* Services Grid */}
 				<div className='grid us:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4'>
-					{services?.slice(0, 8).map((service) => (
+					{data.data?.slice(0, 8).map((service) => (
 						<ServiceCard key={service.id} service={service} />
 					))}
 				</div>
