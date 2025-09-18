@@ -1,11 +1,23 @@
 import Link from 'next/link';
 // import { useServices } from '@/hooks/useServices';
 // import LoadingSpinner from './common/LoadingSpinner';
-import { fetchServicesServer } from '@/services/client/servicesService';
 import { ServiceCard } from './services/ServiceCard';
+import { filtersToUrlParams, getBaseUrl } from '@/lib/utils';
+import { ServicesResponse } from '@/types/servicesTypes';
 
 const Populares = async () => {
-	const { data: services } = await fetchServicesServer({ sort: 'relevance' });
+	const params = filtersToUrlParams({ sort: 'relevance' });
+	const response = await fetch(`${getBaseUrl()}/api/services${params ? `?${params}` : ''}`, {
+		next: { tags: ['Services'], revalidate: Infinity },
+	});
+
+	if (!response.ok) {
+		throw new Error(`Error ${response.status}: ${response.statusText}`);
+	}
+
+	const { data: services } = (await response.json()) as ServicesResponse;
+
+	// const { data: services } = await fetchServicesServer({ sort: 'relevance' });
 	// Obtener los primeros 10 servicios del servidor
 	// const { services, isLoading, error } = useServices({ sort: "relevance" });
 
