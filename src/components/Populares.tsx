@@ -1,42 +1,43 @@
-'use client';
 import Link from 'next/link';
-import { useServices } from '@/hooks/useServices';
-import LoadingSpinner from './common/LoadingSpinner';
-import ServiceCard from './services/ServiceCard';
+// import { useServices } from '@/hooks/useServices';
+// import LoadingSpinner from './common/LoadingSpinner';
+import { fetchServicesServer } from '@/services/client/servicesService';
+import { ServiceCard } from './services/ServiceCard';
 
-const Populares = () => {
+const Populares = async () => {
+	const { data: services } = await fetchServicesServer({ sort: 'relevance' });
 	// Obtener los primeros 10 servicios del servidor
-	const { services, isLoading, error } = useServices({ isFeatured: true });
+	// const { services, isLoading, error } = useServices({ sort: "relevance" });
 
-	if (isLoading) {
-		return (
-			<section className='py-16 bg-white'>
-				<div className='max-w-7xl mx-auto px-4'>
-					<div className='text-center mb-12'>
-						<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Tratamientos Destacados</h2>
-					</div>
-					<div className='flex justify-center'>
-						<LoadingSpinner />
-					</div>
-				</div>
-			</section>
-		);
-	}
+	// if (isLoading) {
+	// 	return (
+	// 		<section className='py-16 bg-white'>
+	// 			<div className='max-w-7xl mx-auto px-4'>
+	// 				<div className='text-center mb-12'>
+	// 					<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Tratamientos Destacados</h2>
+	// 				</div>
+	// 				<div className='flex justify-center'>
+	// 					<LoadingSpinner />
+	// 				</div>
+	// 			</div>
+	// 		</section>
+	// 	);
+	// }
 
-	if (error) {
-		return (
-			<section className='py-16 bg-white'>
-				<div className='max-w-7xl mx-auto px-4'>
-					<div className='text-center mb-12'>
-						<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Tratamientos Más Populares</h2>
-					</div>
-					<div className='text-center text-gray-600'>
-						<p>Error al cargar los servicios. Intenta nuevamente más tarde.</p>
-					</div>
-				</div>
-			</section>
-		);
-	}
+	// if (error) {
+	// 	return (
+	// 		<section className='py-16 bg-white'>
+	// 			<div className='max-w-7xl mx-auto px-4'>
+	// 				<div className='text-center mb-12'>
+	// 					<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Tratamientos Más Populares</h2>
+	// 				</div>
+	// 				<div className='text-center text-gray-600'>
+	// 					<p>Error al cargar los servicios. Intenta nuevamente más tarde.</p>
+	// 				</div>
+	// 			</div>
+	// 		</section>
+	// 	);
+	// }
 
 	return (
 		<section className='py-16 bg-white'>

@@ -1,18 +1,18 @@
 import { z } from 'zod';
 
 // Enums que coinciden con Prisma
-export const ServiceType = z.enum(['INDIVIDUAL', 'COMBO', 'PACK']);
+export const Type = z.enum(['INDIVIDUAL', 'COMBO', 'PACK']);
 export const Gender = z.enum(['MALE', 'FEMALE', 'UNISEX']);
-export const SortByFields = z.enum(['name', 'price', 'createdAt', 'order', 'type']);
-export const SortOrder = z.enum(['asc', 'desc']);
+export const Sort = z.enum(['relevance', 'popularity', 'price-asc', 'price-desc']);
 
 // Schema base común para todos los servicios
 const baseServiceSchema = z.object({
 	name: z.string().min(1, 'El nombre es requerido'),
 	description: z.string().optional(),
 	slug: z.string().min(1, 'El slug es requerido'),
-	price: z.number().positive('El precio debe ser positivo'),
-	promoPrice: z.number().positive().optional(),
+	basePrice: z.number().positive('El precio base debe ser positivo'),
+	finalPrice: z.number().positive('El precio final debe ser positivo'),
+	hasPromo: z.boolean().default(false),
 	duration: z.number().int().positive().optional(),
 	sessions: z.number().int().positive().optional(),
 	gender: Gender.default('UNISEX'),
@@ -27,6 +27,9 @@ const baseServiceSchema = z.object({
 	isFeatured: z.boolean().default(false),
 	isPopular: z.boolean().default(false),
 	isNew: z.boolean().default(false),
+	rating: z.number().min(0).max(5).default(0),
+	reviewCount: z.number().int().default(0),
+	bookings: z.number().int().default(0),
 });
 
 // Schemas específicos por tipo de servicio
@@ -63,8 +66,9 @@ export const updateServiceSchema = z
 		name: z.string().min(1, 'El nombre es requerido').optional(),
 		description: z.string().optional(),
 		slug: z.string().min(1, 'El slug es requerido').optional(),
-		price: z.number().positive('El precio debe ser positivo').optional(),
-		promoPrice: z.number().positive().optional(),
+		basePrice: z.number().positive('El precio debe ser positivo').optional(),
+		finalPrice: z.number().positive().optional(),
+		hasPromo: z.boolean().default(false),
 		duration: z.number().int().positive().optional(),
 		gender: Gender.optional(),
 		categories: z.array(z.string()).min(1, 'Debe tener al menos una categoría').optional(),
@@ -77,8 +81,11 @@ export const updateServiceSchema = z
 		isFeatured: z.boolean().optional(),
 		isPopular: z.boolean().optional(),
 		isNew: z.boolean().optional(),
+		rating: z.number().min(0).max(5).optional(),
+		reviewCount: z.number().int().optional(),
+		bookings: z.number().int().optional(),
 		// Campos específicos por tipo
-		type: ServiceType.optional(),
+		type: Type.optional(),
 		sessions: z.number().int().positive().optional(),
 		includedServices: z.array(z.string()).optional(),
 	})
@@ -101,17 +108,17 @@ export const deleteServiceSchema = z.object({
 });
 
 // Schema para filtros (usado internamente)
-export const serviceFiltersSchema = z
+export const servicesFiltersSchema = z
 	.object({
 		page: z.number().int().min(1).optional(),
 		// page: z.number().int().min(1).optional().default(1),
 		// limit: z.number().int().min(1).max(100).optional().default(10),
 		search: z.string().optional(),
-		type: ServiceType.optional(),
+		type: Type.nullish(),
 		categories: z.array(z.string()).optional(),
 		bodyParts: z.array(z.string()).optional(),
 		tags: z.array(z.string()).optional(),
-		gender: Gender.optional(),
+		gender: Gender.nullish(),
 		minPrice: z.number().min(0).optional(),
 		maxPrice: z.number().min(0).optional(),
 		hasPromo: z.boolean().optional(),
@@ -119,10 +126,7 @@ export const serviceFiltersSchema = z
 		isFeatured: z.boolean().optional(),
 		isPopular: z.boolean().optional(),
 		isNew: z.boolean().optional(),
-		sortBy: SortByFields.optional(),
-		sortOrder: SortOrder.optional(),
-		// sortBy: SortByFields.optional().default('createdAt'),
-		// sortOrder: SortOrder.optional().default('desc'),
+		sort: Sort.nullish(),
 	})
 	.refine(
 		(data) => {
@@ -143,7 +147,7 @@ export const urlServiceFiltersSchema = z
 		page: z.coerce.number().int().min(1).default(1),
 		// limit: z.coerce.number().int().min(1).max(100).default(10),
 		search: z.string().optional(),
-		type: ServiceType.optional(),
+		type: Type.optional(),
 		categories: z
 			.string()
 			.optional()
@@ -194,8 +198,7 @@ export const urlServiceFiltersSchema = z
 				if (val === undefined) return undefined;
 				return val === 'true';
 			}),
-		sortBy: SortByFields.default('createdAt'),
-		sortOrder: SortOrder.default('asc'),
+		sort: Sort.nullish(),
 	})
 	.refine(
 		(data) => {
@@ -212,12 +215,13 @@ export const urlServiceFiltersSchema = z
 
 // Tipos TypeScript inferidos
 export type ServiceInput = z.infer<typeof serviceSchema>;
-export type ServiceType = z.infer<typeof ServiceType>;
+export type ServiceType = z.infer<typeof Type>;
 export type GenderType = z.infer<typeof Gender>;
+export type SortType = z.infer<typeof Sort>;
 export type CreateServiceInput = z.infer<typeof createServiceSchema>;
 export type UpdateServiceInput = z.infer<typeof updateServiceSchema>;
 export type DeleteServiceInput = z.infer<typeof deleteServiceSchema>;
-export type ServicesFiltersType = z.infer<typeof serviceFiltersSchema>;
+export type ServicesFiltersType = z.infer<typeof servicesFiltersSchema>;
 export type UrlServicesFiltersType = z.infer<typeof urlServiceFiltersSchema>;
 
 export type ServiceResponse = ServiceInput & {

@@ -1,78 +1,70 @@
+'use client';
+
 import { useFiltersStore } from '@/stores/filtersStore';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { serviceFiltersSchema, ServicesFiltersType } from '@/schemas/servicesSchema';
-import { Input } from '../ui/input';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { servicesFiltersSchema, ServicesFiltersType } from '@/schemas/servicesSchema';
+import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Button } from '../ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { Filter, X } from 'lucide-react';
+import { ChevronDownIcon, Filter, X } from 'lucide-react';
 import { HiFire, HiStar, HiSparkles } from 'react-icons/hi2';
 import { MdLocalOffer } from 'react-icons/md';
-import { FaVenus, FaMars, FaVenusMars } from 'react-icons/fa';
+import { FaVenus, FaMars } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
-import { BODY_PARTS, CATEGORIES, SERVICE_TYPES } from '@/data/servicesData';
-// Opciones para los filtros
-
-// const initialFormValues: ServicesFiltersType = {
-// 	search: 'dsad',
-// 	type: undefined,
-// 	gender: undefined,
-// 	categories: [],
-// 	bodyParts: [],
-// };
-
+import { BODY_PARTS, CATEGORIES, SERVICE_TYPES, TAGS } from '@/lib/constants';
+// import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+// TODO: añadir resto de filtros y probar todas las combinaciones
+// TODO: añadir ordenamiento
+// TODO: cambiar version mobile a top bar
+// TODO: Separar debouncer en un hook
+// TODO: filtro de ordenamiento no se sincroniza
 const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFiltersType }) => {
-	const { filters, setFilter, setFilters, resetToDefaults } = useFiltersStore();
-	const [isFirstLoad, setIsFirstLoad] = useState(true);
+	const setFilters = useFiltersStore((state) => state.setFilters);
+	// const [isFirstLoad, setIsFirstLoad] = useState(true);
+	const isFirstLoad = useRef(true);
 	const [isMobileOpen, setIsMobileOpen] = useState(false);
 	const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-	const defaultValues: ServicesFiltersType = {
-		search: initialFormValues.search ?? '',
-		type: initialFormValues.type ?? undefined,
-		gender: initialFormValues.gender ?? undefined,
-		categories: initialFormValues.categories ?? [],
-		bodyParts: initialFormValues.bodyParts ?? [],
-		...initialFormValues,
-	};
-
 	const form = useForm<ServicesFiltersType>({
-		resolver: zodResolver(serviceFiltersSchema),
-		defaultValues,
+		resolver: zodResolver(servicesFiltersSchema),
+		defaultValues: initialFormValues,
 	});
 
-	// Observar cambios en el formulario y aplicar filtros automáticamente
 	const watchedValues = useWatch({
 		control: form.control,
 	});
 
-	// Función debounced para aplicar filtros
-	const debouncedSetFilters = useCallback(
-		(values: ServicesFiltersType) => {
-			if (debounceRef.current) {
-				clearTimeout(debounceRef.current);
-			}
-			debounceRef.current = setTimeout(() => {
-				setFilters({ ...values, page: 1 });
-			}, 500);
-		},
-		[setFilters]
-	);
-
-	// Aplicar filtros cada vez que cambien los valores del formulario con debounce
-	useEffect(() => {
-		// Evitar aplicar filtros en el primer render con valores por defecto
-		if (!isFirstLoad) {
-			debouncedSetFilters(watchedValues);
-		} else {
-			setIsFirstLoad(false);
+	const debouncedSetFilters = useCallback((values: ServicesFiltersType) => {
+		if (debounceRef.current) {
+			clearTimeout(debounceRef.current);
 		}
-	}, [watchedValues, debouncedSetFilters]);
+		debounceRef.current = setTimeout(() => {
+			const cleanedValues = Object.entries(values).reduce((acc, [key, value]) => {
+				if (
+					value === '' ||
+					value === undefined ||
+					value === null ||
+					value === false ||
+					(Array.isArray(value) && value.length === 0)
+				) {
+					return acc;
+				}
+				return { ...acc, [key]: value };
+			}, {});
+			setFilters({ ...cleanedValues, page: 1 });
+		}, 300);
+	}, []);
 
-	// Cleanup del timeout al desmontar el componente
+	useEffect(() => {
+		if (isFirstLoad.current) {
+			isFirstLoad.current = false;
+			return;
+		}
+
+		debouncedSetFilters(watchedValues);
+	}, [watchedValues]);
+
 	useEffect(() => {
 		return () => {
 			if (debounceRef.current) {
@@ -81,44 +73,41 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 		};
 	}, []);
 
-	// function onSubmit(data: ServicesFiltersType) {
-	// 	// Ya no es necesario setFilters aquí porque se hace automáticamente
-	// 	console.log('Form submitted:', data);
-	// }
-
-	// const onReset = () => {
-	// 	// Cancelar cualquier debounce pendiente
-	// 	if (debounceRef.current) {
-	// 		clearTimeout(debounceRef.current);
-	// 	}
-	// 	// Limpiar completamente los filtros del store
-	// 	resetToDefaults();
-	// 	// Resetear el formulario a valores completamente vacíos
-	// 	form.reset({
-	// 		search: undefined,
-	// 		type: undefined,
-	// 		gender: undefined,
-	// 		categories: [],
-	// 		bodyParts: [],
-	// 		minPrice: undefined,
-	// 		maxPrice: undefined,
-	// 		isPopular: undefined,
-	// 		isNew: undefined,
-	// 		sortBy: undefined,
-	// 		sortOrder: undefined,
-	// 	});
-	// };
+	const resetFilters = () => {
+		setIsMobileOpen(false);
+		form.reset({
+			type: null,
+			gender: null,
+			categories: [],
+			bodyParts: [],
+			isPopular: false,
+			isNew: false,
+			isFeatured: false,
+			hasPromo: false,
+			tags: [],
+			// sort: null,
+		});
+	};
 
 	return (
 		<>
 			{/* Botón móvil flotante para abrir filtros */}
 			<button
+				className='md:hidden w-fit bg-primary-500 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-medium'
+				onClick={() => setIsMobileOpen(true)}
+			>
+				<Filter className='h-4 w-4' />
+				Filtros
+				<ChevronDownIcon className='h-4 w-4' />
+			</button>
+
+			{/* <button
 				className='md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 bg-primary-500 hover:bg-primary-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-medium'
 				onClick={() => setIsMobileOpen(true)}
 			>
 				<Filter className='h-4 w-4' />
 				Filtros
-			</button>
+			</button> */}
 
 			{/* Overlay móvil */}
 			{isMobileOpen && (
@@ -165,6 +154,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 					<Form {...form}>
 						<form className='p-4 space-y-6 pb-8'>
 							{/* Filtros de estado - Badges estilo ServiceCard */}
+							{/* <div className='flex gap-4'> */}
 							<div className='space-y-4'>
 								<h3 className='font-semibold text-gray-900 text-sm'>Estado</h3>
 								<div className='flex flex-wrap gap-2'>
@@ -181,9 +171,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-white shadow-lg border-primary-500'
 														: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<HiStar size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<HiStar size={14} />
 												Destacados
 											</button>
 										)}
@@ -201,9 +191,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white shadow-lg border-red-500'
 														: 'bg-white text-gray-600 hover:bg-red-50 hover:text-red-700 border-gray-200 hover:border-red-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<MdLocalOffer size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<MdLocalOffer size={14} />
 												Ofertas
 											</button>
 										)}
@@ -221,9 +211,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 text-white shadow-lg border-amber-500'
 														: 'bg-white text-gray-600 hover:bg-orange-50 hover:text-orange-700 border-gray-200 hover:border-orange-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<HiFire size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<HiFire size={14} />
 												Populares
 											</button>
 										)}
@@ -242,9 +232,9 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														? 'bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-600 text-white shadow-lg border-green-500'
 														: 'bg-white text-gray-600 hover:bg-green-50 hover:text-green-700 border-gray-200 hover:border-green-300'
 												)}
-												onClick={() => field.onChange(field.value ? undefined : true)}
+												onClick={() => field.onChange(field.value ? false : true)}
 											>
-												<HiSparkles size={14} className={field.value ? 'drop-shadow-sm' : ''} />
+												<HiSparkles size={14} />
 												Nuevos
 											</button>
 										)}
@@ -252,7 +242,6 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 								</div>
 							</div>
 
-							{/* Filtro de Tipo de Servicio */}
 							<FormField
 								control={form.control}
 								name='type'
@@ -269,7 +258,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														return (
 															<button
 																type='button'
-																onClick={() => field.onChange(field.value === type.value ? undefined : type.value)}
+																onClick={() => field.onChange(field.value === type.value ? null : type.value)}
 																className={cn(
 																	'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 border',
 																	field.value === type.value
@@ -299,7 +288,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 											{[
 												{ value: 'FEMALE', label: 'Mujer', icon: FaVenus },
 												{ value: 'MALE', label: 'Hombre', icon: FaMars },
-												{ value: 'UNISEX', label: 'Unisex', icon: FaVenusMars },
+												// { value: 'UNISEX', label: 'Unisex', icon: FaVenusMars },
 											].map(({ value, label, icon: Icon }) => (
 												<FormField
 													key={value}
@@ -309,7 +298,8 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 														return (
 															<button
 																type='button'
-																onClick={() => field.onChange(field.value === value ? undefined : value)}
+																// onClick={() => field.onChange(field.value === value ? undefined : value)}
+																onClick={() => field.onChange(field.value === value ? null : value)}
 																className={cn(
 																	'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 border flex items-center gap-2',
 																	field.value === value
@@ -317,7 +307,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 																		: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
 																)}
 															>
-																{/* <Icon size={12} /> */}
+																<Icon size={14} />
 																{label}
 															</button>
 														);
@@ -417,6 +407,90 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 									</FormItem>
 								)}
 							/>
+							{/* Filtro de Tags */}
+							<FormField
+								control={form.control}
+								name='tags'
+								render={() => (
+									<FormItem>
+										<FormLabel className='font-semibold text-gray-900 text-sm'>Tags</FormLabel>
+										<div className='flex flex-wrap gap-2'>
+											{TAGS.map((tag) => (
+												<FormField
+													key={tag}
+													control={form.control}
+													name='tags'
+													render={({ field }) => {
+														const isSelected = field.value?.includes(tag) || false;
+														return (
+															<button
+																type='button'
+																onClick={() => {
+																	const currentTags = field.value || [];
+																	if (isSelected) {
+																		field.onChange(currentTags.filter((t) => t !== tag));
+																	} else {
+																		field.onChange([...currentTags, tag]);
+																	}
+																}}
+																className={cn(
+																	'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 border',
+																	isSelected
+																		? 'bg-primary-600 text-white shadow-lg border-primary-600'
+																		: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
+																)}
+															>
+																{tag}
+															</button>
+														);
+													}}
+												/>
+											))}
+										</div>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							{/* Filtro de Tipo de Servicio */}
+							{/* <FormField
+								control={form.control}
+								name='sort'
+								render={() => (
+									<FormItem className='xs:hidden'>
+										<FormLabel className='font-semibold text-gray-900 text-sm'>Ordenar por</FormLabel>
+										<div className='flex flex-wrap gap-2'>
+											{SORT_OPTIONS.map((option) => (
+												<FormField
+													key={option.value}
+													control={form.control}
+													name='sort'
+													render={({ field }) => {
+														return (
+															<button
+																type='button'
+																onClick={() => field.onChange(field.value === option.value ? null : option.value)}
+																className={cn(
+																	'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 border',
+																	field.value === option.value
+																		? 'bg-primary-600 text-white shadow-lg border-primary-600'
+																		: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
+																)}
+															>
+																{option.label}
+															</button>
+														);
+													}}
+												/>
+											))}
+										</div>
+										<FormMessage />
+									</FormItem>
+								)}
+							/> */}
+							{/* boton de reset */}
+							<Button onClick={resetFilters} className='w-full' type='reset'>
+								Limpiar filtros
+							</Button>
 						</form>
 					</Form>
 				</div>

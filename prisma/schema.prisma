@@ -58,13 +58,17 @@ model Service {
   slug        String  @unique // Para URLs amigables
 
   // Precios
-  price      Decimal  @db.Decimal(10, 2)
-  promoPrice Decimal? @db.Decimal(10, 2) // Precio promocional
-
+  // price         Decimal? @db.Decimal(10, 2)
+  // promoPrice    Decimal? @db.Decimal(10, 2)
+  // originalPrice Decimal? @db.Decimal(10, 2)
+  // currentPrice  Decimal? @db.Decimal(10, 2)
+  basePrice  Decimal @db.Decimal(10, 2)
+  finalPrice Decimal @db.Decimal(10, 2)
+  hasPromo   Boolean @default(false)
   // Características generales
-  duration Int? // Duración en minutos (INDIVIDUAL y algunos COMBO)
-  sessions Int? // Cantidad de sesiones (solo PACK)
-  gender   Gender @default(UNISEX)
+  duration   Int? // Duración en minutos (INDIVIDUAL y algunos COMBO)
+  sessions   Int? // Cantidad de sesiones (solo PACK)
+  gender     Gender  @default(UNISEX)
 
   // Categorización flexible con arrays
   categories String[] // ["Depilación", "Facial", "Corporal"]
@@ -92,6 +96,9 @@ model Service {
   isPopular  Boolean  @default(false) // Badge "Popular"
   isNew      Boolean  @default(false) // Badge "Nuevo"
 
+  rating      Float @default(0) // Average rating from 0 to 5
+  reviewCount Int   @default(0) // Total number of reviews
+  bookings    Int   @default(0) // Total number of bookings made
   // SEO y marketing
   // metaTitle       String?
   // metaDescription String?

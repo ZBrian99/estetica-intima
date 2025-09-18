@@ -1,5 +1,5 @@
 import { handleApiError } from '@/lib/handleApiError';
-import { createService, getPaginatedServices, parseBody, parseQueryParams } from '@/services/api/serviceService';
+import { createService, getPaginatedServices, parseBody, parseQueryParams } from '@/services/api/servicesService';
 import { NextResponse } from 'next/server';
 import { isAdmin, requireAdminAPI } from '@/lib/auth/utils';
 import { createServiceSchema, urlServiceFiltersSchema } from '@/schemas/servicesSchema';
@@ -9,9 +9,7 @@ export const GET = async (req: Request) => {
 		const admin = await isAdmin();
 
 		const validatedFilters = parseQueryParams(req, urlServiceFiltersSchema);
-    console.log(validatedFilters)
 		const response = await getPaginatedServices(validatedFilters, admin);
-
 		return NextResponse.json(response);
 	} catch (error) {
 		return handleApiError(error);

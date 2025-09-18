@@ -1,38 +1,32 @@
-import { getBaseUrl } from '@/lib/utils';
-import { ServicesFiltersType, UrlServicesFiltersType } from '@/schemas/servicesSchema';
+import { filtersToUrlParams, getBaseUrl, shouldCache } from '@/lib/utils';
+import { ServicesFiltersType } from '@/schemas/servicesSchema';
 import { ServicesResponse } from '@/types/servicesTypes';
 
-const filtersToQueryString = (filters?: ServicesFiltersType): string => {
-	if (!filters) {
-		return '';
-	}
+// se queda como cliente hasta descubrir como compartir cache con server con use server y al mismo tiempo evitar duplicar consultas
 
-	const params = new URLSearchParams();
+export const fetchServicesClient = async (filters?: ServicesFiltersType): Promise<ServicesResponse> => {
+	try {
+		const params = filtersToUrlParams(filters);
+		const response = await fetch(`${getBaseUrl()}/api/services${params ? `?${params}` : ''}`);
 
-	Object.entries(filters).forEach(([key, value]) => {
-		if (value !== undefined && value !== null) {
-			if (Array.isArray(value)) {
-				// Solo agregar arrays que no estén vacíos
-				if (value.length > 0) {
-					params.set(key, value.join(','));
-				}
-			} else {
-				// Solo agregar strings que no estén vacíos
-				const stringValue = String(value).trim();
-				if (stringValue !== '') {
-					params.set(key, stringValue);
-				}
-			}
+		if (!response.ok) {
+			throw new Error(`Error ${response.status}: ${response.statusText}`);
 		}
-	});
 
-	return params.toString();
+		return await response.json();
+	} catch (error) {
+		console.error('Error fetching services: ', error);
+		throw error;
+	}
 };
 
-export const fetchServices = async (filters?: ServicesFiltersType): Promise<ServicesResponse> => {
+export const fetchServicesServer = async (filters?: ServicesFiltersType): Promise<ServicesResponse> => {
 	try {
-		const response = await fetch(`${getBaseUrl()}/api/services?${filtersToQueryString(filters)}`, {
-			cache: 'force-cache',
+		const params = filtersToUrlParams(filters);
+		const isCache = shouldCache(filters);
+		const response = await fetch(`${getBaseUrl()}/api/services${params ? `?${params}` : ''}`, {
+			cache: isCache ? 'force-cache' : 'no-store',
+			next: isCache ? { tags: ['services'] } : undefined,
 		});
 
 		if (!response.ok) {
