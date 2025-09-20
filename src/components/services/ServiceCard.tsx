@@ -35,7 +35,7 @@ export function ServiceCard({ service }: { service: ServiceResponse }) {
 	return (
 		<Card
 			key={service.id}
-			className='group  border border-primary-100 shadow-sm hover:shadow-xl hover:border-primary-200 transition-all duration-300 bg-white rounded-xl flex flex-col'
+			className='group  shadow-sm hover:shadow-md  transition-all duration-300 bg-white rounded-xl flex flex-col'
 		>
 			<div className='relative rounded-t-xl overflow-hidden'>
 				<Image
@@ -91,7 +91,7 @@ export function ServiceCard({ service }: { service: ServiceResponse }) {
 						{service.name}
 					</h3>
 					{/* </div> */}
-					{service.rating > 4.8 ? (
+					{service.rating > 3.4 ? (
 						<div className='flex items-center justify-between gap-2 md:gap-3 overflow-hidden '>
 							<div className='flex items-center gap-1'>
 								<div className='flex items-center gap-px'>{renderStars(service.rating)}</div>
@@ -225,6 +225,7 @@ export function ServiceCard({ service }: { service: ServiceResponse }) {
 										Agregar al carrito
                     </Button> */}
 					{/* </div> */}
+
 				</div>
 
 				<ServiceCardButton service={service}>Reservar</ServiceCardButton>

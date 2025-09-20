@@ -15,9 +15,9 @@ export default function HomePage() {
 
 			<Categorias />
 
-			<Populares />
-
 			<AntesYDespues />
+
+			<Populares />
 
 			<PorQueElegirnos />
 

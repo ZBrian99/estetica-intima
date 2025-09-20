@@ -1,5 +1,5 @@
 // import type { Metadata } from 'next';
-import { Inter, Outfit, JetBrains_Mono } from 'next/font/google';
+import { Inter, Outfit } from 'next/font/google';
 import './globals.css';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
@@ -23,11 +23,7 @@ const outfit = Outfit({
 	display: 'swap',
 });
 
-const jetbrainsMono = JetBrains_Mono({
-	variable: '--font-jetbrains-mono',
-	subsets: ['latin'],
-	display: 'swap',
-});
+
 
 export const metadata: Metadata = {
 	title: 'Íntima - Centro de Estética',
@@ -40,12 +36,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='es' className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable}`}>
+		<html lang='es' className={`font-sans ${inter.variable} ${outfit.variable}`}>
 			<body>
 				<Providers>
 					<NavBar />
-          <Suspense fallback={<PageLoader />}>{children}</Suspense>
-          {/* <Footer/> */}
+					<Suspense fallback={<PageLoader />}>{children}</Suspense>
+					{/* <Footer/> */}
 				</Providers>
 			</body>
 		</html>
