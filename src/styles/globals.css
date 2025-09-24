@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@import './theme.css';
+@import './shadcn.css';
+@import './animations.css';
+@import './gradient.css';
+@import './navigation.css';
+
+@import './fallbacks.css';
+
+@layer base {
+	::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: var(--color-gray-50);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: var(--color-gray-500);
+		border-radius: 20px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: var(--color-gray-400);
+	}
+
+	* {
+		@apply border-border outline-ring/50;
+	}
+	html {
+		overflow-y: scroll;
+		scroll-behavior: smooth;
+	}
+	body[data-scroll-locked] {
+		margin-right: 0px !important;
+		margin-left: 0px !important;
+		overflow: visible !important;
+	}
+	body {
+		@apply text-foreground bg-background min-h-[100vh-4rem] antialiased scheme-light font-sans mt-16;
+	}
+	button {
+		@apply cursor-pointer;
+	}
+}

@@ -15,6 +15,7 @@ const CategoryTile = ({ category }: { category: CategoryData }) => {
 		<Link
 			key={category.id}
 			href={href}
+			aria-label={category.title}
 			className={`group relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition-transform duration-300   will-change-transform hover:-translate-y-0.5 hover:scale-[1.02] w-full ${category.className}`}
 		>
 			<div className='absolute inset-0 '>
@@ -26,7 +27,7 @@ const CategoryTile = ({ category }: { category: CategoryData }) => {
 					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 					className='object-cover w-full h-full'
 				/>
-				<div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent ' />
+				<div className='absolute inset-0 gradient-bottom-dark' />
 			</div>
 
 			<div className='relative flex flex-col h-full w-full p-4 justify-end text-white'>

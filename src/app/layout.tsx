@@ -1,15 +1,13 @@
 // import type { Metadata } from 'next';
 import { Inter, Outfit } from 'next/font/google';
-import './globals.css';
+import '@/styles/globals.css';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import Providers from './providers';
-// import { FallBackLoader } from './(servicesOld)/serviciosOld/components/Extras';
-import NavBar from '@/components/layout/NavBar';
 import Footer from '@/components/layout/Footer';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import PageLoader from '@/components/common/PageLoader';
-// import { useState } from 'react';
+import NavBar from '@/components/layout/NavBar';
 
 const inter = Inter({
 	variable: '--font-inter-sans',
@@ -22,8 +20,6 @@ const outfit = Outfit({
 	subsets: ['latin'],
 	display: 'swap',
 });
-
-
 
 export const metadata: Metadata = {
 	title: 'Íntima - Centro de Estética',
@@ -38,8 +34,8 @@ export default function RootLayout({
 	return (
 		<html lang='es' className={`font-sans ${inter.variable} ${outfit.variable}`}>
 			<body>
-				<Providers>
-					<NavBar />
+        <Providers>
+          <NavBar />
 					<Suspense fallback={<PageLoader />}>{children}</Suspense>
 					{/* <Footer/> */}
 				</Providers>

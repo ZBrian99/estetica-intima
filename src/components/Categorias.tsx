@@ -21,6 +21,7 @@ const Categorias = () => {
 				<div className='text-center mt-10'>
 					<Link
 						href='/servicios'
+						aria-label='Ver todos los servicios'
 						className='inline-flex items-center px-6 py-3 md:px-8 md:py-4 bg-primary-600 text-white font-semibold rounded-full hover:bg-primary-700 transition-colors duration-200 shadow-lg hover:shadow-xl'
 					>
 						Ver todos los servicios

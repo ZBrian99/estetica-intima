@@ -48,7 +48,7 @@ export const categories: CategoryData[] = [
 		subtitle: 'Tonificación muscular',
 		description: 'Electroestimulación de última generación para tonificar y definir músculos.',
 		slug: 'mio-up',
-		className: 'us:col-span-3 order-5 sm:col-start-11 sm:col-span-7 sm:row-start-1 us:row-span-2  sm:row-span-3 ',
+		className: 'us:col-span-3 order-5 sm:col-start-11 sm:col-span-6 sm:row-start-1 us:row-span-2  sm:row-span-3 ',
 		variant: 'primary',
 		weight: 8,
 		image: {
@@ -62,7 +62,7 @@ export const categories: CategoryData[] = [
 		subtitle: 'Rejuvenecimiento total',
 		description: 'Tratamiento facial avanzado que combina radiofrecuencia y ultrasonido.',
 		slug: 'alpha-synergy',
-		className: 'us:col-span-3 order-3 sm:col-start-18 sm:col-span-7 sm:row-start-1 us:row-span-2 sm:row-span-3',
+		className: 'us:col-span-3 order-3 sm:col-start-17 sm:col-span-8 sm:row-start-1 us:row-span-2 sm:row-span-3',
 		variant: 'primary',
 		weight: 8,
 		image: {
