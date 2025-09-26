@@ -23,7 +23,7 @@ export default function Nosotros() {
 						alt='Íntima Spa Background'
 						className='w-full h-full object-cover'
 					/>
-					<div className='absolute inset-0 bg-gradient-to-r from-violet-100/90 to-fuchsia-100/90'></div>
+					<div className='absolute inset-0 bg-violet-100 bg-gradient-to-r from-violet-100/90 to-fuchsia-100/90'></div>
 				</div>
 				<div className='relative max-w-7xl mx-auto px-4 text-center'>
 					<div className='flex items-center justify-center mb-6'>
@@ -80,7 +80,7 @@ export default function Nosotros() {
 							alt='Centro de Estética Íntima' 
 							className='w-full h-full object-cover'
 						/>
-						<div className='absolute inset-0 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20'></div>
+						<div className='absolute inset-0 bg-violet-500 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20'></div>
 						<div className='absolute bottom-4 left-4 text-white'>
 							<p className='text-lg font-semibold drop-shadow-lg'>Centro de Estética Integral</p>
 							<p className='text-sm drop-shadow-lg'>Mar del Plata</p>
@@ -158,7 +158,7 @@ export default function Nosotros() {
 										key={member.name}
 										className='group relative rounded-2xl bg-white p-6 shadow-md ring-1 ring-gray-200/60 transition-all hover:-translate-y-1 hover:shadow-lg h-full flex flex-col text-center overflow-hidden'
 									>
-										<div className='absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-violet-500 via-fuchsia-400 to-indigo-500 rounded-t-2xl' />
+										<div className='absolute inset-x-0 top-0 h-1.5 bg-violet-500 bg-gradient-to-r from-violet-500 via-fuchsia-400 to-indigo-500 rounded-t-2xl' />
 										<div className='relative mx-auto mb-5 h-28 w-28 overflow-hidden rounded-full ring-4 ring-violet-600/50'>
 											<img
 												src={`/team/${member.name}.webp`}
@@ -301,7 +301,7 @@ export default function Nosotros() {
 			</section>
 
 			{/* CTA Final */}
-			<section className='bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white py-16'>
+			<section className='bg-violet-600 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white py-16'>
 				<div className='max-w-7xl mx-auto px-4 text-center'>
 					<div className='flex items-center justify-center mb-4'>
 						<Sparkles className='w-8 h-8 mr-3 text-white/90' />

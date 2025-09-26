@@ -224,7 +224,7 @@ const PromocionesPage = () => {
 	return (
 		<div className='min-h-screen bg-gray-50'>
 			{/* Hero Section */}
-			<section className='bg-gradient-to-r from-primary-500 to-purple-600 text-white py-16'>
+			<section className='bg-primary-500 bg-gradient-to-r from-primary-500 to-purple-600 text-white py-16'>
 				<div className='max-w-7xl mx-auto px-4 text-center'>
 					<div className='inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6'>
 						<Gift className='w-8 h-8' />
@@ -380,7 +380,7 @@ const PromocionesPage = () => {
 									{/* CTA Button */}
 									<button
 										onClick={() => abrirWhatsApp(promocion)}
-										className='w-full bg-gradient-to-r from-primary-500 to-rose-400 text-white font-semibold py-3 px-4 rounded-lg hover:from-primary-600 hover:to-rose-500 transition-all duration-300 flex items-center justify-center group mt-auto'
+										className='w-full bg-primary-500 bg-gradient-to-r from-primary-500 to-rose-400 text-white font-semibold py-3 px-4 rounded-lg hover:from-primary-600 hover:to-rose-500 transition-all duration-300 flex items-center justify-center group mt-auto'
 									>
 										<MessageCircle className='w-4 h-4 mr-2' />
 										Consultar Promoción
@@ -394,7 +394,7 @@ const PromocionesPage = () => {
 			</section>
 
 			{/* CTA Section */}
-			<section className='bg-gradient-to-r from-purple-600 to-primary-500 text-white py-16'>
+			<section className='bg-purple-600 bg-gradient-to-r from-purple-600 to-primary-500 text-white py-16'>
 				<div className='max-w-4xl mx-auto px-4 text-center'>
 					<div className='inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6'>
 						<Heart className='w-8 h-8' />

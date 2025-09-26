@@ -1,11 +1,12 @@
+'use client';
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
 
 type UIState = {
 	// Estados de UI
 	isFiltersOpen: boolean;
 	isSidebarOpen: boolean;
 	isSearchOpen: boolean;
+	isCartOpen: boolean;
 	// Acciones de UI
 	toggleFilters: () => void;
 	setFiltersOpen: (open: boolean) => void;
@@ -13,6 +14,8 @@ type UIState = {
 	setSidebarOpen: (open: boolean) => void;
 	toggleSearch: () => void;
 	setSearchOpen: (open: boolean) => void;
+	toggleCart: () => void;
+	setCartOpen: (open: boolean) => void;
 	// Utilidades
 	closeAllPanels: () => void;
 };
@@ -22,6 +25,7 @@ export const useUIStore = create<UIState>()((set) => ({
 	isFiltersOpen: false,
 	isSidebarOpen: false,
 	isSearchOpen: false,
+	isCartOpen: false,
 
 	// Acciones de filtros
 	toggleFilters: () => {
@@ -50,17 +54,27 @@ export const useUIStore = create<UIState>()((set) => ({
 		set({ isSearchOpen: open });
 	},
 
+	// Acciones de carrito
+	toggleCart: () => {
+		set((state) => ({ isCartOpen: !state.isCartOpen }));
+	},
+
+	setCartOpen: (open) => {
+		set({ isCartOpen: open });
+	},
+
 	// Utilidades
 	closeAllPanels: () => {
 		set({
 			isFiltersOpen: false,
 			isSidebarOpen: false,
 			isSearchOpen: false,
+			isCartOpen: false,
 		});
 	},
 }));
 
-// Selectores optimizados
+// Selectores compuestos (sin shallow por ahora)
 export const useFiltersUI = () =>
 	useUIStore((state) => ({
 		isFiltersOpen: state.isFiltersOpen,
@@ -81,3 +95,21 @@ export const useSearchUI = () =>
 		toggleSearch: state.toggleSearch,
 		setSearchOpen: state.setSearchOpen,
 	}));
+
+export const useCartUI = () =>
+	useUIStore((state) => ({
+		isCartOpen: state.isCartOpen,
+		toggleCart: state.toggleCart,
+		setCartOpen: state.setCartOpen,
+	}));
+
+// Selectores primitivos para evitar cambios de identidad de objetos
+export const useCartOpen = () => useUIStore((state) => state.isCartOpen);
+export const useSetCartOpen = () => useUIStore((state) => state.setCartOpen);
+
+export const useIsSearchOpen = () => useUIStore((state) => state.isSearchOpen);
+export const useSetSearchOpen = () => useUIStore((state) => state.setSearchOpen);
+
+export const useIsFiltersOpen = () => useUIStore((state) => state.isFiltersOpen);
+export const useSetFiltersOpen = () => useUIStore((state) => state.setFiltersOpen);
+export const useToggleFilters = () => useUIStore((state) => state.toggleFilters);

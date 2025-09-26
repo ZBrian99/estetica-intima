@@ -1,43 +1,34 @@
 'use client';
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useFiltersStore } from '@/stores/filtersStore';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { memo, useEffect, useState } from 'react';
-import { SortType } from '@/schemas/servicesSchema';
 import { SORT_OPTIONS } from '@/lib/constants';
+import { FaSortAmountDown } from 'react-icons/fa';
+import { SortType } from '@/schemas/servicesSchema';
 
-const ServicesSortFilter = ({ initialSort = 'relevance' }: { initialSort?: SortType }) => {
-	const setFilter = useFiltersStore((state) => state.setFilter);
-	const sort = useFiltersStore((state) => state.filters.sort);
-	const [isFirstLoad, setIsFirstLoad] = useState(true);
-
-	useEffect(() => {
-		setIsFirstLoad(false);
-		setFilter('sort', initialSort);
-	}, []);
+const ServicesSortFilter = () => {
+	const sort = useFiltersStore((s) => s.filters.sort);
+	const setFilter = useFiltersStore((s) => s.setFilter);
 
 	return (
-		<div className='flex items-center '>
-			<span className='text-gray-800 text-sm'>Ordenar por:</span>
-			<Select
-				value={isFirstLoad ? undefined : sort ? sort : initialSort}
-				onValueChange={(value: SortType) => setFilter('sort', value)}
-			>
-				<SelectTrigger className=' border-none focus:border-none  focus:outline-none outline-none selection:outline-none text-sm font-medium focus-visible:outline-none focus-visible:border-none focus-visible:shadow-none focus-visible:ring-0 text-gray-700 hover:text-primary shadow-none pr-0 py-0'>
-					<SelectValue placeholder={SORT_OPTIONS.find((option) => option.value === initialSort)?.label} />
+		<div className='flex items-center gap-2'>
+			<Select value={sort ?? undefined} onValueChange={(v) => setFilter('sort', v as SortType)} >
+				<SelectTrigger className='h-9 w-[190px] rounded-full px-3 py-0 shadow-sm hover:shadow-md border-none ' >
+					<div className='inline-flex items-center gap-2'>
+						<FaSortAmountDown className='h-4 w-4 text-sky-600' aria-hidden='true' />
+						<SelectValue placeholder='Ordenar por'/>
+					</div>
 				</SelectTrigger>
-				<SelectContent>
-					<SelectGroup>
-						{SORT_OPTIONS.map((option) => (
-							<SelectItem key={option.value} value={option.value} className='focus:bg-primary-100 cursor-pointer '>
-								{option.label}
-							</SelectItem>
-						))}
-					</SelectGroup>
+				<SelectContent className='bg-white'>
+					{SORT_OPTIONS.map((opt) => (
+						<SelectItem key={opt.value} value={opt.value}>
+							{opt.label}
+						</SelectItem>
+					))}
 				</SelectContent>
 			</Select>
 		</div>
 	);
 };
 
-export default memo(ServicesSortFilter);
+export default ServicesSortFilter;

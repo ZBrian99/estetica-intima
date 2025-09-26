@@ -5,6 +5,7 @@ import { ServiceCard } from './services/ServiceCard';
 import { ServiceResponse } from '@/schemas/servicesSchema';
 import { buildSort, getSelectFields } from '@/services/api/servicesService';
 import { prisma } from '@/lib/prisma';
+import CleanServiceCard from './services/CleanServiceCard';
 
 // Forzar renderizado dinámico en el servidor (SSR) y sin caché para evitar SSG en build
 export const revalidate = 0;
@@ -37,7 +38,7 @@ const Populares = async () => {
 				{/* Services Grid */}
 				<div className='grid us:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4'>
 					{services.slice(0, 8).map((service) => (
-						<ServiceCard key={service.id} service={service} />
+						<CleanServiceCard key={service.id} service={service} />
 					))}
 				</div>
 
@@ -45,7 +46,7 @@ const Populares = async () => {
 				<div className='text-center mt-12'>
 					<Link
 						href='/servicios'
-						className='inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-primary-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'
+						className='inline-flex items-center px-8 py-4 bg-purple-600 bg-gradient-to-r from-purple-600 to-primary-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'
 					>
 						Ver todos los tratamientos
 						<svg className='w-5 h-5 ml-2' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

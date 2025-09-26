@@ -195,17 +195,17 @@ const Hero = () => {
 									</div>
 
 									{/* Title */}
-									<h1 className="text-5xl md:text-7xl font-bold mb-4 animate-fade-in">
+									<h1 className="text-4xl md:text-7xl font-bold mb-4 animate-fade-in">
 										{slide.title}
 									</h1>
 
 									{/* Subtitle */}
-									<h2 className="text-2xl md:text-3xl font-light mb-6 animate-fade-in-delay-1">
+									<h2 className="text-xl md:text-3xl font-light mb-6 animate-fade-in-delay-1">
 										{slide.subtitle}
 									</h2>
 
 									{/* Description */}
-									<p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto animate-fade-in-delay-2">
+									<p className="text-md md:text-xl px-16 mb-8 max-w-2xl mx-auto animate-fade-in-delay-2">
 										{slide.description}
 									</p>
 

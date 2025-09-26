@@ -15,18 +15,31 @@
 		@apply border-border outline-ring/50;
 	}
 	html {
-		overflow-y: scroll;
+		/* overflow-y: scroll; */
 		scroll-behavior: smooth;
+		/* Prevent global horizontal scroll */
+		overflow-x: hidden;
 	}
-	body[data-scroll-locked] {
+	/* body[data-scroll-locked] {
 		margin-right: 0px !important;
 		margin-left: 0px !important;
 		overflow: visible !important;
-	}
+	} */
 	body {
 		@apply text-foreground bg-background min-h-[100vh-4rem] antialiased scheme-light font-sans mt-16;
+		/* Prevent global horizontal scroll */
+		overflow-x: hidden;
 	}
 	button {
 		@apply cursor-pointer;
+	}
+}
+
+@layer utilities {
+	.hide-scrollbar {
+		/* Firefox */
+		scrollbar-width: none;
+		/* Safari/Chrome */
+		&::-webkit-scrollbar { display: none; }
 	}
 }

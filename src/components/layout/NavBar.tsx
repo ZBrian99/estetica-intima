@@ -33,6 +33,8 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useSetCartOpen, useSetSearchOpen } from '@/stores/uiStore';
+import { useCartStore } from '@/stores/cartStore';
 
 interface NavLinkItem {
 	label: string;
@@ -81,7 +83,7 @@ const treatmentCategories = [
 ];
 
 const highlightedItems: NavLinkItem[] = [
-	{ label: 'Gift Cards', href: '/gift-cards' },
+	{ label: 'Gift Cards', href: '/giftcards' },
 	{ label: 'Eventos Especiales', href: '/eventos-especiales' },
 	{ label: 'Promociones', href: '/promociones' },
 ];
@@ -237,10 +239,13 @@ const mobileCategories: MobileCategory[] = [
 ];
 
 export default function NavBar() {
-	const [isOpen, setIsOpen] = useState(false);
+  const setCartOpen = useSetCartOpen();
+  const [isOpen, setIsOpen] = useState(false);
+  const setSearchOpen = useSetSearchOpen();
+  const cartCount = useCartStore((state) => state.items.reduce((acc, it) => acc + it.quantity, 0));
 
 	return (
-		<header className='fixed top-0 inset-x-0 z-50 bg-gradient-to-b from-white to-gray-50 border-b border-gray-200/70'>
+		<header className='fixed top-0 inset-x-0 z-50 bg-white bg-gradient-to-b from-white to-gray-50 border-b border-gray-200/70'>
 			<div className='max-w-7xl mx-auto px-4'>
 				<div className='h-16 flex items-center justify-between'>
 					{/* Brand - Izquierda */}
@@ -253,9 +258,9 @@ export default function NavBar() {
 							className='h-12 w-12'
 							priority
 						/>
-						<div className='hidden sm:flex flex-col leading-tight'>
+						<div className='flex flex-col leading-tight'>
 							<span className='text-lg font-semibold text-gray-900'>Intima</span>
-							<span className='text-xs text-primary-600'>Centro de estética integral</span>
+							<span className='text-xs  text-primary-600'>Centro de estética integral</span>
 						</div>
 					</Link>
 
@@ -278,7 +283,7 @@ export default function NavBar() {
 											<NavigationMenuContent
 												className={`absolute ${
 													key === 'belleza' ? '-translate-x-1/3 2xl:translate-x-0' : ''
-												} p-4 rounded-xl bg-gradient-to-b from-white to-gray-50 shadow-md ring-1 ring-gray-200/60`}
+												} p-4 rounded-xl bg-white bg-gradient-to-b from-white to-gray-50 shadow-md ring-1 ring-gray-200/60`}
 											>
 												<div
 													className={`grid w-max gap-6 sm:grid-cols-2 ${
@@ -339,7 +344,7 @@ export default function NavBar() {
 								<NavigationMenuItem>
 									<NavigationMenuLink asChild>
 										<Link
-											href='/gift-cards'
+											href='/giftcards'
 											className='px-3 py-2 text-sm font-medium text-gray-800 hover:text-primary transition-colors inline-flex items-center gap-2 flex-row'
 										>
 											<FiGift className='h-4 w-4 ' />
@@ -358,7 +363,10 @@ export default function NavBar() {
 											<div className='flex flex-col gap-2'>
 												{moreItems.map((item) => (
 													<NavigationMenuLink key={item.href} asChild>
-														<Link href={item.href} className='inline-flex rounded-full  bg-white px-3 py-1.5 text-sm text-gray-700 no-underline outline-none transition-colors hover:border-primary hover:text-primary'>
+														<Link
+															href={item.href}
+															className='inline-flex rounded-full  bg-white px-3 py-1.5 text-sm text-gray-700 no-underline outline-none transition-colors hover:border-primary hover:text-primary'
+														>
 															{item.label}
 														</Link>
 													</NavigationMenuLink>
@@ -371,31 +379,47 @@ export default function NavBar() {
 						</NavigationMenu>
 					</div>
 
-					<div className='hidden lg:flex items-center gap-1'>
+					<div className='flex items-center gap-1 ml-auto  lg:ml-0'>
 						{/* Carrito */}
-						<Button variant='ghost' size='sm' className='p-2'>
-							<FiSearch className='h-5 w-5 text-gray-700' />
+						<Button
+							variant='ghost'
+							size='sm'
+							className='text-gray-700 hover:text-primary-700'
+							onClick={() => setSearchOpen(true)}
+							aria-label='Buscar'
+						>
+							<FiSearch className='h-5 w-5' />
+							<span className='sr-only'>Buscar</span>
 						</Button>
-						<Button variant='ghost' size='sm' className='p-2'>
-							<FiShoppingCart className='h-5 w-5 text-gray-700' />
-						</Button>
+						<button
+							aria-label='Carrito'
+							onClick={() => setCartOpen(true)}
+							className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-primary-700'
+						>
+							<FiShoppingCart className='h-4 w-4' />
+							{cartCount > 0 && (
+								<span className='absolute -top-1 -right-1 min-h-4 min-w-4 px-1 rounded-full bg-primary-600 text-white text-[10px] leading-4 text-center font-semibold'>
+									{cartCount}
+								</span>
+							)}
+						</button>
 					</div>
 
 					{/* Mobile Navigation */}
-					<div className='flex lg:hidden items-center gap-2'>
-						<Button variant='ghost' size='sm' className='p-2'>
+					<div className='flex  lg:hidden items-center gap-2 ml-2'>
+						{/* <Button variant='ghost' size='sm' className='p-2'>
 							<FiSearch className='h-5 w-5' />
-						</Button>
-						<Button variant='ghost' size='sm' className='p-2'>
+						</Button> */}
+						{/* <Button variant='ghost' size='sm' className='p-2'>
 							<FiShoppingCart className='h-5 w-5' />
-						</Button>
+						</Button> */}
 						<Sheet open={isOpen} onOpenChange={setIsOpen}>
 							<SheetTrigger asChild>
 								<Button variant='ghost' size='sm' className='p-2'>
 									<FiMenu className='h-6 w-6' />
 								</Button>
 							</SheetTrigger>
-							<SheetContent side='right' className='w-[85vw] sm:w-96 bg-gradient-to-b from-white to-gray-50'>
+							<SheetContent side='right' className='w-[85vw] sm:w-96 bg-white bg-gradient-to-b from-white to-gray-50'>
 								<div className='flex h-full flex-col'>
 									<SheetHeader className='h-16 flex justify-center p-4'>
 										<SheetTitle className='text-xl font-semibold'>Menú</SheetTitle>
@@ -408,9 +432,7 @@ export default function NavBar() {
 											{mobileCategories.map((cat) => (
 												<AccordionItem key={cat.key} value={cat.key} className='border-none'>
 													<AccordionTrigger className='py-3 pr-2 text-base font-medium text-gray-900 hover:no-underline'>
-														<span className='pl-2 inline-flex items-center gap-2'>
-														{cat.label}
-														</span>
+														<span className='pl-2 inline-flex items-center gap-2'>{cat.label}</span>
 													</AccordionTrigger>
 													<AccordionContent className='pb-3'>
 														<div className='space-y-3'>
@@ -461,7 +483,7 @@ export default function NavBar() {
 												Promociones
 											</Link>
 											<Link
-												href='/gift-cards'
+												href='/giftcards'
 												className='block rounded-md py-3 pl-2 pr-2 text-base font-medium text-gray-900 hover:bg-gray-50'
 												onClick={() => setIsOpen(false)}
 											>

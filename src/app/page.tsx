@@ -28,7 +28,7 @@ export default function HomePage() {
 						Vení a conocer nuestro centro y descubrí por qué somos la elección preferida en Mar del Plata
 					</p>
 					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-						<button className='inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-rose-400 text-white font-semibold rounded-full hover:from-primary-600 hover:to-rose-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'>
+						<button className='inline-flex items-center px-8 py-4 bg-primary-500 bg-gradient-to-r from-primary-500 to-rose-400 text-white font-semibold rounded-full hover:from-primary-600 hover:to-rose-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'>
 							<FaWhatsapp className='w-5 h-5 mr-2' />
 							Consultanos por whatsapp
 						</button>
