@@ -194,12 +194,22 @@ export const getServiceById = async (id: string, isAdmin: boolean) => {
 export const createService = async (data: Prisma.ServiceCreateInput) => {
 	const { basePrice, finalPrice, ...rest } = data;
 
+	// Build default imagenesia URL when imageUrl is not provided
+	const buildImagenesiaUrl = (title: string): string => {
+		const base = `professional ${title} treatment, clean medical spa environment, modern equipment, soft lighting, professional photography, high quality`;
+		const prompt = encodeURIComponent(base);
+		return `https://image.pollinations.ai/prompt/${prompt}?width=1024&height=1024&model=flux-realism&enhance=true&nologo=true&private=true`;
+	};
+
+	const ensuredImageUrl = rest.imageUrl ?? buildImagenesiaUrl(String(data.name));
+
 	const service = await prisma.service.create({
 		data: {
 			basePrice,
 			finalPrice,
 			hasPromo: finalPrice < basePrice,
 			...rest,
+			imageUrl: ensuredImageUrl,
 		},
 		select: getSelectFields(true),
 	});
