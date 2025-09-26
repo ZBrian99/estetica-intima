@@ -160,7 +160,7 @@ export function ServiceCard({ service }: { service: ServiceResponse }) {
 								</Tooltip>
 							</TooltipProvider>
 						)}
-						{service.type === 'PACK' && service.sessions > 1 && (
+						{service.type === 'PACK' && service.sessions && service.sessions > 1 && (
 							<TooltipProvider>
 								<Tooltip>
 									<TooltipTrigger asChild>
