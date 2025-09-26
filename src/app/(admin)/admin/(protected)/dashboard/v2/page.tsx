@@ -309,7 +309,7 @@ export default function DashboardV2Page() {
 
 	return (
 		<SidebarProvider>
-			<div className='flex h-screen w-full'>
+			<div className='flex h-screen w-full overflow-x-hidden'>
 				<Sidebar className='border-r'>
 					<SidebarHeader className='border-b p-4'>
 						<div className='flex items-center gap-2'>
@@ -360,7 +360,7 @@ export default function DashboardV2Page() {
 					</SidebarFooter>
 				</Sidebar>
 
-				<div className='flex-1 flex flex-col min-h-0'>
+				<div className='flex-1 flex flex-col min-h-0 min-w-0'>
 					{/* Header con menú hamburguesa para mobile */}
 					<div className='flex items-center justify-between p-4 border-b lg:hidden'>
 						<h1 className='text-xl font-semibold'>{activeTab === 'dashboard' ? 'Dashboard' : 'Servicios'}</h1>
@@ -368,7 +368,7 @@ export default function DashboardV2Page() {
 							<Menu className='h-5 w-5' />
 						</SidebarTrigger>
 					</div>
-					<div className='flex flex-1 flex-col gap-4 p-4 overflow-x-auto'>
+					<div className='flex flex-1 flex-col gap-4 p-4 min-w-0'>
 						<div className='flex items-center justify-between'>
 							<div className='flex items-center gap-2'>
 								<SidebarTrigger />
@@ -710,11 +710,11 @@ export default function DashboardV2Page() {
 						)}
 
 						{activeTab === 'services' && (
-							<Card>
+							<Card className='min-w-0'>
 								<CardHeader>
 									<CardTitle>Gestión de Servicios</CardTitle>
 								</CardHeader>
-								<CardContent>
+								<CardContent className='min-w-0'>
 									{loading ? (
 										<div className='flex justify-center items-center py-16'>
 											<span>Cargando servicios...</span>
@@ -734,28 +734,30 @@ export default function DashboardV2Page() {
 											<CreateServiceDialog onCreated={() => void loadServices(page)} />
 										</div>
 									) : (
-										<div className='overflow-hidden rounded-md border max-w-full'>
-											<table className='min-w-full text-sm overflow-x-scroll'>
-												<thead className='bg-gray-50'>
-													<tr>
-														<th className='text-left px-4 py-2'>Nombre</th>
-														<th className='text-left px-4 py-2'>Tipo</th>
-														<th className='text-left px-4 py-2'>Precio</th>
-														<th className='text-left px-4 py-2'>Estado</th>
-														<th className='text-left px-4 py-2'>Actualizado</th>
-														<th className='text-left px-4 py-2'>Acciones</th>
-													</tr>
-												</thead>
+										<div className='w-full'>
+											<div className='overflow-x-auto'>
+												<div className='min-w-[800px]'>
+													<table className='w-full text-sm'>
+													<thead className='bg-gray-50'>
+														<tr>
+															<th className='text-left px-4 py-2 whitespace-nowrap border-b'>Nombre</th>
+															<th className='text-left px-4 py-2 whitespace-nowrap border-b'>Tipo</th>
+															<th className='text-left px-4 py-2 whitespace-nowrap border-b'>Precio</th>
+															<th className='text-left px-4 py-2 whitespace-nowrap border-b'>Estado</th>
+															<th className='text-left px-4 py-2 whitespace-nowrap border-b'>Actualizado</th>
+															<th className='text-left px-4 py-2 whitespace-nowrap border-b'>Acciones</th>
+														</tr>
+													</thead>
 												<tbody>
 													{services.map((s) => (
 														<tr key={s.id} className='border-t hover:bg-gray-50'>
-															<td className='px-4 py-2 font-medium'>{s.name}</td>
-															<td className='px-4 py-2'>
+															<td className='px-4 py-2 font-medium whitespace-nowrap border-b'>{s.name}</td>
+															<td className='px-4 py-2 whitespace-nowrap border-b'>
 																<span className='inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800'>
 																	{s.type}
 																</span>
 															</td>
-															<td className='px-4 py-2'>
+															<td className='px-4 py-2 whitespace-nowrap border-b'>
 																<div className='flex flex-col'>
 																	<span className='font-medium'>${s.finalPrice.toFixed(2)}</span>
 																	{s.hasPromo && s.basePrice !== s.finalPrice && (
@@ -765,7 +767,7 @@ export default function DashboardV2Page() {
 																	)}
 																</div>
 															</td>
-															<td className='px-4 py-2'>
+															<td className='px-4 py-2 whitespace-nowrap border-b'>
 																<div className='flex items-center gap-2'>
 																	<Switch checked={s.isActive} onCheckedChange={() => void handleToggleActive(s)} />
 																	<span className={s.isActive ? 'text-green-600' : 'text-gray-500'}>
@@ -773,10 +775,10 @@ export default function DashboardV2Page() {
 																	</span>
 																</div>
 															</td>
-															<td className='px-4 py-2 text-xs text-gray-500'>
+															<td className='px-4 py-2 text-xs text-gray-500 whitespace-nowrap border-b'>
 																{new Date(s.updatedAt ?? s.createdAt).toLocaleString()}
 															</td>
-															<td className='px-4 py-2'>
+															<td className='px-4 py-2 whitespace-nowrap border-b'>
 																<div className='flex items-center gap-2'>
 																	<DropdownMenu>
 																		<DropdownMenuTrigger asChild>
@@ -803,7 +805,9 @@ export default function DashboardV2Page() {
 														</tr>
 													))}
 												</tbody>
-											</table>
+													</table>
+												</div>
+											</div>
 										</div>
 									)}
 

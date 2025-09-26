@@ -55,7 +55,7 @@ const SearchOverlay = () => {
 	}, [query, isSearchOpen, setFilter]);
 
 	return (
-		<CommandDialog open={isSearchOpen} onOpenChange={(open) => setSearchOpen(open)} title='Buscar servicios' description='Buscá tratamientos o combos'>
+		<CommandDialog open={isSearchOpen} onOpenChange={(open) => setSearchOpen(open)} className='top-50' title='Buscar servicios' description='Buscá tratamientos o combos'>
 			<CommandInput
 				placeholder='Buscar servicios...'
 				autoFocus
