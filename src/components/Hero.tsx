@@ -210,16 +210,16 @@ const Hero = () => {
 									</p>
 
 									{/* CTAs */}
-									<div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-delay-3">
+									<div className="flex flex-col items-center sm:flex-row gap-4 justify-center animate-fade-in-delay-3">
 										<Link
 											href={slide.primaryHref}
-											className="px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg"
+											className="px-10 py-3 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg "
 										>
 											{slide.primaryCta}
 										</Link>
 										<Link
 											href={slide.secondaryHref}
-											className="px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-colors duration-300"
+											className="px-10 py-3 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-colors duration-300 "
 										>
 											{slide.secondaryCta}
 										</Link>

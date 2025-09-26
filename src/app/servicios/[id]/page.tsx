@@ -63,7 +63,7 @@ export default async function ServiceDetailByIdPage({ params }: { params: Promis
 									alt={service.name}
 									width={800}
 									height={600}
-									className='w-full h-auto object-cover'
+									className='w-full h-auto object-cover max-w-full'
 									priority
 								/>
 							) : (

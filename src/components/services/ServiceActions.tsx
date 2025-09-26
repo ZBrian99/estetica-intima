@@ -22,7 +22,7 @@ export default function ServiceActions({ service }: { service: ServiceResponse }
 
 
 	return (
-		<div className='flex items-center gap-3'>
+		<div className='flex flex-wrap items-center gap-3'>
 			<Button
 				onClick={handleAdd}
 				className='rounded-full h-10 px-5 bg-gradient-to-r from-primary-600 to-purple-600 text-white hover:from-primary-700 hover:to-purple-700'
