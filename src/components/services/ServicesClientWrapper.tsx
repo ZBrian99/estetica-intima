@@ -9,12 +9,17 @@ import LoadingSpinner from '../common/LoadingSpinner';
 import { ServicesFiltersType } from '@/schemas/servicesSchema';
 import LoadingTopBar from '../common/LoadingTopBar';
 import ServicesSortFilter from './ServicesSortFilter';
+import FilterButton from './FilterButton';
+import PillsBar from './PillsBar';
+import { Button } from '@/components/ui/button';
+import { FaBroom } from 'react-icons/fa';
 
 // TODO: Mejorar logica, limpiar y reordenar componentes
 // TODO: Pasar todo lo posible a ssr para seo
 
 const ServicesClientWrapper = ({ initialFilters }: { initialFilters: ServicesFiltersType }) => {
 	const setFilter = useFiltersStore((state) => state.setFilter);
+	const clearFilters = useFiltersStore((s) => s.clearFilters);
 	const { services, pagination, isLoading, error, isFetching } = useServices(initialFilters);
 
 	const onPageChange = (number: number) => {
@@ -27,14 +32,34 @@ const ServicesClientWrapper = ({ initialFilters }: { initialFilters: ServicesFil
 	};
 
 	return (
-		<main className='bg-primary-50 min-h-[calc(100vh-4rem)] flex flex-col  pb-4 md:ml-64'>
-			{/* {!isFirstLoad2 && <ServicesFilters initialFormValues={filters} />} */}
-			<div className='py-4 flex px-4 md:ml-auto justify-between items-center mt-[1px] gap-2 flex-wrap us:flex-nowrap'>
+		<main className='min-h-[calc(100vh-4rem)] flex flex-col  pb-4 overflow-x-hidden'>
+			{/* Header preview */}
+
+			<div className='py-4 px-4 lg:px-6 md:ml-auto mt-[1px] w-full'>
+				{/* Filtros y sort fijos + pills scroll interno */}
+				<div className='flex flex-col md:flex-row gap-4'>
+					<div className='flex items-center justify-between md:flex-row md:justify-end gap-3 flex-shrink-0'>
+						<FilterButton />
+						<ServicesSortFilter />
+						{/* <Button
+							variant='ghost'
+							onClick={() => clearFilters()}
+							className='h-9 px-3 rounded-lg text-muted-foreground hover:text-primary-700 hover:bg-primary-50 ml-auto'
+						>
+							<FaBroom className='h-4 w-4' aria-hidden='true' />
+							<span className='text-sm'>Limpiar</span>
+						</Button> */}
+					</div>
+					<div className='flex-1 min-w-0'>
+						<div className='overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-2 px-2'>
+							<PillsBar />
+						</div>
+					</div>
+				</div>
+
+				{/* Sheet de filtros montado globalmente */}
 				<ServicesFilters initialFormValues={initialFilters} />
-				<ServicesSortFilter initialSort={initialFilters.sort ?? 'relevance'} />
 			</div>
-			{/* <div className='px-4 pt-6'>
-			</div> */}
 			{isLoading ? (
 				<div className='flex justify-center items-center grow'>
 					<LoadingSpinner />
@@ -61,4 +86,5 @@ const ServicesClientWrapper = ({ initialFilters }: { initialFilters: ServicesFil
 		</main>
 	);
 };
+
 export default ServicesClientWrapper;

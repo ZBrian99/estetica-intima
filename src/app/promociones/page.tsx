@@ -5,20 +5,57 @@ export default function Promociones() {
 	return (
 		<div className='min-h-screen bg-gray-50'>
 			{/* Hero Section */}
-			<section className='relative bg-gradient-to-r from-pink-100 to-purple-100 py-20 overflow-hidden'>
+			<section className='relative bg-gradient-to-r from-pink-100 to-purple-100 py-48 md:py-56 overflow-hidden'>
 				<img
-					src='https://image.pollinations.ai/prompt/luxury-spa-promotion-banner-aesthetic-clinic-special-offers-modern-elegant-design?width=1200&height=400&model=flux-realism&enhance=true&nologo=true'
+					src='https://image.pollinations.ai/prompt/luxury-spa-promotion-banner-aesthetic-clinic-special-offers-modern-elegant-design?width=1600&height=800&model=flux-realism&enhance=true&nologo=true'
 					alt='Promociones Íntima MDQ'
-					className='absolute inset-0 w-full h-full object-cover opacity-20'
+					className='absolute inset-0 w-full h-full object-cover opacity-25'
 				/>
-				<div className='relative max-w-7xl mx-auto px-4 text-center'>
-					<h1 className='text-4xl font-bold text-gray-900 mb-4'>PROMOCIONES Y OFERTAS ESPECIALES</h1>
-					<p className='text-lg text-gray-600'>
-						Descubrí nuestras promociones exclusivas y ahorrá en tus tratamientos favoritos
-					</p>
-					<div className='flex items-center justify-center gap-2 mt-4 text-pink-600'>
-						<Percent className='w-5 h-5' />
-						<span className='font-semibold'>Descuentos especiales todo el año</span>
+				<div className='relative max-w-7xl mx-auto px-4'>
+					<div className='grid md:grid-cols-2 items-center gap-8'>
+						<div className='text-center md:text-left'>
+							<h1 className='text-5xl md:text-6xl font-bold text-gray-900 mb-6'>PROMOCIONES Y OFERTAS</h1>
+							<p className='text-lg md:text-xl text-gray-700 max-w-xl mx-auto md:mx-0'>
+								Descubrí nuestras promociones exclusivas y ahorrá en tus tratamientos favoritos.
+							</p>
+							<div className='flex items-center gap-2 mt-4 text-pink-600 justify-center md:justify-start'>
+								<Percent className='w-5 h-5' />
+								<span className='font-semibold'>Descuentos especiales todo el año</span>
+							</div>
+						</div>
+						<div>
+							<div className='relative bg-white/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-white/60'>
+								<div className='absolute -top-3 -left-3 bg-pink-500 text-white rounded-full px-3 py-1 text-xs font-bold flex items-center gap-1'>
+									<Sparkles className='w-4 h-4' />
+									PROMO EJEMPLO
+								</div>
+								<div className='flex items-center gap-4 mb-3'>
+									<img src='https://image.pollinations.ai/prompt/laser-hair-removal-woman-legs-professional-aesthetic-clinic-modern-equipment?width=160&height=160&model=flux-realism&enhance=true&nologo=true' alt='Depilación' className='w-20 h-20 rounded-xl object-cover' />
+									<div>
+										<h3 className='text-xl font-bold text-gray-900'>Depilación Femenina</h3>
+										<p className='text-sm text-gray-600'>Pierna entera + cavado + axilas</p>
+									</div>
+								</div>
+								<div className='flex items-end gap-3 mb-4'>
+									<span className='text-3xl font-extrabold text-gray-900'>$21.000</span>
+									<span className='line-through text-gray-500'>$28.000</span>
+									<span className='bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1'>
+										<Percent className='w-3 h-3' />
+										25% OFF
+									</span>
+								</div>
+								<div className='flex gap-3'>
+									<Link href='/promociones' className='flex-1 bg-pink-600 text-white rounded-xl py-2 px-4 hover:bg-pink-700 transition-colors flex items-center justify-center gap-2'>
+										<Zap className='w-4 h-4' />
+										Ver Promos
+									</Link>
+									<Link href='/tienda' className='flex-1 bg-white text-pink-700 border border-pink-600 rounded-xl py-2 px-4 hover:bg-pink-50 transition-colors flex items-center justify-center gap-2'>
+										<DollarSign className='w-4 h-4' />
+										Comprar
+									</Link>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -471,5 +508,5 @@ export default function Promociones() {
 				</div>
 			</section>
 		</div>
-	);
+		);
 }
