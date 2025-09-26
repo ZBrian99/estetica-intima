@@ -5,6 +5,7 @@ import { ServiceCard } from './services/ServiceCard';
 import { ServiceResponse } from '@/schemas/servicesSchema';
 import { buildSort, getSelectFields } from '@/services/api/servicesService';
 import { prisma } from '@/lib/prisma';
+import CleanServiceCard from './services/CleanServiceCard';
 
 // Forzar renderizado dinámico en el servidor (SSR) y sin caché para evitar SSG en build
 export const revalidate = 0;
@@ -37,7 +38,7 @@ const Populares = async () => {
 				{/* Services Grid */}
 				<div className='grid us:grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4'>
 					{services.slice(0, 8).map((service) => (
-						<ServiceCard key={service.id} service={service} />
+						<CleanServiceCard key={service.id} service={service} />
 					))}
 				</div>
 

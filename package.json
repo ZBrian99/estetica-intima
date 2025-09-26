@@ -39,6 +39,7 @@
 		"date-fns": "^4.1.0",
 		"embla-carousel-autoplay": "^8.6.0",
 		"embla-carousel-react": "^8.6.0",
+		"framer-motion": "^12.23.22",
 		"lucide-react": "^0.539.0",
 		"next": "15.4.6",
 		"next-auth": "5.0.0-beta.29",
@@ -51,6 +52,7 @@
 		"recharts": "^2.15.4",
 		"recharts-to-png": "^3.0.1",
 		"sonner": "^2.0.7",
+		"react-parallax-tilt": "^1.7.309",
 		"tailwind-merge": "^3.3.1",
 		"zod": "^4.0.17",
 		"zustand": "^5.0.7"

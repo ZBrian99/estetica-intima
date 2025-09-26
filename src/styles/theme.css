@@ -1,7 +1,7 @@
 /* Tema personalizado - Variables y configuración */
 
 @theme {
-  --font-sans: var(--font-inter-sans), system-ui, -apple-system, sans-serif;
+	--font-sans: var(--font-inter-sans), system-ui, -apple-system, sans-serif;
 	--font-serif: var(--font-outfit-serif), Georgia, 'Times New Roman', serif;
 
 	/* --color-primary-50: #f3f0ff;
@@ -14,9 +14,9 @@
 	--color-primary-700: #581c87;
 	--color-primary-800: #4c1d95;
 	--color-primary-900: #3b1a78; */
-  
+
 	--color-primary: var(-color-primary-500);
-  --color-primary-50: #f8f5ff;
+	--color-primary-50: #f8f5ff;
 	--color-primary-100: #f0e9ff;
 	--color-primary-200: #e1d4ff;
 	--color-primary-300: #c9b3ff;
@@ -54,7 +54,7 @@
 	--text-8xl: 6rem;
 	--text-9xl: 8rem;
 
-  --height-svh: 100svh;
+	--height-svh: 100svh;
 	--height-dvh: 100dvh;
 	--height-lvh: 100lvh;
 
@@ -62,6 +62,7 @@
 	--breakpoint-xs: 480px;
 	--breakpoint-sm: 640px;
 	--breakpoint-md: 768px;
+	--breakpoint-ml: 896px;
 	--breakpoint-lg: 1024px;
 	--breakpoint-xl: 1280px;
 	--breakpoint-2xl: 1536px;
@@ -70,4 +71,3 @@
 	--animate-loading-vertical-bar: loading-vertical-bar 1.5s ease-in-out infinite;
 	--animate-loading-bar-fade: loading-bar-fade 1.5s ease-in-out infinite;
 }
-
