@@ -4,7 +4,7 @@ import CategoryTile from './CategoryTile';
 
 const Categorias = () => {
 	return (
-		<section className='px-4 py-16 bg-primary-50'>
+		<section className='px-4 py-16 '>
 			<div className='max-w-7xl mx-auto'>
 				<div className='text-center mb-8 md:mb-10'>
 					<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-3'>Descubre nuestros tratamientos.</h2>

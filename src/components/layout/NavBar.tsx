@@ -3,16 +3,25 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
-import { IoChevronDown } from 'react-icons/io5';
-
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-	DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+	FiShoppingCart,
+	FiMenu,
+	FiSearch,
+	FiZap,
+	FiActivity,
+	FiSmile,
+	FiHeart,
+	FiArrowRight,
+	FiUnlock,
+	FiImage,
+	FiBook,
+	FiUsers,
+	FiHelpCircle,
+	FiTag,
+	FiGift,
+  FiPlus,
+} from 'react-icons/fi';
+
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -21,15 +30,9 @@ import {
 	NavigationMenuList,
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import TiendaButton from '../TiendaButton';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface NavLinkItem {
 	label: string;
@@ -84,119 +87,305 @@ const highlightedItems: NavLinkItem[] = [
 ];
 
 const moreItems: NavLinkItem[] = [
-  { label: 'Pase Libre', href: '/pase-libre' },
-	{ label: 'Antes y Después', href: '/#antes-despues' },
-  { label: 'Cursos', href: '/cursos' },
+	{ label: 'Pase Libre', href: '/pase-libre' },
+	{ label: 'Resultados', href: '/#resultados' },
+	{ label: 'Cursos', href: '/cursos' },
 	{ label: 'Nosotras', href: '/nosotras' },
-	{ label: 'Contacto', href: '/#contacto' },
 	{ label: 'Preguntas Frecuentes', href: '/#faq' },
+];
+
+// Mobile navigation data
+interface MobileSubItem {
+	label: string;
+	href: string;
+}
+interface MobileSubCategory {
+	label: string;
+	href: string;
+	items: MobileSubItem[];
+}
+interface MobileCategory {
+	key: string;
+	label: string;
+	subcategories: MobileSubCategory[];
+}
+
+const mobileCategories: MobileCategory[] = [
+	{
+		key: 'depilacion',
+		label: 'Depilación',
+		subcategories: [
+			{
+				label: 'Zonas populares',
+				href: '/servicios?categoria=depilacion&sub=zonas-pequenas',
+				items: [
+					{ label: 'Glúteos completo', href: '/servicios?categoria=depilacion&item=menton' },
+					{ label: 'Cavado completo', href: '/servicios?categoria=depilacion&item=cavado-completo' },
+          { label: 'Espalda completa', href: '/servicios?categoria=depilacion&item=espalda-completa' },
+          { label: 'Brazos completos', href: '/servicios?categoria=depilacion&item=brazos-completos' },
+				],
+			},
+			{
+				label: 'Combos',
+				href: '/servicios?categoria=depilacion&sub=combos',
+				items: [
+					{ label: 'Pierna completa', href: '/servicios?categoria=depilacion&item=pierna-completa' },
+					{ label: 'Rostro completo', href: '/servicios?categoria=depilacion&combo=rostro-completo' },
+					{ label: 'Pierna + Glúteos', href: '/servicios?categoria=depilacion&combo=pierna-axilas' },
+					{ label: 'Cavado + Axilas', href: '/servicios?categoria=depilacion&combo=cavado-axilas' },
+				],
+			},
+		],
+	},
+	{
+		key: 'corporales',
+		label: 'Corporales',
+		subcategories: [
+			{
+				label: 'Tratamientos',
+				href: '/servicios?categoria=tratamientos-corporales',
+				items: [
+					{ label: 'Maderoterapia', href: '/servicios?categoria=tratamientos-corporales&item=maderoterapia' },
+					{ label: 'Mio Up 1 zona', href: '/servicios?categoria=tratamientos-corporales&item=mio-up-1-zona' },
+					{
+						label: 'Alpha Synergy 1 zona',
+						href: '/servicios?categoria=tratamientos-corporales&item=alpha-synergy-1-zona',
+					},
+					{ label: 'Presoterapia', href: '/servicios?categoria=tratamientos-corporales&item=presoterapia' },
+				],
+			},
+			{
+				label: 'Masajes',
+				href: '/servicios?categoria=masajes',
+				items: [
+					{ label: 'Descontracturante', href: '/servicios?categoria=masajes&item=descontracturante' },
+					{ label: 'Deportivo', href: '/servicios?categoria=masajes&item=deportivo' },
+					{ label: 'Piedras Calientes', href: '/servicios?categoria=masajes&item=piedras-calientes' },
+				],
+			},
+			{
+				label: 'Combos',
+				href: '/servicios?categoria=combos-corporales',
+				items: [
+					{ label: 'Madero + Mio Up', href: '/servicios?categoria=combos-corporales&combo=madero-mio' },
+					{ label: 'Mio Up + Alpha', href: '/servicios?categoria=combos-corporales&combo=mio-alpha' },
+				],
+			},
+		],
+	},
+	{
+		key: 'faciales',
+		label: 'Faciales',
+		subcategories: [
+			{
+				label: 'Tratamientos',
+				href: '/servicios?categoria=tratamientos-faciales',
+				items: [
+					{ label: 'Limpieza Facial', href: '/servicios?categoria=tratamientos-faciales&item=limpieza-facial' },
+          { label: 'Peeling Quimico', href: '/servicios?categoria=tratamientos-faciales&item=peeling' },
+          { label: 'Hollywood Peel', href: '/servicios?categoria=tratamientos-faciales&item=hollywood-peel' },
+					{ label: 'Hidratación', href: '/servicios?categoria=tratamientos-faciales&item=hidratacion' },
+					{ label: 'Dermopigmentación', href: '/servicios?categoria=tratamientos-faciales&item=dermopigmentacion' },
+				],
+			},
+			{
+				label: 'Combos',
+				href: '/servicios?categoria=combos-faciales',
+				items: [
+					{
+						label: 'Ultracavitación + Alpha Synergy',
+						href: '/servicios?categoria=combos-faciales&combo=ultracavitacion-alpha',
+					},
+				],
+			},
+		],
+	},
+	{
+		key: 'belleza',
+		label: 'Belleza',
+		subcategories: [
+			{
+				label: 'Cejas & Pestañas',
+				href: '/servicios?categoria=cejas-pestanas',
+				items: [
+          { label: 'Microblading', href: '/servicios?categoria=cejas-pestanas&item=microblading' },
+          { label: 'Extensiones', href: '/servicios?categoria=cejas-pestanas&item=extensiones' },
+          { label: 'Lifting', href: '/servicios?categoria=cejas-pestanas&item=lifting' },
+          { label: 'Perfilado', href: '/servicios?categoria=cejas-pestanas&item=perfilado' },
+				],
+			},
+			{
+				label: 'Manos & Pies',
+				href: '/servicios?categoria=manos-pies',
+				items: [
+          { label: 'Pedicuria', href: '/servicios?categoria=manos-pies&item=pedicuria' },
+          { label: 'Esmaltado Tradicional', href: '/servicios?categoria=manos-pies&item=esmaltado-tradicional' },
+					{ label: 'Semipermanente', href: '/servicios?categoria=manos-pies&item=esmaltado-semipermanente' },
+				],
+			},
+			{
+				label: 'Combos',
+				href: '/servicios?categoria=combos-belleza',
+				items: [
+					{ label: 'Lifting + Tinte', href: '/servicios?categoria=combos-belleza&combo=lifting-tinte' },
+					{ label: 'Spa + Pedicuria', href: '/servicios?categoria=combos-belleza&combo=spa-pedicuria' },
+					{ label: 'Pack 4 sesiones', href: '/servicios?categoria=combos-belleza&combo=pack-4-sesiones' },
+				],
+			},
+		],
+	},
 ];
 
 export default function NavBar() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<header className='fixed top-0 inset-x-0 z-50 bg-white border-b border-gray-200'>
+		<header className='fixed top-0 inset-x-0 z-50 bg-gradient-to-b from-white to-gray-50 border-b border-gray-200/70'>
 			<div className='max-w-7xl mx-auto px-4'>
 				<div className='h-16 flex items-center justify-between'>
 					{/* Brand - Izquierda */}
-					<Link href='/' className='flex items-center gap-2 flex-shrink-0'>
+					<Link href='/' className='flex items-center gap-3 flex-shrink-0'>
 						<Image
 							src='/logo-sin-fondo.webp'
 							alt='Intima Estética'
 							width={120}
 							height={120}
-							className='h-10 w-10'
+							className='h-12 w-12'
 							priority
 						/>
-						<span className='font-semibold text-gray-900 text-lg hidden sm:block'>Intima Estética</span>
+						<div className='hidden sm:flex flex-col leading-tight'>
+							<span className='text-lg font-semibold text-gray-900'>Intima</span>
+							<span className='text-xs text-primary-600'>Centro de estética integral</span>
+						</div>
 					</Link>
 
 					{/* Desktop Navigation - Derecha */}
-					<div className='hidden lg:flex items-center gap-1'>
-						{/* Menú Tratamientos con NavigationMenu */}
-						<NavigationMenu>
+					<div className='hidden lg:flex items-center gap-1 '>
+						{/* Menús (Desktop): categorías + links directos + Más */}
+						<NavigationMenu viewport={false}>
 							<NavigationMenuList>
-								<NavigationMenuItem>
-									<NavigationMenuTrigger className='px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-700'>
-										Tratamientos
-									</NavigationMenuTrigger>
-									<NavigationMenuContent>
-										<div className='grid w-[600px] gap-3 p-6 md:grid-cols-2'>
-											{treatmentCategories.map((category) => (
-												<div key={category.label} className='space-y-2'>
-													<NavigationMenuLink asChild>
-														<Link
-															href={category.href}
-															className='block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
-														>
-															<div className='text-sm font-medium leading-none text-gray-900'>
-																{category.label}
-															</div>
-														</Link>
-													</NavigationMenuLink>
-													<div className='space-y-1'>
-														{category.items.map((item) => (
-															<NavigationMenuLink key={item.href} asChild>
+								{(['depilacion', 'corporales', 'faciales', 'belleza'] as const).map((key) => {
+									const cat = mobileCategories.find((c) => c.key === key);
+									if (!cat) return null;
+									return (
+										<NavigationMenuItem key={key}>
+											<NavigationMenuTrigger className='px-3 py-2 text-sm font-medium text-gray-800 hover:text-primary'>
+												<span className='inline-flex items-center gap-2'>
+													{key === 'depilacion' && <FiZap className='h-4 w-4  ' />}
+													<span>{cat.label}</span>
+												</span>
+											</NavigationMenuTrigger>
+											<NavigationMenuContent
+												className={`absolute ${
+													key === 'belleza' ? '-translate-x-1/3 2xl:translate-x-0' : ''
+												} p-4 rounded-xl bg-gradient-to-b from-white to-gray-50 shadow-md ring-1 ring-gray-200/60`}
+											>
+												<div
+													className={`grid w-max gap-6 sm:grid-cols-2 ${
+														key === 'faciales' || key === 'depilacion' ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
+													}`}
+												>
+													{cat.subcategories.map((sub) => (
+														<div key={sub.label} className='space-y-1 max-w-40'>
+															<NavigationMenuLink asChild className='rounded-none'>
 																<Link
-																	href={item.href}
-																	className='block select-none rounded-md p-2 pl-4 text-sm leading-none text-gray-600 no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+																	href={sub.href}
+																	className='block p-2 font-medium text-gray-900 no-underline outline-none transition-colors hover:bg-primary/5 hover:text-primary focus:bg-primary/5 focus:text-primary'
 																>
-																	{item.label}
+																	{sub.label}
 																</Link>
 															</NavigationMenuLink>
-														))}
+															<div className='pl-4 space-y-1'>
+																{sub.items.map((item) => (
+																	<NavigationMenuLink key={item.href} asChild>
+																		<Link
+																			href={item.href}
+																			className='block rounded-md p-2 text-sm text-gray-700 no-underline outline-none transition-colors hover:bg-primary/5 hover:text-primary focus:bg-primary/5 focus:text-primary'
+																		>
+																			{item.label}
+																		</Link>
+																	</NavigationMenuLink>
+																))}
+															</div>
+														</div>
+													))}
+													<div className='col-span-full border-t mt-2 pt-2'>
+														<Link
+															href={`/servicios?categoria=${cat.key}`}
+															className='inline-flex items-center gap-1  px-3 py-2 text-primary bg-white/60 hover:bg-primary/10 w-full'
+														>
+															Ver todos
+															<FiArrowRight className='h-4 w-4' />
+														</Link>
 													</div>
 												</div>
-											))}
+											</NavigationMenuContent>
+										</NavigationMenuItem>
+									);
+								})}
+
+								{/* Links directos como NavigationMenuLink */}
+								<NavigationMenuItem>
+									<NavigationMenuLink asChild>
+										<Link
+											href='/promociones'
+											className='px-3 py-2 text-sm font-medium text-gray-800 hover:text-primary transition-colors inline-flex items-center gap-2 flex-row  '
+										>
+											<FiTag className='h-4 w-4' />
+											Promos
+										</Link>
+									</NavigationMenuLink>
+								</NavigationMenuItem>
+								<NavigationMenuItem>
+									<NavigationMenuLink asChild>
+										<Link
+											href='/gift-cards'
+											className='px-3 py-2 text-sm font-medium text-gray-800 hover:text-primary transition-colors inline-flex items-center gap-2 flex-row'
+										>
+											<FiGift className='h-4 w-4 ' />
+											Gift Cards
+										</Link>
+									</NavigationMenuLink>
+								</NavigationMenuItem>
+
+								{/* Menú Más como NavigationMenu de una columna */}
+								<NavigationMenuItem>
+									<NavigationMenuTrigger className='px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-700 inline-flex items-center gap-2 flex-row'>
+										Más
+									</NavigationMenuTrigger>
+									<NavigationMenuContent className='absolute -translate-x-1/3 xl:translate-x-0 p-4 rounded-xl bg-white shadow-md ring-1 ring-gray-200/60'>
+										<div className='w-max'>
+											<div className='flex flex-col gap-2'>
+												{moreItems.map((item) => (
+													<NavigationMenuLink key={item.href} asChild>
+														<Link href={item.href} className='inline-flex rounded-full  bg-white px-3 py-1.5 text-sm text-gray-700 no-underline outline-none transition-colors hover:border-primary hover:text-primary'>
+															{item.label}
+														</Link>
+													</NavigationMenuLink>
+												))}
+											</div>
 										</div>
 									</NavigationMenuContent>
 								</NavigationMenuItem>
 							</NavigationMenuList>
 						</NavigationMenu>
-
-						{/* Items Destacados */}
-						{highlightedItems.map((item) => (
-							<Link
-								key={item.href}
-								href={item.href}
-								className='px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-700 transition-colors'
-							>
-								{item.label}
-							</Link>
-						))}
-
-						{/* Menú Más */}
-						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<Button variant='ghost' className='px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-700'>
-									Más
-									<IoChevronDown className='ml-1 h-4 w-4' />
-								</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								{moreItems.map((item) => (
-									<DropdownMenuItem key={item.href} asChild>
-										<Link href={item.href}>{item.label}</Link>
-									</DropdownMenuItem>
-								))}
-							</DropdownMenuContent>
-						</DropdownMenu>
 					</div>
 
-					{/* Botón Tienda */}
 					<div className='hidden lg:flex items-center gap-1'>
-						<TiendaButton />
-
 						{/* Carrito */}
 						<Button variant='ghost' size='sm' className='p-2'>
-							<FiShoppingCart className='h-5 w-5' />
+							<FiSearch className='h-5 w-5 text-gray-700' />
+						</Button>
+						<Button variant='ghost' size='sm' className='p-2'>
+							<FiShoppingCart className='h-5 w-5 text-gray-700' />
 						</Button>
 					</div>
 
 					{/* Mobile Navigation */}
-					{/* <div className='flex lg:hidden items-center gap-2'>
-						<TiendaButton />
+					<div className='flex lg:hidden items-center gap-2'>
+						<Button variant='ghost' size='sm' className='p-2'>
+							<FiSearch className='h-5 w-5' />
+						</Button>
 						<Button variant='ghost' size='sm' className='p-2'>
 							<FiShoppingCart className='h-5 w-5' />
 						</Button>
@@ -206,68 +395,108 @@ export default function NavBar() {
 									<FiMenu className='h-6 w-6' />
 								</Button>
 							</SheetTrigger>
-							<SheetContent side='right' className='w-80'>
-								<SheetHeader>
-									<SheetTitle>Menú</SheetTitle>
-								</SheetHeader>
-								<div className='mt-6 space-y-4'>
-                  
-									<div className='space-y-2'>
-										<h3 className='font-semibold text-gray-900 text-lg'>Tratamientos</h3>
-										{treatmentCategories.map((category) => (
-											<div key={category.label} className='space-y-1'>
+							<SheetContent side='right' className='w-[85vw] sm:w-96 bg-gradient-to-b from-white to-gray-50'>
+								<div className='flex h-full flex-col'>
+									<SheetHeader className='h-16 flex justify-center p-4'>
+										<SheetTitle className='text-xl font-semibold'>Menú</SheetTitle>
+									</SheetHeader>
+
+									{/* Scrollable content */}
+									<div className='flex-1 overflow-y-auto px-4 border-t mt-[.5px]'>
+										{/* Categorías (acordeones) */}
+										<Accordion type='multiple'>
+											{mobileCategories.map((cat) => (
+												<AccordionItem key={cat.key} value={cat.key} className='border-none'>
+													<AccordionTrigger className='py-3 pr-2 text-base font-medium text-gray-900 hover:no-underline'>
+														<span className='pl-2 inline-flex items-center gap-2'>
+														{cat.label}
+														</span>
+													</AccordionTrigger>
+													<AccordionContent className='pb-3'>
+														<div className='space-y-3'>
+															{cat.subcategories.map((sub) => (
+																<div key={sub.label}>
+																	<Link
+																		href={sub.href}
+																		onClick={() => setIsOpen(false)}
+																		className='block rounded-md py-2 pl-4 pr-2 text-gray-900 font-medium hover:bg-gray-50 hover:text-primary'
+																	>
+																		{sub.label}
+																	</Link>
+																	<div className='pl-2'>
+																		{sub.items.map((item) => (
+																			<Link
+																				key={item.href}
+																				href={item.href}
+																				onClick={() => setIsOpen(false)}
+																				className='block rounded-md py-1.5 pl-6 pr-2 text-gray-700 hover:bg-gray-50 hover:text-primary'
+																			>
+																				{item.label}
+																			</Link>
+																		))}
+																	</div>
+																</div>
+															))}
+															<Link
+																href={`/servicios?categoria=${cat.key}`}
+																onClick={() => setIsOpen(false)}
+																className='inline-flex items-center gap-1 border-none pt-2 pl-4 pr-2 text-primary font-medium hover:bg-primary/10 w-full'
+															>
+																Ver todos
+																<FiArrowRight className='h-4 w-4' />
+															</Link>
+														</div>
+													</AccordionContent>
+												</AccordionItem>
+											))}
+										</Accordion>
+
+										{/* Ítems directos, mismo diseño que top-level */}
+										<div className=''>
+											<Link
+												href='/promociones'
+												className='block rounded-md py-3 pl-2 pr-2 text-base font-medium text-gray-900 hover:bg-gray-50'
+												onClick={() => setIsOpen(false)}
+											>
+												Promociones
+											</Link>
+											<Link
+												href='/gift-cards'
+												className='block rounded-md py-3 pl-2 pr-2 text-base font-medium text-gray-900 hover:bg-gray-50'
+												onClick={() => setIsOpen(false)}
+											>
+												Gift Cards
+											</Link>
+											{moreItems.map((item) => (
 												<Link
-													href={category.href}
-													className='block py-2 text-gray-900 font-medium hover:text-primary-700'
+													key={item.href}
+													href={item.href}
+													className='block rounded-md py-3 pl-2 pr-2 text-base font-medium text-gray-900 hover:bg-gray-50'
 													onClick={() => setIsOpen(false)}
 												>
-													{category.label}
+													{item.label}
 												</Link>
-												{category.items.map((item) => (
-													<Link
-														key={item.href}
-														href={item.href}
-														className='block py-1 pl-4 text-gray-600 hover:text-primary-700'
-														onClick={() => setIsOpen(false)}
-													>
-														{item.label}
-													</Link>
-												))}
-											</div>
-										))}
+											))}
+										</div>
 									</div>
 
-									<div className='space-y-2 border-t pt-4'>
-										{highlightedItems.map((item) => (
-											<Link
-												key={item.href}
-												href={item.href}
-												className='block py-2 text-gray-900 font-medium hover:text-primary-700'
-												onClick={() => setIsOpen(false)}
-											>
-												{item.label}
-											</Link>
-										))}
-									</div>
-
-									<div className='space-y-2 border-t pt-4'>
-										{moreItems.map((item) => (
-											<Link
-												key={item.href}
-												href={item.href}
-												className='block py-2 text-gray-600 hover:text-primary-700'
-												onClick={() => setIsOpen(false)}
-											>
-												{item.label}
-											</Link>
-										))}
+									{/* CTAs sticky bottom */}
+									<div className='sticky bottom-0 border-t bg-white p-4 space-y-2'>
+										<Link
+											href='/#turnos'
+											onClick={() => setIsOpen(false)}
+											className='inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-white font-medium'
+										>
+											Contáctanos por WhatsApp
+										</Link>
 									</div>
 								</div>
 							</SheetContent>
 						</Sheet>
-					</div> */}
+					</div>
 				</div>
 			</div>
 		</header>
 	);
 }
+

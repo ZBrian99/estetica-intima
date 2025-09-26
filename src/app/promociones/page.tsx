@@ -25,7 +25,7 @@ export default function Promociones() {
 
 			{/* Promoción Destacada - Pase Libre */}
 			<section className='py-16 max-w-7xl mx-auto px-4'>
-				<div className='relative bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-8 text-white mb-12 overflow-hidden'>
+				<div className='relative bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white mb-12 overflow-hidden'>
 					<img
 						src='https://image.pollinations.ai/prompt/spa-pass-multiple-treatments-luxury-wellness-center-promotional-banner?width=800&height=300&model=flux-realism&enhance=true&nologo=true'
 						alt='Pase Libre Íntima'
@@ -33,45 +33,45 @@ export default function Promociones() {
 					/>
 					<div className='relative z-10'>
 						{/* Header */}
-						<div className='text-center mb-12'>
-							<div className='inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-4'>
-								<Star className='w-5 h-5 text-yellow-300' />
-								<span className='text-sm font-semibold'>PROMOCIÓN EXCLUSIVA</span>
-								<Star className='w-5 h-5 text-yellow-300' />
+						<div className='text-center mb-8 sm:mb-12'>
+							<div className='inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-3 text-xs sm:text-sm'>
+								<Star className='w-4 h-4 sm:w-5 sm:h-5 text-yellow-300' />
+								<span className='font-semibold'>PROMOCIÓN EXCLUSIVA</span>
+								<Star className='w-4 h-4 sm:w-5 sm:h-5 text-yellow-300' />
 							</div>
-							<h2 className='text-4xl md:text-5xl font-bold mb-4'>PASE LIBRE ÍNTIMA</h2>
-							<p className='text-xl md:text-2xl mb-2'>Dos horas de tratamiento por día... A tu ritmo, a tu elección</p>
-							<p className='text-lg opacity-90'>La mejor inversión en tu belleza y bienestar</p>
+							<h2 className='text-3xl sm:text-4xl md:text-5xl font-bold mb-3'>PASE LIBRE ÍNTIMA</h2>
+							<p className='text-lg sm:text-xl md:text-2xl mb-2'>Dos horas de tratamiento por día... A tu ritmo, a tu elección</p>
+							<p className='text-base sm:text-lg opacity-90'>La mejor inversión en tu belleza y bienestar</p>
 						</div>
 
 						{/* Precio Destacado */}
-						<div className='text-center mb-12'>
-							<div className='inline-block bg-white/25 backdrop-blur-sm rounded-xl p-6 border-2 border-yellow-400'>
-								<div className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-4 flex items-center gap-2'>
+						<div className='text-center mb-8 sm:mb-12'>
+							<div className='inline-block bg-white/25 backdrop-blur-sm rounded-xl p-4 sm:p-6 border-2 border-yellow-400'>
+								<div className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold mb-3 flex items-center gap-2'>
 									<Zap className='w-4 h-4' />
 									PRECIO ESPECIAL
 									<Zap className='w-4 h-4' />
 								</div>
 								<div className='mb-2'>
-									<span className='text-5xl font-bold'>$25.000</span>
+									<span className='text-3xl sm:text-5xl font-bold'>$25.000</span>
 								</div>
-								<div className='bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-2 flex items-center gap-2'>
+								<div className='bg-green-500 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-bold mb-2 flex items-center gap-2'>
 									<DollarSign className='w-4 h-4' />
 									AHORRÁS MÁS DEL 40%
 								</div>
-								<p className='text-sm opacity-90'>Valor individual: $45.000+</p>
+								<p className='text-xs sm:text-sm opacity-90'>Valor individual: $45.000+</p>
 							</div>
 						</div>
 
 						{/* Beneficios y Condiciones */}
-						<div className='grid md:grid-cols-2 gap-8 mb-10'>
+						<div className='grid sm:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-10'>
 							{/* Incluye */}
-							<div className='bg-white/15 backdrop-blur-sm rounded-xl p-6'>
-								<h3 className='text-2xl font-bold mb-6 flex items-center gap-2'>
-									<Gift className='w-6 h-6 text-yellow-300' />
+							<div className='bg-white/15 backdrop-blur-sm rounded-xl p-4 sm:p-6'>
+								<h3 className='text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2'>
+									<Gift className='w-5 h-5 text-yellow-300' />
 									¿Qué incluye?
 								</h3>
-								<div className='space-y-3'>
+								<div className='space-y-3 text-sm'>
 									<div className='flex items-center gap-3'>
 										<CheckCircle className='w-5 h-5 text-yellow-300' />
 										<span>Mio Up - Tonificación muscular</span>
@@ -104,9 +104,9 @@ export default function Promociones() {
 							</div>
 
 							{/* Condiciones */}
-							<div className='bg-white/15 backdrop-blur-sm rounded-xl p-6'>
-								<h3 className='text-2xl font-bold mb-6 flex items-center gap-2'>
-									<Calendar className='w-6 h-6 text-blue-300' />
+							<div className='bg-white/15 backdrop-blur-sm rounded-xl p-4 sm:p-6'>
+								<h3 className='text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2'>
+									<Calendar className='w-5 h-5 text-blue-300' />
 									Condiciones
 								</h3>
 								<div className='space-y-4'>
@@ -144,17 +144,17 @@ export default function Promociones() {
 
 						{/* CTA */}
 						<div className='text-center'>
-							<div className='inline-flex flex-col sm:flex-row gap-4'>
-								<button className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-8 py-4 rounded-xl font-bold text-lg hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2'>
+							<div className='inline-flex flex-col sm:flex-row gap-3 sm:gap-4'>
+								<button className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2'>
 									<Zap className='w-5 h-5' />
 									¡Quiero mi Pase Libre!
 								</button>
-								<button className='bg-white/20 backdrop-blur-sm border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/30 transition-all duration-300 flex items-center gap-2 whitespace-nowrap'>
+								<button className='bg-white/20 backdrop-blur-sm border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:bg-white/30 transition-all duration-300 flex items-center gap-2 whitespace-nowrap'>
 									<MessageCircle className='w-5 h-5' />
 									Más Info por WhatsApp
 								</button>
 							</div>
-							<div className='flex items-center justify-center gap-2 text-sm opacity-80 mt-4'>
+							<div className='flex items-center justify-center gap-2 text-xs sm:text-sm opacity-80 mt-4'>
 								<AlertCircle className='w-4 h-4 text-red-300' />
 								<span>Oferta limitada - Solo los primeros 50 pases</span>
 							</div>

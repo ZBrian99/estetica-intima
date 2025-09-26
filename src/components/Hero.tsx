@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Gift, Star, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Gift, Star, Sparkles, Sun, Zap, Heart, Eye } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
@@ -44,7 +44,7 @@ const Hero = () => {
 		{
 			id: 1,
 			type: 'brand',
-			title: 'Íntima MDQ',
+			title: 'Íntima',
 			subtitle: 'Centro de Estética Integral',
 			description: 'Tecnología de última generación para tu belleza y bienestar',
 			primaryCta: 'Conocer Servicios',
@@ -53,38 +53,74 @@ const Hero = () => {
 			secondaryHref: '/contacto',
 			icon: <Sparkles className="w-8 h-8" />,
 			background: 'bg-gradient-to-br from-primary-600 via-primary-500 to-rose-400',
-			image: 'https://image.pollinations.ai/prompt/modern%20luxury%20spa%20interior%20with%20soft%20lighting%20professional%20aesthetic%20clinic%20clean%20minimalist%20design?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=12345',
+			image:
+				'https://image.pollinations.ai/prompt/modern%20luxury%20spa%20interior%20with%20soft%20lighting%20professional%20aesthetic%20clinic%20clean%20minimalist%20design?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=12345',
 			fallbackColor: 'bg-primary-500'
 		},
 		{
 			id: 2,
-			type: 'promo',
-			title: '¡Promoción Especial!',
-			subtitle: 'Depilación Definitiva',
-			description: 'Pierna completa + Cavado + Axilas + Bozo por solo $22,500',
-			primaryCta: 'Ver Promoción',
+			type: 'pase-libre',
+			title: 'Pase Libre Íntima',
+			subtitle: '2 horas por día, vos elegís',
+			description:
+				'Accedé a Mio Up, Alpha Synergy, Presoterapia, faciales y más. Precio especial $25.000',
+			primaryCta: 'Ver detalles',
 			primaryHref: '/promociones',
-			secondaryCta: 'Reservar Ahora',
+			secondaryCta: 'Reservar',
 			secondaryHref: '/contacto',
-			icon: <Gift className="w-8 h-8" />,
-			background: 'bg-gradient-to-br from-pink-600 via-pink-500 to-indigo-400',
-			image: 'https://image.pollinations.ai/prompt/woman%20receiving%20laser%20hair%20removal%20treatment%20professional%20medical%20spa%20realistic%20photography%20high%20quality%20soft%20lighting%20clean%20composition?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=67890',
-			fallbackColor: 'bg-pink-500'
+			icon: <Zap className="w-8 h-8" />,
+			background: 'bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400',
+			image:
+				'https://image.pollinations.ai/prompt/spa-pass-multiple-treatments-luxury-wellness-center-promotional-banner?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=11111',
+			fallbackColor: 'bg-orange-400'
 		},
 		{
 			id: 3,
-			type: 'treatment',
-			title: 'Tratamientos Corporales',
-			subtitle: 'Maderoterapia + Alpha Synergy',
-			description: 'Reduce medidas y modela tu figura con tecnología avanzada',
-			primaryCta: 'Ver Tratamientos',
-			primaryHref: '/servicios',
-			secondaryCta: 'Agendar Sesión',
+			type: 'gluteos',
+			title: 'Combo Glúteos',
+			subtitle: 'Mio Up + Madero + Alpha',
+			description: 'Tonificación y lifting desde la primera sesión. Pack 4: $140.000',
+			primaryCta: 'Ver Promo',
+			primaryHref: '/promociones',
+			secondaryCta: 'Agendar',
 			secondaryHref: '/contacto',
-			icon: <Star className="w-8 h-8" />,
-			background: 'bg-gradient-to-br from-emerald-600 via-teal-500 to-cyan-400',
-			image: 'https://image.pollinations.ai/prompt/woman%20receiving%20body%20contouring%20treatment%20modern%20spa%20equipment%20professional%20aesthetic%20clinic%20realistic%20photography%20soft%20lighting?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=54321',
-			fallbackColor: 'bg-emerald-500'
+			icon: <Heart className="w-8 h-8" />,
+			background: 'bg-gradient-to-br from-red-500 via-pink-500 to-purple-400',
+			image:
+				'https://image.pollinations.ai/prompt/enhancement-therapy-treatment-professional-clinic?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=22222',
+			fallbackColor: 'bg-pink-500'
+		},
+		{
+			id: 4,
+			type: 'depilacion',
+			title: 'Depilación Láser',
+			subtitle: 'Femenina y Masculina',
+			description: 'Combos desde $21.000 · Zonas desde $6.000',
+			primaryCta: 'Ver Depilación',
+			primaryHref: '/promociones',
+			secondaryCta: 'Consultar',
+			secondaryHref: '/contacto',
+			icon: <Sun className="w-8 h-8" />,
+			background: 'bg-gradient-to-br from-pink-600 via-indigo-500 to-purple-500',
+			image:
+				'https://image.pollinations.ai/prompt/laser-hair-removal-woman-legs-professional-aesthetic-clinic-modern-equipment?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=33333',
+			fallbackColor: 'bg-indigo-500'
+		},
+		{
+			id: 5,
+			type: 'microblading',
+			title: 'Microblading Cejas',
+			subtitle: 'Mirada impactante',
+			description: 'Primera sesión $100.000 · Retoque $80.000',
+			primaryCta: 'Ver Microblading',
+			primaryHref: '/promociones',
+			secondaryCta: 'Reservar',
+			secondaryHref: '/contacto',
+			icon: <Eye className="w-8 h-8" />,
+			background: 'bg-gradient-to-br from-purple-600 via-violet-500 to-fuchsia-400',
+			image:
+				'https://image.pollinations.ai/prompt/microblading-eyebrow-treatment-professional-beauty-salon-precise-technique?width=1200&height=800&model=flux-realism&enhance=true&nologo=true&seed=44444',
+			fallbackColor: 'bg-purple-500'
 		}
 	];
 
@@ -120,7 +156,7 @@ const Hero = () => {
 	const currentSlideData = slides[currentSlide];
 
 	return (
-		<section className="relative h-[calc(100svh-4rem)] overflow-hidden -z-50">
+		<section className="relative h-[calc(100svh-4rem)] overflow-hidden">
 			{/* Embla Carousel Container */}
 			<div className="embla h-full" ref={emblaRef}>
 				<div className="embla__container h-full flex">

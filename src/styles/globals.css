@@ -9,22 +9,7 @@
 @import './fallbacks.css';
 
 @layer base {
-	::-webkit-scrollbar {
-		width: 6px;
-	}
-
-	::-webkit-scrollbar-track {
-		background: var(--color-gray-50);
-	}
-
-	::-webkit-scrollbar-thumb {
-		background: var(--color-gray-500);
-		border-radius: 20px;
-	}
-
-	::-webkit-scrollbar-thumb:hover {
-		background: var(--color-gray-400);
-	}
+	
 
 	* {
 		@apply border-border outline-ring/50;

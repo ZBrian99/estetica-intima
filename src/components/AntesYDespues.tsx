@@ -133,7 +133,7 @@ const AntesYDespues = () => {
 	};
 
 	return (
-		<section className='py-16 bg-primary-50'>
+		<section className='py-16 '>
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				{/* Header */}
 				<div className='text-center mb-8'>
@@ -201,11 +201,11 @@ const AntesYDespues = () => {
 								</div>
 
 								{/* Texto instructivo centrado */}
-								<div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10'>
+								{/* <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10'>
 									<p className='bg-black/70 text-white px-4 py-2 rounded-full text-xs whitespace-nowrap text-center'>
 										Deslizá para comparar los resultados
 									</p>
-								</div>
+								</div> */}
 							</div>
 
 							{/* CTA debajo del comparador */}
