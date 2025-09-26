@@ -25,6 +25,18 @@ export async function requireAdmin(): Promise<Session> {
 	return session;
 }
 
+// Variante específica para layout de /admin que redirige al login de admin
+export async function requireAdminInAdminLayout(): Promise<Session> {
+	const session = await auth();
+	if (!session?.user) {
+		redirect('/admin/login');
+	}
+	if (session.user.role !== 'ADMIN') {
+		redirect('/');
+	}
+	return session;
+}
+
 // ============================================
 // PARA API ROUTES
 // ============================================

@@ -58,12 +58,8 @@ model Service {
   slug        String  @unique // Para URLs amigables
 
   // Precios
-  // price         Decimal? @db.Decimal(10, 2)
-  // promoPrice    Decimal? @db.Decimal(10, 2)
-  // originalPrice Decimal? @db.Decimal(10, 2)
-  // currentPrice  Decimal? @db.Decimal(10, 2)
-  basePrice  Decimal @db.Decimal(10, 2)
-  finalPrice Decimal @db.Decimal(10, 2)
+  basePrice  Float 
+  finalPrice Float 
   hasPromo   Boolean @default(false)
   // Características generales
   duration   Int? // Duración en minutos (INDIVIDUAL y algunos COMBO)
@@ -134,7 +130,7 @@ model Promotion {
 
   // Tipo y valor del descuento
   discountType  DiscountType
-  discountValue Decimal      @db.Decimal(10, 2)
+  discountValue Float
 
   // Vigencia
   startDate DateTime
@@ -147,7 +143,7 @@ model Promotion {
   applicableToPackages Boolean @default(false)
 
   // Restricciones
-  minPurchaseAmount Decimal? @db.Decimal(10, 2)
+  minPurchaseAmount Float
   maxUses           Int? // Límite de usos
   currentUses       Int      @default(0)
 

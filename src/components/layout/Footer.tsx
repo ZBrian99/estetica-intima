@@ -23,7 +23,7 @@ const Footer = () => {
 					<div className='flex items-center justify-center gap-2 mb-4'>
 						<Sparkles className='text-primary-400' size={32} />
 						<h3 className='text-3xl font-bold bg-gradient-to-r from-primary-400 to-pink-400 bg-clip-text text-transparent'>
-							Íntima Estética
+							Íntima Estética Íntegral
 						</h3>
 					</div>
 					<p className='text-gray-300 max-w-2xl mx-auto'>

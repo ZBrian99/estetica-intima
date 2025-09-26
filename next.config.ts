@@ -2,8 +2,6 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
 	eslint: {
-		// Warning: This allows production builds to successfully complete even if
-		// your project has ESLint errors.
 		ignoreDuringBuilds: true,
 	},
 	images: {
@@ -16,6 +14,17 @@ const nextConfig: NextConfig = {
 			},
 		],
 	},
+
+	// Configuración anti-caché SOLO para desarrollo
+	...(process.env.NODE_ENV === 'development' && {
+		experimental: {
+			staleTimes: {
+				dynamic: 0,
+				static: 0,
+			},
+		},
+	}),
+
 	// Headers de seguridad para todas las rutas
 	async headers() {
 		return [
@@ -43,6 +52,24 @@ const nextConfig: NextConfig = {
 						key: 'Referrer-Policy',
 						value: 'strict-origin-when-cross-origin',
 					},
+
+					// Anti-caché SOLO en desarrollo
+					...(process.env.NODE_ENV === 'development'
+						? [
+								{
+									key: 'Cache-Control',
+									value: 'no-cache, no-store, must-revalidate',
+								},
+								{
+									key: 'Pragma',
+									value: 'no-cache',
+								},
+								{
+									key: 'Expires',
+									value: '0',
+								},
+						  ]
+						: []),
 				],
 			},
 			{

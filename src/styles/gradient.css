@@ -1,0 +1,18 @@
+@utility btn-cta-gradient {
+	background-color: #7c2bc6;
+	background-image: linear-gradient(90deg, #7c2bc6 0%, #9575ff 100%);
+}
+
+@utility gradient-bottom-dark {
+	background: rgba(0, 0, 0, 0.25);
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25), transparent);
+}
+
+@utility gradient-bottom-dark {
+	background: rgba(0, 0, 0, 0.25);
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25), transparent);
+}
+
+@utility gradient-flat-no-fallback-image {
+	background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25), transparent);
+}
