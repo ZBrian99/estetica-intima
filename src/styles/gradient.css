@@ -1,13 +1,11 @@
+
+/* Fallback si no se usan transparencias, puede ir directamente con tailwind inline en la classname no hace falta crear clase de utilidad solo agregar el bg-color ademas del gradient en la classname */
 @utility btn-cta-gradient {
 	background-color: #7c2bc6;
 	background-image: linear-gradient(90deg, #7c2bc6 0%, #9575ff 100%);
 }
 
-@utility gradient-bottom-dark {
-	background: rgba(0, 0, 0, 0.25);
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25), transparent);
-}
-
+/* Caso real cuando es necesario si o si el fallback de esta manera y no se puede lograr lo mismo con tailwind, lo que haces es que creas la clase de utilidad con el background directo no imagen ni color directo el background para que se reemplace, entonces pones el color aproximado de fallback con la transparencia y luego el gradient con transparencias etc asi tenemos el fallback y lo reemplazas donde sea que uses gradients, usa este archivo para añadir todos los que haya */
 @utility gradient-bottom-dark {
 	background: rgba(0, 0, 0, 0.25);
 	background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25), transparent);
@@ -15,4 +13,30 @@
 
 @utility gradient-flat-no-fallback-image {
 	background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25), transparent);
+}
+
+/* Nuevas utilidades para gradientes con transparencias que requieren fallbacks específicos */
+@utility gradient-white-fade-right {
+	background: rgba(255, 255, 255, 0.8);
+	background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+@utility gradient-white-fade-left {
+	background: rgba(255, 255, 255, 0.8);
+	background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+@utility gradient-particle-yellow {
+	background: rgba(253, 224, 71, 0.6);
+	background: linear-gradient(to right, rgba(252, 211, 77, 0.6), rgba(245, 158, 11, 0.6));
+}
+
+@utility gradient-shimmer-effect {
+	background: rgba(255, 255, 255, 0.2);
+	background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+@utility gradient-glow-pulse {
+	background: rgba(255, 255, 255, 0.15);
+	background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.3), transparent);
 }

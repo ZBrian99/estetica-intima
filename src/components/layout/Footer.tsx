@@ -16,13 +16,13 @@ import {
 
 const Footer = () => {
 	return (
-		<footer className='bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16'>
+		<footer className='bg-gray-900 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16'>
 			<div className='max-w-7xl mx-auto px-4'>
 				{/* Logo y descripción */}
 				<div className='text-center mb-12'>
 					<div className='flex items-center justify-center gap-2 mb-4'>
 						<Sparkles className='text-primary-400' size={32} />
-						<h3 className='text-3xl font-bold bg-gradient-to-r from-primary-400 to-pink-400 bg-clip-text text-transparent'>
+						<h3 className='text-3xl font-bold bg-primary-400 bg-gradient-to-r from-primary-400 to-pink-400 bg-clip-text text-transparent'>
 							Íntima Estética Íntegral
 						</h3>
 					</div>
@@ -250,7 +250,7 @@ const Footer = () => {
 									href='https://instagram.com/intimamdq'
 									target='_blank'
 									rel='noopener noreferrer'
-									className='bg-gradient-to-r from-pink-500 to-purple-500 p-2 rounded-lg hover:from-pink-600 hover:to-purple-600 transition-all transform hover:scale-105'
+									className='bg-pink-500 bg-gradient-to-r from-pink-500 to-purple-500 p-2 rounded-lg hover:from-pink-600 hover:to-purple-600 transition-all transform hover:scale-105'
 								>
 									<Instagram size={18} className='text-white' />
 								</a>

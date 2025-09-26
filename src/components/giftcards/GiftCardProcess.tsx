@@ -90,7 +90,7 @@ export function GiftCardProcess() {
 
         <div className="relative">
           {/* Connection lines for desktop */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-pink-200 via-purple-200 to-pink-200 transform -translate-y-1/2" />
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-pink-200 bg-gradient-to-r from-pink-200 via-purple-200 to-pink-200 transform -translate-y-1/2" />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
             {steps.map((step, index) => (
@@ -105,10 +105,10 @@ export function GiftCardProcess() {
                 {/* Step number */}
                 <div className="flex justify-center mb-6">
                   <div className="relative">
-                    <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    <div className="w-16 h-16 bg-pink-500 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                       {step.number}
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full blur-lg opacity-30 scale-110" />
+                    <div className="absolute inset-0 bg-pink-500 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full blur-lg opacity-30 scale-110" />
                   </div>
                 </div>
 
@@ -153,9 +153,9 @@ export function GiftCardProcess() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 h-full border border-pink-100 hover:border-pink-200 transition-all duration-300 group">
+              <div className="bg-pink-50 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 h-full border border-pink-100 hover:border-pink-200 transition-all duration-300 group">
                 <div className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                  <div className="w-8 h-8 bg-pink-500 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
                     {index + 1}
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">

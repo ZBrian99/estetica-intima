@@ -46,7 +46,7 @@ const Populares = async () => {
 				<div className='text-center mt-12'>
 					<Link
 						href='/servicios'
-						className='inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-primary-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'
+						className='inline-flex items-center px-8 py-4 bg-purple-600 bg-gradient-to-r from-purple-600 to-primary-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105'
 					>
 						Ver todos los tratamientos
 						<svg className='w-5 h-5 ml-2' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

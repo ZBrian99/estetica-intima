@@ -147,10 +147,10 @@ const PillsBar = () => {
 		<div className='relative w-full overflow-hidden'>
 			{/* fading edges */}
 			{canLeft && (
-				<div className='pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-white to-transparent z-10' />
+				<div className='pointer-events-none absolute left-0 top-0 h-full w-8 bg-white bg-gradient-to-r from-white to-transparent z-10' />
 			)}
 			{canRight && (
-				<div className='pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-white to-transparent z-10' />
+				<div className='pointer-events-none absolute right-0 top-0 h-full w-8 bg-white bg-gradient-to-l from-white to-transparent z-10' />
 			)}
 
 			{/* Nav arrows */}

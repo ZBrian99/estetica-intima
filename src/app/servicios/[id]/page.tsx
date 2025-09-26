@@ -45,7 +45,7 @@ export default async function ServiceDetailByIdPage({ params }: { params: Promis
 	return (
 		<div className='min-h-[calc(100vh-4rem)]'>
 			{/* Hero */}
-			<section className='bg-gradient-to-b from-purple-50 to-white'>
+			<section className='bg-purple-50 bg-gradient-to-b from-purple-50 to-white'>
 				<div className='max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-10'>
 					<nav className='text-sm mb-4 text-gray-600'>
 						<Link href='/servicios' className='hover:text-primary-700'>

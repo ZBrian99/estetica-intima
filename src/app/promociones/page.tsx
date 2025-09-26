@@ -5,7 +5,7 @@ export default function Promociones() {
 	return (
 		<div className='min-h-screen bg-gray-50'>
 			{/* Hero Section */}
-			<section className='relative bg-gradient-to-r from-pink-100 to-purple-100 py-48 md:py-56 overflow-hidden'>
+			<section className='relative bg-pink-100 bg-gradient-to-r from-pink-100 to-purple-100 py-48 md:py-56 overflow-hidden'>
 				<img
 					src='https://image.pollinations.ai/prompt/luxury-spa-promotion-banner-aesthetic-clinic-special-offers-modern-elegant-design?width=1600&height=800&model=flux-realism&enhance=true&nologo=true'
 					alt='Promociones Íntima MDQ'
@@ -62,7 +62,7 @@ export default function Promociones() {
 
 			{/* Promoción Destacada - Pase Libre */}
 			<section className='py-16 max-w-7xl mx-auto px-4'>
-				<div className='relative bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white mb-12 overflow-hidden'>
+				<div className='relative bg-pink-500 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white mb-12 overflow-hidden'>
 					<img
 						src='https://image.pollinations.ai/prompt/spa-pass-multiple-treatments-luxury-wellness-center-promotional-banner?width=800&height=300&model=flux-realism&enhance=true&nologo=true'
 						alt='Pase Libre Íntima'
@@ -84,7 +84,7 @@ export default function Promociones() {
 						{/* Precio Destacado */}
 						<div className='text-center mb-8 sm:mb-12'>
 							<div className='inline-block bg-white/25 backdrop-blur-sm rounded-xl p-4 sm:p-6 border-2 border-yellow-400'>
-								<div className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold mb-3 flex items-center gap-2'>
+								<div className='bg-yellow-400 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold mb-3 flex items-center gap-2'>
 									<Zap className='w-4 h-4' />
 									PRECIO ESPECIAL
 									<Zap className='w-4 h-4' />
@@ -182,7 +182,7 @@ export default function Promociones() {
 						{/* CTA */}
 						<div className='text-center'>
 							<div className='inline-flex flex-col sm:flex-row gap-3 sm:gap-4'>
-								<button className='bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2'>
+								<button className='bg-yellow-400 bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2'>
 									<Zap className='w-5 h-5' />
 									¡Quiero mi Pase Libre!
 								</button>
@@ -472,7 +472,7 @@ export default function Promociones() {
 			</section>
 
 			{/* CTA Final */}
-			<section className='relative bg-gradient-to-r from-pink-500 to-purple-600 py-16 overflow-hidden'>
+			<section className='relative bg-pink-500 bg-gradient-to-r from-pink-500 to-purple-600 py-16 overflow-hidden'>
 				<img
 					src='https://image.pollinations.ai/prompt/luxury-spa-promotion-call-to-action-elegant-beauty-salon-contact-us?width=800&height=400&model=flux-realism&enhance=true&nologo=true'
 					alt='Contactanos'

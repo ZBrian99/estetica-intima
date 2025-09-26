@@ -113,7 +113,7 @@ const AntesYDespuesNoComparator = () => {
 	const currentTreatment = tratamientosData[currentIndex];
 
 	return (
-		<section className="py-16 bg-gradient-to-br from-gray-50 to-white">
+		<section className="py-16 bg-gray-50 bg-gradient-to-br from-gray-50 to-white">
 			<div className="max-w-7xl mx-auto px-4">
 				{/* Header */}
 				<div className="text-center mb-12">
@@ -330,7 +330,7 @@ const AntesYDespuesNoComparator = () => {
 								</div>
 
 								{/* CTA */}
-								<button className="w-full bg-gradient-to-r from-primary-500 to-rose-400 text-white py-4 px-6 rounded-xl font-semibold hover:from-primary-600 hover:to-rose-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+								<button className="w-full bg-primary-500 bg-gradient-to-r from-primary-500 to-rose-400 text-white py-4 px-6 rounded-xl font-semibold hover:from-primary-600 hover:to-rose-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
 									Quiero Este Tratamiento
 								</button>
 							</div>

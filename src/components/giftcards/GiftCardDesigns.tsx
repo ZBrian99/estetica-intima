@@ -30,27 +30,27 @@ export function GiftCardDesign({
 
   if (!mounted) {
     return (
-      <div className="w-80 h-48 md:w-96 md:h-56 bg-gradient-to-br from-pink-400 to-purple-600 rounded-2xl animate-pulse" />
+      <div className="w-80 h-48 md:w-96 md:h-56 bg-pink-400 bg-gradient-to-br from-pink-400 to-purple-600 rounded-2xl animate-pulse" />
     )
   }
   // Configuraciones específicas para cada diseño
   const designConfigs = {
 		design1: {
-			gradient: 'bg-primary from-violet-500 via-purple-600 to-indigo-700',
+			gradient: 'bg-violet-500 bg-primary from-violet-500 via-purple-600 to-indigo-700',
 			particles: 12,
 			particleColor: 'bg-violet-300/40',
 			size: 'w-80 h-48 md:w-96 md:h-56',
 		},
 		design2: {
-			gradient: 'bg-rose-500 from-pink-400 via-rose-500 to-purple-600',
+			gradient: 'bg-rose-500 bg-rose-500 from-pink-400 via-rose-500 to-purple-600',
 			particles: 15,
 			particleColor: 'bg-pink-200/45',
 			size: 'w-80 h-48 md:w-96 md:h-56',
 		},
 		design3: {
-			gradient: 'bg-amber-400 from-yellow-400 via-amber-400 to-yellow-600',
+			gradient: 'bg-yellow-400 bg-amber-400 from-yellow-400 via-amber-400 to-yellow-600',
 			particles: 12,
-			particleColor: 'bg-gradient-to-r from-yellow-300/60 to-amber-300/60',
+			particleColor: 'bg-yellow-300 bg-gradient-to-r from-yellow-300/60 to-amber-300/60',
 			size: 'w-80 h-48 md:w-96 md:h-56',
 		},
 	};
@@ -110,10 +110,10 @@ export function GiftCardDesign({
 					>
 						{/* Animated background pattern - más efectos */}
 						<div className='absolute inset-0 opacity-30'>
-							<div className='absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/50 to-transparent animate-shimmer' />
-							<div className='absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-bl from-white/30 to-transparent rounded-full animate-glow-pulse' />
-							<div className='absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full animate-float' />
-							<div className='absolute bottom-0 right-0 w-3/4 h-3/4 bg-gradient-to-tl from-white/15 to-transparent animate-slide' />
+							<div className='absolute top-0 left-0 w-full h-full bg-white/25 bg-gradient-to-br from-white/50 to-transparent animate-shimmer' />
+							<div className='absolute -top-1/2 -right-1/2 w-full h-full bg-white/15 bg-gradient-to-bl from-white/30 to-transparent rounded-full animate-glow-pulse' />
+							<div className='absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/10 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full animate-float' />
+							<div className='absolute bottom-0 right-0 w-3/4 h-3/4 bg-white/8 bg-gradient-to-tl from-white/15 to-transparent animate-slide' />
 						</div>
 
 						{/* Content con layout específico */}
@@ -160,8 +160,11 @@ export function GiftCardDesign({
 						</div>
 
 						{/* Efectos holográficos mejorados */}
-						<div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-slide opacity-0 hover:opacity-100 transition-opacity duration-1000' />
-						<div className='absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-white/15 to-transparent animate-glow-pulse' />
+						<div
+							className='absolute inset-0 
+            bg-white/20 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-slide opacity-0 hover:opacity-100 transition-opacity duration-1000'
+						/>
+						<div className='absolute top-0 right-0 w-1/3 h-1/3 bg-white/15 bg-gradient-to-bl from-white/15 to-transparent animate-glow-pulse' />
 
 						{/* Elementos flotantes adicionales */}
 						<div
@@ -240,26 +243,29 @@ export function GiftCardDesign({
 						>
 							{/* Oro real background pattern */}
 							<div className='absolute inset-0 opacity-20'>
-								<div className='absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-300/40 to-transparent' />
-								<div className='absolute bottom-0 right-0 w-2/3 h-2/3 bg-gradient-to-tl from-amber-300/30 to-transparent' />
-								<div className='absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-gradient-to-r from-yellow-400/25 to-amber-400/25 transform -translate-x-1/2 -translate-y-1/2 rounded-full blur-xl' />
+								<div className='absolute top-0 left-0 w-full h-full bg-yellow-300/20 bg-gradient-to-br from-yellow-300/40 to-transparent' />
+								<div className='absolute bottom-0 right-0 w-2/3 h-2/3 bg-amber-300/15 bg-gradient-to-tl from-amber-300/30 to-transparent' />
+								<div className='absolute top-1/2 left-1/2 w-1/2 h-1/2 bg-yellow-400/12 bg-gradient-to-r from-yellow-400/25 to-amber-400/25 transform -translate-x-1/2 -translate-y-1/2 rounded-full blur-xl' />
 							</div>
 
 							{/* Efectos de brillo en loop continuo */}
 							<div className='absolute inset-0'>
 								{/* Shimmer effect principal */}
-								<div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-shimmer' />
+								<div
+									className='absolute inset-0 
+                bg-white/30 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-shimmer'
+								/>
 
 								{/* Resplandor dorado rotativo */}
 								<div className='absolute top-1/2 left-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-yellow-200/60 to-transparent transform -translate-x-1/2 -translate-y-4 animate-spin-slow' />
 
 								{/* Ondas de brillo */}
-								<div className='absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-300/20 to-yellow-400/0 animate-wave' />
+								<div className='absolute inset-0 bg-yellow-300/20 bg-gradient-to-r from-yellow-400/0 via-yellow-300/20 to-yellow-400/0 animate-wave' />
 
 								{/* Pulso dorado */}
-								<div className='absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-yellow-300/30 to-transparent animate-pulse-glow' />
+								<div className='absolute top-0 right-0 w-1/3 h-1/3 bg-yellow-300/30 bg-gradient-to-bl from-yellow-300/30 to-transparent animate-pulse-glow' />
 								<div
-									className='absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-amber-300/30 to-transparent animate-pulse-glow'
+									className='absolute bottom-0 left-0 w-1/3 h-1/3 bg-amber-300/30 bg-gradient-to-tr from-amber-300/30 to-transparent animate-pulse-glow'
 									style={{ animationDelay: '1s' }}
 								/>
 							</div>
@@ -269,7 +275,7 @@ export function GiftCardDesign({
 								{/* Header - Oro Premium */}
 								<div className='flex justify-between items-start'>
 									<div className='flex gap-2 items-center'>
-										<div className='w-4 h-4 bg-gradient-to-r from-yellow-400 to-amber-400 rounded-md shadow-lg shadow-yellow-400/40'></div>
+										<div className='w-4 h-4 bg-amber-400 bg-gradient-to-r from-yellow-400 to-amber-400 rounded-md shadow-lg shadow-yellow-400/40'></div>
 										<p className='text-yellow-50 text-sm font-light tracking-wide drop-shadow-sm'>ÍNTIMA PREMIUM</p>
 									</div>
 									<div className='text-right'>
@@ -290,7 +296,7 @@ export function GiftCardDesign({
 								<div className='text-center'>
 									<div className='mb-4'>
 										<div className='text-3xl font-light text-yellow-50 mb-1 tracking-wider drop-shadow-lg'>{value}</div>
-										<div className='w-16 h-px bg-gradient-to-r from-transparent via-yellow-300 to-transparent mx-auto shadow-sm'></div>
+										<div className='w-16 h-px bg-yellow-300 bg-gradient-to-r from-transparent via-yellow-300 to-transparent mx-auto shadow-sm'></div>
 									</div>
 									<p className='text-yellow-100/90 text-sm font-light drop-shadow-sm'>Gift Card Premium</p>
 								</div>
@@ -334,7 +340,7 @@ export function GiftCardDesign({
 					/>
 
 					{/* Anillo de resplandor exterior */}
-					<div className='absolute inset-0 bg-gradient-to-br from-yellow-400/20 via-transparent to-amber-400/20 rounded-2xl blur-2xl scale-110 -z-20 animate-pulse-slow opacity-40' />
+					<div className='absolute inset-0 bg-yellow-400/20  bg-gradient-to-br from-yellow-400/20 via-transparent to-amber-400/20 rounded-2xl blur-2xl scale-110 -z-20 animate-pulse-slow opacity-40' />
 				</div>
 			);
    }
@@ -391,10 +397,10 @@ export function GiftCardDesign({
 				>
 					{/* Animated background pattern - más efectos */}
 					<div className='absolute inset-0 opacity-28'>
-						<div className='absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/45 to-transparent animate-shimmer' />
-						<div className='absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-bl from-white/28 to-transparent rounded-full animate-glow-pulse' />
-						<div className='absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-gradient-to-r from-transparent via-white/18 to-transparent rounded-full animate-float' />
-						<div className='absolute bottom-0 right-0 w-2/3 h-2/3 bg-gradient-to-tl from-white/12 to-transparent animate-slide' />
+						<div className='absolute top-0 left-0 w-full h-full bg-white/45 bg-gradient-to-br from-white/45 to-transparent animate-shimmer' />
+						<div className='absolute -top-1/2 -right-1/2 w-full h-full bg-white/28 bg-gradient-to-bl from-white/28 to-transparent rounded-full animate-glow-pulse' />
+						<div className='absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/18 bg-gradient-to-r from-transparent via-white/18 to-transparent rounded-full animate-float' />
+						<div className='absolute bottom-0 right-0 w-2/3 h-2/3 bg-white/12 bg-gradient-to-tl from-white/12 to-transparent animate-slide' />
 					</div>
 
 					{/* Content */}
@@ -437,8 +443,8 @@ export function GiftCardDesign({
 					</div>
 
 					{/* Efectos holográficos mejorados */}
-					<div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/18 to-transparent transform -skew-x-12 animate-slide opacity-0 hover:opacity-100 transition-opacity duration-1000' />
-					<div className='absolute top-0 right-0 w-1/4 h-1/4 bg-gradient-to-bl from-white/12 to-transparent animate-glow-pulse' />
+					<div className='absolute inset-0 bg-white/18 bg-gradient-to-r from-transparent via-white/18 to-transparent transform -skew-x-12 animate-slide opacity-0 hover:opacity-100 transition-opacity duration-1000' />
+					<div className='absolute top-0 right-0 w-1/4 h-1/4 bg-white/12 bg-gradient-to-bl from-white/12 to-transparent animate-glow-pulse' />
 
 					{/* Elementos flotantes adicionales */}
 					<div

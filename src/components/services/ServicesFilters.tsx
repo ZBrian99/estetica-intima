@@ -116,8 +116,8 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 												className={cn(
 													'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 flex items-center justify-center gap-1.5 border',
 													field.value
-														? 'bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-white shadow-lg border-primary-500'
-														: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
+																					? 'bg-primary-600 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 text-white shadow-lg border-primary-500'
+																					: 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700 border-gray-200 hover:border-primary-300'
 												)}
 												onClick={() => field.onChange(field.value ? false : true)}
 											>
@@ -136,7 +136,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 												className={cn(
 													'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 flex items-center justify-center gap-1.5 border',
 													field.value
-														? 'bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white shadow-lg border-red-500'
+														? 'bg-red-600 bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-white shadow-lg border-red-500'
 														: 'bg-white text-gray-600 hover:bg-red-50 hover:text-red-700 border-gray-200 hover:border-red-300'
 												)}
 												onClick={() => field.onChange(field.value ? false : true)}
@@ -156,7 +156,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 												className={cn(
 													'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 flex items-center justify-center gap-1.5 border',
 													field.value
-														? 'bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 text-white shadow-lg border-amber-500'
+														? 'bg-orange-500 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 text-white shadow-lg border-amber-500'
 														: 'bg-white text-gray-600 hover:bg-orange-50 hover:text-orange-700 border-gray-200 hover:border-orange-300'
 												)}
 												onClick={() => field.onChange(field.value ? false : true)}
@@ -177,7 +177,7 @@ const ServicesFilters = ({ initialFormValues }: { initialFormValues: ServicesFil
 												className={cn(
 													'px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 flex items-center justify-center gap-1.5 border',
 													field.value
-														? 'bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-600 text-white shadow-lg border-green-500'
+														? 'bg-green-500 bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-600 text-white shadow-lg border-green-500'
 														: 'bg-white text-gray-600 hover:bg-green-50 hover:text-green-700 border-gray-200 hover:border-green-300'
 												)}
 												onClick={() => field.onChange(field.value ? false : true)}

@@ -15,7 +15,7 @@ export function GiftCardPreview() {
       <div className="space-y-8 md:space-y-12">
         {[...Array(3)].map((_, i) => (
           <div key={i} className="flex justify-center">
-            <div className="w-80 h-48 md:w-96 md:h-56 bg-gradient-to-br from-pink-400 to-purple-600 rounded-2xl animate-pulse" />
+            <div className="w-80 h-48 md:w-96 md:h-56 bg-pink-400 bg-gradient-to-br from-pink-400 to-purple-600 rounded-2xl animate-pulse" />
           </div>
         ))}
       </div>

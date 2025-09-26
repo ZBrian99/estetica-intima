@@ -245,7 +245,7 @@ export default function NavBar() {
   const cartCount = useCartStore((state) => state.items.reduce((acc, it) => acc + it.quantity, 0));
 
 	return (
-		<header className='fixed top-0 inset-x-0 z-50 bg-gradient-to-b from-white to-gray-50 border-b border-gray-200/70'>
+		<header className='fixed top-0 inset-x-0 z-50 bg-white bg-gradient-to-b from-white to-gray-50 border-b border-gray-200/70'>
 			<div className='max-w-7xl mx-auto px-4'>
 				<div className='h-16 flex items-center justify-between'>
 					{/* Brand - Izquierda */}
@@ -283,7 +283,7 @@ export default function NavBar() {
 											<NavigationMenuContent
 												className={`absolute ${
 													key === 'belleza' ? '-translate-x-1/3 2xl:translate-x-0' : ''
-												} p-4 rounded-xl bg-gradient-to-b from-white to-gray-50 shadow-md ring-1 ring-gray-200/60`}
+												} p-4 rounded-xl bg-white bg-gradient-to-b from-white to-gray-50 shadow-md ring-1 ring-gray-200/60`}
 											>
 												<div
 													className={`grid w-max gap-6 sm:grid-cols-2 ${
@@ -419,7 +419,7 @@ export default function NavBar() {
 									<FiMenu className='h-6 w-6' />
 								</Button>
 							</SheetTrigger>
-							<SheetContent side='right' className='w-[85vw] sm:w-96 bg-gradient-to-b from-white to-gray-50'>
+							<SheetContent side='right' className='w-[85vw] sm:w-96 bg-white bg-gradient-to-b from-white to-gray-50'>
 								<div className='flex h-full flex-col'>
 									<SheetHeader className='h-16 flex justify-center p-4'>
 										<SheetTitle className='text-xl font-semibold'>Menú</SheetTitle>
