@@ -43,8 +43,8 @@ export default function Page() {
       }
 
       // Cookie httpOnly seteada por Auth.js. Redirigimos al dashboard protegido.
-      -  router.replace('/admin/dashboard');
-      +  router.replace('/admin/dashboard/v2');
+        router.replace('/admin/dashboard');
+        router.replace('/admin/dashboard/v2');
     } catch (err) {
       setError('Error de red. Intentá de nuevo.');
     } finally {
@@ -101,7 +101,6 @@ export default function Page() {
         >
           {loading ? 'Ingresando...' : 'Ingresar'}
         </button>
-        <p className="text-xs text-gray-500 mt-2">Demo: admin@intima.com / admin123</p>
       </form>
     </div>
   );
