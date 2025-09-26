@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -119,6 +119,10 @@ const tratamientosData = [
 const AntesYDespues = () => {
 	const [tratamientoSeleccionado, setTratamientoSeleccionado] = useState(tratamientosData[0]);
 	const comparadorRef = useRef<HTMLDivElement>(null);
+	const [isIntentionalInteraction, setIsIntentionalInteraction] = useState(false);
+	const [touchStartX, setTouchStartX] = useState<number | null>(null);
+	const [touchStartY, setTouchStartY] = useState<number | null>(null);
+	const [mouseStartX, setMouseStartX] = useState<number | null>(null);
 
 	const handleTratamientoSelect = (tratamiento: (typeof tratamientosData)[0]) => {
 		setTratamientoSeleccionado(tratamiento);
@@ -131,6 +135,61 @@ const AntesYDespues = () => {
 			});
 		}
 	};
+
+	// Manejo de eventos touch para detectar intención
+	const handleTouchStart = useCallback((e: React.TouchEvent) => {
+		const touch = e.touches[0];
+		setTouchStartX(touch.clientX);
+		setTouchStartY(touch.clientY);
+		setIsIntentionalInteraction(false);
+	}, []);
+
+	const handleTouchMove = useCallback((e: React.TouchEvent) => {
+		if (touchStartX === null || touchStartY === null) return;
+
+		const touch = e.touches[0];
+		const deltaX = Math.abs(touch.clientX - touchStartX);
+		const deltaY = Math.abs(touch.clientY - touchStartY);
+
+		// Si el movimiento es más horizontal que vertical y supera un umbral, es intencional
+		if (deltaX > 15 && deltaX > deltaY * 2) {
+			setIsIntentionalInteraction(true);
+			// Prevenir scroll solo cuando es intencional
+			e.preventDefault();
+		} else if (deltaY > 15 && deltaY > deltaX * 1.5) {
+			// Si es claramente vertical, permitir scroll
+			setIsIntentionalInteraction(false);
+		}
+	}, [touchStartX, touchStartY]);
+
+	const handleTouchEnd = useCallback(() => {
+		setTouchStartX(null);
+		setTouchStartY(null);
+		// Mantener la interacción por un momento para evitar cambios bruscos
+		setTimeout(() => setIsIntentionalInteraction(false), 100);
+	}, []);
+
+	// Manejo de eventos mouse para desktop
+	const handleMouseDown = useCallback((e: React.MouseEvent) => {
+		setMouseStartX(e.clientX);
+		setIsIntentionalInteraction(false);
+	}, []);
+
+	const handleMouseMove = useCallback((e: React.MouseEvent) => {
+		if (mouseStartX === null) return;
+
+		const deltaX = Math.abs(e.clientX - mouseStartX);
+		
+		// En desktop, consideramos intencional si hay movimiento horizontal
+		if (deltaX > 8) {
+			setIsIntentionalInteraction(true);
+		}
+	}, [mouseStartX]);
+
+	const handleMouseUp = useCallback(() => {
+		setMouseStartX(null);
+		setTimeout(() => setIsIntentionalInteraction(false), 100);
+	}, []);
 
 	return (
 		<section className='py-16 '>
@@ -170,7 +229,16 @@ const AntesYDespues = () => {
 							</div>
 
 							{/* Comparador con mejor relación de aspecto */}
-							<div className='w-full h-64 md:h-80 lg:h-96 rounded-xl overflow-hidden mb-6 relative'>
+							<div 
+								className='w-full h-64 md:h-80 lg:h-96 rounded-xl overflow-hidden mb-6 relative'
+								onTouchStart={handleTouchStart}
+								onTouchMove={handleTouchMove}
+								onTouchEnd={handleTouchEnd}
+								onMouseDown={handleMouseDown}
+								onMouseMove={handleMouseMove}
+								onMouseUp={handleMouseUp}
+								style={{ touchAction: isIntentionalInteraction ? 'none' : 'pan-y' }}
+							>
 								<ReactCompareSlider
 									itemOne={
 										<ReactCompareSliderImage
@@ -189,6 +257,7 @@ const AntesYDespues = () => {
 										display: 'flex',
 										width: '100%',
 										height: '100%',
+										pointerEvents: isIntentionalInteraction ? 'auto' : 'none',
 									}}
 								/>
 
