@@ -2,14 +2,6 @@
 import { Inter, Outfit, Poppins } from 'next/font/google';
 import '@/styles/globals.css';
 // Global CSS for carousel libraries used in demo pages
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import '@splidejs/react-splide/css';
-import 'flickity/css/flickity.css';
-import 'keen-slider/keen-slider.min.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import Providers from './providers';
