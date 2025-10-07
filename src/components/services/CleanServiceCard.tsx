@@ -12,6 +12,7 @@ import { useSetCartOpen } from '@/stores/uiStore';
 import { formatPrice, calculateDiscount } from '@/lib/utils';
 import { FaShoppingCart, FaCheck, FaStar, FaRegStar, FaStarHalfAlt, FaUsers } from 'react-icons/fa';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import { FiShoppingCart } from 'react-icons/fi';
 
 export default function CleanServiceCard({ service }: { service: ServiceResponse }) {
 	const router = useRouter();
@@ -79,7 +80,7 @@ export default function CleanServiceCard({ service }: { service: ServiceResponse
 					onClick={handleAdd}
 					aria-label='Agregar al carrito'
 				>
-					{added ? <FaCheck className='h-4 w-4 text-white' /> : <FaShoppingCart className='h-4 w-4 text-white' />}
+					{added ? <FaCheck className='h-4 w-4 text-white' /> : <FiShoppingCart className='h-4 w-4 text-white' />}
 				</Button>
 
 				{/* <Button
@@ -99,7 +100,7 @@ export default function CleanServiceCard({ service }: { service: ServiceResponse
 				</h3>
 
 				{/* Rating (hidden if no reviews) */}
-			
+
 				{hasRating ? (
 					<div className='flex items-center mt-1.5  justify-between gap-2 md:gap-3 overflow-hidden'>
 						<div className='flex items-center gap-1'>
@@ -135,9 +136,9 @@ export default function CleanServiceCard({ service }: { service: ServiceResponse
 						</div>
 
 						{/* Cash hint */}
-						<div className='mt-1 text-xs md:text-sm text-emerald-700 flex w-full justify-between items-end'>
+						{/* <div className='mt-1 text-xs md:text-sm text-emerald-700 flex w-full justify-between items-end'>
 							Efectivo {formatPrice(cashPrice)}
-						</div>
+						</div> */}
 					</div>
 					<Button
 						variant='default'
@@ -145,7 +146,7 @@ export default function CleanServiceCard({ service }: { service: ServiceResponse
 						onClick={handleAdd}
 						aria-label='Agregar al carrito'
 					>
-						{added ? <FaCheck className='h-4 w-4 text-white' /> : <FaShoppingCart className='h-4 w-4 text-white' />}
+						{added ? <FaCheck className='h-4 w-4 text-white' /> : <FiShoppingCart className='h-4 w-4 text-white' />}
 					</Button>
 				</div>
 			</CardContent>

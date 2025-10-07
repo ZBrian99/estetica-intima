@@ -9,7 +9,7 @@ const Categorias = () => {
 				<div className='text-center mb-8 md:mb-10'>
 					<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-3'>Descubre nuestros tratamientos.</h2>
 					<p className='text-sm md:text-base text-gray-600 max-w-3xl mx-auto'>
-						Explora nuestras categorías y encuentra el tratamiento perfecto para ti.
+						Explora y encuentra el tratamiento perfecto para ti.
 					</p>
 				</div>
 				<div className='grid grid-cols-1 us:grid-cols-6 sm:grid-cols-24 gap-3 md:gap-4 lg:gap-6 min-h-[60rem] sm:min-h-[30rem] md:min-h-[35rem] lg:min-h-[40rem]'>

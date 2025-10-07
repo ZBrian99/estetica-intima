@@ -92,97 +92,87 @@ const Testimonios = () => {
 	};
 
 	return (
-		<section className="py-16">
-			<div className="max-w-7xl mx-auto px-4">
+		<section className='py-16'>
+			<div className='max-w-7xl mx-auto px-4'>
 				{/* Header */}
-				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Lo Que Dicen Nuestras Clientas
-					</h2>
-					<p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+				<div className='text-center mb-12'>
+					<h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4'>Lo Que Dicen Nuestras Clientas</h2>
+					<p className='text-lg text-gray-600 max-w-2xl mx-auto mb-8'>
 						Conocé las experiencias reales de quienes confiaron en nosotras para su transformación
 					</p>
-
-				
 				</div>
 
-				
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{testimonios.map((testimonio) => (
-							<div
-								key={testimonio.id}
-								className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 relative overflow-hidden"
-							>
-								{/* Quote Icon */}
-								<div className="absolute top-4 right-4 text-primary-200">
-									<Quote className="w-8 h-8" />
-								</div>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+					{testimonios.map((testimonio) => (
+						<div
+							key={testimonio.id}
+							className='bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 relative overflow-hidden'
+						>
+							{/* Quote Icon */}
+							<div className='absolute top-4 right-4 text-primary-200'>
+								<Quote className='w-8 h-8' />
+							</div>
 
-								{/* Avatar and Info */}
-								<div className="flex items-center mb-4">
-									<div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
-										<Image
-											src={testimonio.avatar}
-											alt={testimonio.nombre}
-											fill
-											className="object-cover"
-											onError={(e) => {
-												const target = e.target as HTMLImageElement;
-												target.style.display = 'none';
-												const parent = target.parentElement;
-												if (parent) {
-													parent.className += ` ${testimonio.fallbackColor} flex items-center justify-center`;
-													parent.innerHTML = `<span class="text-white font-bold text-lg">${testimonio.nombre.charAt(0)}</span>`;
-												}
-											}}
-										/>
+							{/* Avatar and Info */}
+							<div className='flex items-center mb-4'>
+								<div className='relative w-16 h-16 rounded-full overflow-hidden mr-4'>
+									<Image
+										src={testimonio.avatar}
+										alt={testimonio.nombre}
+										fill
+										className='object-cover'
+										onError={(e) => {
+											const target = e.target as HTMLImageElement;
+											target.style.display = 'none';
+											const parent = target.parentElement;
+											if (parent) {
+												parent.className += ` ${testimonio.fallbackColor} flex items-center justify-center`;
+												parent.innerHTML = `<span class="text-white font-bold text-lg">${testimonio.nombre.charAt(
+													0
+												)}</span>`;
+											}
+										}}
+									/>
+								</div>
+								<div>
+									<div className='flex items-center mb-1'>
+										<h4 className='font-semibold text-gray-900 mr-2'>{testimonio.nombre}</h4>
 									</div>
-									<div>
-										<div className="flex items-center mb-1">
-											<h4 className="font-semibold text-gray-900 mr-2">{testimonio.nombre}</h4>
-											{testimonio.verificado && (
-												<div className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-medium">
-													✓ Verificado
-												</div>
-											)}
-										</div>
-										<p className="text-sm text-gray-500">{testimonio.edad} años • {testimonio.location}</p>
+									
+									<div className='flex items-center mt-1'>
+										{renderStars(testimonio.rating)}
+										<span className='ml-2 text-sm text-gray-600 font-medium'>{testimonio.rating}.0</span>
 									</div>
-								</div>
-
-								{/* Rating */}
-								<div className="flex items-center mb-3">
-									{renderStars(testimonio.rating)}
-									<span className="ml-2 text-sm text-gray-600 font-medium">
-										{testimonio.rating}.0
-									</span>
-								</div>
-
-								{/* Treatment */}
-								<div className="mb-4">
-									<span className="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium">
-										{testimonio.tratamiento}
-									</span>
-								</div>
-
-								{/* Comment */}
-								<p className="text-gray-700 leading-relaxed mb-4 italic">
-									"{testimonio.comentario}"
-								</p>
-
-								{/* Date */}
-								<div className="text-xs text-gray-500">
-									{new Date(testimonio.fecha).toLocaleDateString('es-AR', {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric'
-									})}
 								</div>
 							</div>
-						))}
-					</div>
 
-		
+							{/* Rating */}
+							{/* <div className='flex items-center mb-3'>
+								{renderStars(testimonio.rating)}
+								<span className='ml-2 text-sm text-gray-600 font-medium'>{testimonio.rating}.0</span>
+							</div> */}
+
+							{/* Treatment */}
+							<div className='mb-4 '>
+								<span className='inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium'>
+									{testimonio.tratamiento}
+								</span>
+							</div>
+
+							{/* Comment */}
+							<p className='text-gray-700 leading-relaxed mb-4 italic'>"{testimonio.comentario}"</p>
+
+							{/* Date */}
+							<div className='text-xs text-gray-500'>
+								{new Date(testimonio.fecha).toLocaleDateString('es-AR', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric',
+								})}
+							</div>
+						</div>
+					))}
+				</div>
 			</div>
 		</section>
 	);
