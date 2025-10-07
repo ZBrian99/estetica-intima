@@ -54,7 +54,7 @@ const ContactoYUbicacion = () => {
   const mapEmbedUrl = 'https://www.google.com/maps?q=intima+castelli+3141,+Mar+del+Plata,+Buenos+Aires&output=embed';
 
   return (
-		<section className='py-16 bg-white'>
+		<section className='py-16 bg-white' id='contacto'>
 			<div className='mx-auto max-w-7xl px-4'>
 				{/* Header */}
 				<div className='mb-10 text-center'>

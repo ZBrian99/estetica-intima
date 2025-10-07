@@ -49,10 +49,10 @@
 		"react-gauge-chart": "^0.5.1",
 		"react-hook-form": "^7.62.0",
 		"react-icons": "^5.5.0",
+		"react-parallax-tilt": "^1.7.309",
 		"recharts": "^2.15.4",
 		"recharts-to-png": "^3.0.1",
 		"sonner": "^2.0.7",
-		"react-parallax-tilt": "^1.7.309",
 		"tailwind-merge": "^3.3.1",
 		"zod": "^4.0.17",
 		"zustand": "^5.0.7"
