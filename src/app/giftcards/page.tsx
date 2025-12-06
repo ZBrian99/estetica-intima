@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { GiftCardPreview } from '@/components/giftcards/GiftCardPreview'
 import { GiftCardInfo } from '@/components/giftcards/GiftCardInfo'
 import { GiftCardProcess } from '@/components/giftcards/GiftCardProcess'
@@ -56,7 +57,7 @@ export default function GiftCardsPage() {
           <p className="text-xl text-pink-100 mb-8 max-w-2xl mx-auto">
             Agregá cualquier servicio al carrito y elegí la opción "Regalo" para crear tu gift card personalizada
           </p>
-          <a
+          <Link
             href="/servicios"
             className="inline-flex items-center px-8 py-4 bg-white text-pink-600 font-semibold rounded-full hover:bg-pink-50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
           >
@@ -64,7 +65,7 @@ export default function GiftCardsPage() {
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
         </div>
       </section>
     </div>

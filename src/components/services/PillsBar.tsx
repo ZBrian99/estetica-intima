@@ -32,7 +32,7 @@ const PILLS: PillItem[] = [
 	{ id: 'promo', label: 'Ofertas', icon: FaTag, kind: 'flag', colors: { bg: 'bg-rose-100/60', text: 'text-rose-700', border: 'border-rose-300' } },
 	{ id: 'combo', label: 'Combos', icon: FaGift, kind: 'type', value: 'COMBO', colors: { bg: 'bg-fuchsia-100/60', text: 'text-fuchsia-700', border: 'border-fuchsia-300' } },
 	{ id: 'pack', label: 'Packs', icon: FaGift, kind: 'type', value: 'PACK', colors: { bg: 'bg-violet-100/60', text: 'text-violet-700', border: 'border-violet-300' } },
-	{ id: 'new', label: 'Nuevos', icon: HiSparkles as any, kind: 'flag', colors: { bg: 'bg-emerald-100/60', text: 'text-emerald-700', border: 'border-emerald-300' } },
+    { id: 'new', label: 'Nuevos', icon: HiSparkles as React.ComponentType<{ className?: string }>, kind: 'flag', colors: { bg: 'bg-emerald-100/60', text: 'text-emerald-700', border: 'border-emerald-300' } },
 	{ id: 'female', label: 'Mujer', icon: FaVenus, kind: 'gender', value: 'FEMALE', colors: { bg: 'bg-pink-100/60', text: 'text-pink-700', border: 'border-pink-300' } },
 	{ id: 'male', label: 'Hombre', icon: FaMars, kind: 'gender', value: 'MALE', colors: { bg: 'bg-sky-100/60', text: 'text-sky-700', border: 'border-sky-300' } },
 	{ id: 'corporales', label: 'Corporales', icon: FaSpa, kind: 'category', value: 'tratamientos-corporales', colors: { bg: 'bg-teal-100/60', text: 'text-teal-700', border: 'border-teal-300' } },
@@ -71,10 +71,10 @@ const PillsBar = () => {
 					promo: 'hasPromo',
 					new: 'isNew',
 				};
-				const key = map[pill.id];
+                const key = map[pill.id] as 'isPopular' | 'isFeatured' | 'hasPromo' | 'isNew';
 				if (!key) return;
-				const current = activeSets.flags[key];
-				setFilter(key as any, !current);
+                const current = activeSets.flags[key];
+                setFilter(key, !current);
 				break;
 			}
 			case 'type': {

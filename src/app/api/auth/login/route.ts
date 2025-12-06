@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { signIn } from '@/lib/auth/auth'
 import { z } from 'zod'
+import { getRateLimitForPath, getIdentifier, addRateLimitHeaders, createRateLimitResponse } from '@/lib/rateLimit'
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -9,6 +10,12 @@ const loginSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    const limiter = getRateLimitForPath(request.nextUrl.pathname, request.method)
+    const identifier = getIdentifier(request)
+    const { success, limit, remaining, reset } = await limiter.limit(identifier)
+    if (!success) {
+      return createRateLimitResponse(limit, reset, remaining)
+    }
     // Validar Content-Type
     if (!request.headers.get('content-type')?.includes('application/json')) {
       return NextResponse.json(
@@ -50,11 +57,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Auth.js ya creó la cookie httpOnly automáticamente
-    return NextResponse.json({
+    const res = NextResponse.json({
       success: true,
       message: 'Login exitoso',
       user: result?.user // Datos del usuario desde el JWT
     })
+    return addRateLimitHeaders(res, limit, remaining, reset)
 
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -68,9 +76,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    return NextResponse.json(
+    const res = NextResponse.json(
       { error: 'INTERNAL_ERROR', message: 'Error interno del servidor' },
       { status: 500 }
     )
+    return addRateLimitHeaders(res, 0, 0, Date.now())
   }
 }

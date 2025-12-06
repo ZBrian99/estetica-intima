@@ -10,7 +10,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -37,6 +36,31 @@ enum DiscountType {
   BUY_X_GET_Y // Para promociones como "3x2"
 }
 
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PaymentMethod {
+  MERCADOPAGO
+  MANUAL_TRANSFER
+  CASH
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+enum GiftCardStatus {
+  PENDING
+  ACTIVE
+  REDEEMED
+  CANCELLED
+}
+
 model User {
   id        String   @id @default(cuid())
   name      String
@@ -45,6 +69,14 @@ model User {
   role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  orders    Order[]
+  giftCards GiftCard[]
+
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
 // Tabla unificada para servicios, combos y packs
@@ -58,8 +90,8 @@ model Service {
   slug        String  @unique // Para URLs amigables
 
   // Precios
-  basePrice  Float 
-  finalPrice Float 
+  basePrice  Int
+  finalPrice Int
   hasPromo   Boolean @default(false)
   // Características generales
   duration   Int? // Duración en minutos (INDIVIDUAL y algunos COMBO)
@@ -106,6 +138,8 @@ model Service {
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  orderItems OrderItem[]
 
   // @@index([isActive, order, isFeatured, isPopular, isNew, promoPrice, orderCount, price])
   // @@index([isActive, isFeatured, orderCount]) // Para queries de destacados
@@ -155,4 +189,104 @@ model Promotion {
 
   @@index([isActive, startDate, endDate])
   @@index([code])
+}
+
+model Order {
+  id             String       @id @default(cuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  status         OrderStatus  @default(PENDING)
+  paymentMethod  PaymentMethod
+  subTotal       Int
+  discountTotal  Int
+  total          Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  items          OrderItem[]
+  payment        Payment?
+  giftCard       GiftCard?
+
+  @@index([userId, status])
+}
+
+model OrderItem {
+  id               String  @id @default(cuid())
+  orderId          String
+  order            Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  serviceId        String
+  service          Service @relation(fields: [serviceId], references: [id])
+  qty              Int
+  unitPrice        Int
+  appliedPromotions Json
+}
+
+model Payment {
+  id           String        @id @default(cuid())
+  orderId      String        @unique
+  order        Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  method       PaymentMethod
+  status       PaymentStatus @default(PENDING)
+  providerData Json?
+  events       Json?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([status])
+}
+
+model GiftCard {
+  id             String         @id @default(cuid())
+  codeHash       String         @unique
+  creatorId      String
+  creator        User           @relation(fields: [creatorId], references: [id])
+  recipientName  String
+  recipientEmail String
+  recipientPhone String?
+  serviceItems   Json
+  status         GiftCardStatus @default(PENDING)
+  expiresAt      DateTime?
+  orderId        String?        @unique
+  order          Order?         @relation(fields: [orderId], references: [id])
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([status])
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+  refresh_token_expires_in Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

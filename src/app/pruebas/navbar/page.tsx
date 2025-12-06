@@ -128,7 +128,22 @@ const navbarOptionsV1 = [
 	// }
 ];
 
-const navbarOptionsV2 = [
+interface NavbarOption {
+  id: string;
+  title: string;
+  description: string;
+  component: React.ComponentType;
+  features: string[];
+  pros?: string[];
+  cons?: string[];
+  icon: React.ComponentType<{ className?: string }>;
+  color: string;
+  rating: number;
+  status?: 'descartada' | 'elementos-aprovechables' | 'utilidad-aprovechable' | string;
+  bestFor?: string;
+}
+
+const navbarOptionsV2: NavbarOption[] = [
 	{
 		id: 'elegant',
 		title: 'Navbar Elegante V2',
@@ -231,7 +246,7 @@ const navbarOptions = [navbarOptionsV2];
 export default function NavbarComparison() {
 	const [selectedNavbar, setSelectedNavbar] = useState<string | null>(null);
 
-	const renderNavbarSection = (title: string, description: string, navbars: any[], sectionId: string) => (
+  const renderNavbarSection = (title: string, description: string, navbars: NavbarOption[], sectionId: string) => (
 		<div className='space-y-8' id={sectionId}>
 			<div className='text-center'>
 				<h2 className='text-2xl font-bold text-gray-900 mb-2'>{title}</h2>
@@ -301,26 +316,26 @@ export default function NavbarComparison() {
 
 								<div>
 									<h4 className='font-medium text-green-700 mb-2'>Ventajas</h4>
-									<ul className='text-sm text-gray-600 space-y-1'>
-										{navbar.pros.map((pro: string, index: number) => (
-											<li key={index} className='flex items-center space-x-2'>
-												<div className='w-1.5 h-1.5 bg-green-500 rounded-full'></div>
-												<span>{pro}</span>
-											</li>
-										))}
-									</ul>
+                  <ul className='text-sm text-gray-600 space-y-1'>
+                    {(navbar.pros ?? []).map((pro: string, index: number) => (
+                      <li key={index} className='flex items-center space-x-2'>
+                        <div className='w-1.5 h-1.5 bg-green-500 rounded-full'></div>
+                        <span>{pro}</span>
+                      </li>
+                    ))}
+                  </ul>
 								</div>
 
 								<div>
 									<h4 className='font-medium text-red-700 mb-2'>Desventajas</h4>
-									<ul className='text-sm text-gray-600 space-y-1'>
-										{navbar.cons.map((con: string, index: number) => (
-											<li key={index} className='flex items-center space-x-2'>
-												<div className='w-1.5 h-1.5 bg-red-500 rounded-full'></div>
-												<span>{con}</span>
-											</li>
-										))}
-									</ul>
+                  <ul className='text-sm text-gray-600 space-y-1'>
+                    {(navbar.cons ?? []).map((con: string, index: number) => (
+                      <li key={index} className='flex items-center space-x-2'>
+                        <div className='w-1.5 h-1.5 bg-red-500 rounded-full'></div>
+                        <span>{con}</span>
+                      </li>
+                    ))}
+                  </ul>
 								</div>
 							</div>
 						</div>

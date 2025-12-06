@@ -7,11 +7,36 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
 // Componente para los indicadores
+type EmblaApi = {
+  scrollPrev(): void;
+  scrollNext(): void;
+  scrollTo(index: number): void;
+  on(evt: string, cb: () => void): void;
+  off(evt: string, cb: () => void): void;
+  selectedScrollSnap(): number;
+}
+
+interface SlideItem {
+  id: number;
+  type: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  primaryCta: string;
+  primaryHref: string;
+  secondaryCta: string;
+  secondaryHref: string;
+  icon: React.ReactNode;
+  background: string;
+  image: string;
+  fallbackColor: string;
+}
+
 interface EmblaIndicatorsProps {
-	emblaApi: any;
-	slides: any[];
-	scrollTo: (index: number) => void;
-	currentSlide: number;
+  emblaApi?: EmblaApi;
+  slides: SlideItem[];
+  scrollTo: (index: number) => void;
+  currentSlide: number;
 }
 
 const EmblaIndicators = ({ emblaApi, slides, scrollTo, currentSlide }: EmblaIndicatorsProps) => {

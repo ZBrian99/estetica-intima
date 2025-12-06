@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getAllIndividualServices, getAllComboServices, getAllPackServices } from '@/data/servicesData';
 import { GenderType, ServiceType } from '@/schemas/servicesSchema';
@@ -158,7 +158,7 @@ function generateRandomTags(): string[] {
 	return getRandomElements(TAGS, count);
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
 	try {
 		// Obtener todos los servicios de la data
 		const individualServices = getAllIndividualServices();

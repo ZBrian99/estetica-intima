@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import NavbarV3_3_Modern from '@/components/layout/NavbarV3_3_Modern';
+import Image from 'next/image';
 
 interface FilterCategory {
   id: string;
@@ -277,8 +278,11 @@ const mockTreatments: Treatment[] = [
   }
 ];
 
+type FilterValue = string[] | [number, number] | number | string | null;
+const isStringArray = (val: FilterValue): val is string[] => Array.isArray(val) && val.every(x => typeof x === 'string');
+
 export default function FiltrosV3Page() {
-  const [selectedFilters, setSelectedFilters] = useState<Record<string, any>>({});
+  const [selectedFilters, setSelectedFilters] = useState<Record<string, FilterValue>>({});
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('relevancia');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -286,7 +290,7 @@ export default function FiltrosV3Page() {
   const [savedFilters, setSavedFilters] = useState<string[]>([]);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
-  const handleFilterChange = (categoryId: string, value: any) => {
+  const handleFilterChange = (categoryId: string, value: FilterValue) => {
     setSelectedFilters(prev => ({
       ...prev,
       [categoryId]: value
@@ -324,7 +328,7 @@ export default function FiltrosV3Page() {
 
       switch (category.type) {
         case 'checkbox':
-          if (Array.isArray(value) && value.length > 0) {
+          if (isStringArray(value) && value.length > 0) {
             filtered = filtered.filter(treatment => 
               value.some(v => treatment.tags.includes(v) || treatment.benefits.includes(v))
             );
@@ -332,13 +336,14 @@ export default function FiltrosV3Page() {
           break;
         case 'range':
           if (Array.isArray(value) && value.length === 2) {
+            const [min, max] = value as [number, number];
             if (categoryId === 'precio') {
               filtered = filtered.filter(treatment => 
-                treatment.price >= value[0] && treatment.price <= value[1]
+                treatment.price >= min && treatment.price <= max
               );
             } else if (categoryId === 'duracion') {
               filtered = filtered.filter(treatment => 
-                treatment.duration >= value[0] && treatment.duration <= value[1]
+                treatment.duration >= min && treatment.duration <= max
               );
             }
           }
@@ -356,10 +361,10 @@ export default function FiltrosV3Page() {
           }
           break;
         case 'multiselect':
-          if (Array.isArray(value) && value.length > 0) {
+          if (isStringArray(value) && value.length > 0) {
             if (categoryId === 'especialista') {
               filtered = filtered.filter(treatment => 
-                value.some(v => treatment.specialist.toLowerCase().includes(v.replace(/^(dra|lic|esp|tec)-/, '')))
+                value.some((v) => treatment.specialist.toLowerCase().includes(v.replace(/^(dra|lic|esp|tec)-/, '')))
               );
             }
           }
@@ -391,9 +396,9 @@ export default function FiltrosV3Page() {
               <label key={option.id} className="flex items-center space-x-3 cursor-pointer group">
                 <input
                   type="checkbox"
-                  checked={value?.includes(option.id) || false}
+                  checked={isStringArray(value) ? value.includes(option.id) : false}
                   onChange={(e) => {
-                    const currentValue = value || [];
+                    const currentValue: string[] = isStringArray(value) ? value : [];
                     const newValue = e.target.checked
                       ? [...currentValue, option.id]
                       : currentValue.filter((v: string) => v !== option.id);
@@ -413,7 +418,9 @@ export default function FiltrosV3Page() {
         );
 
       case 'range':
-        const rangeValue = value || [category.min, category.max];
+        const rangeValue: [number, number] = Array.isArray(value)
+          ? (value as [number, number])
+          : [category.min ?? 0, category.max ?? 0];
         return (
           <div className="space-y-4">
             <div className="flex items-center space-x-4">
@@ -421,7 +428,7 @@ export default function FiltrosV3Page() {
                 type="number"
                 placeholder="Min"
                 value={rangeValue[0]}
-                onChange={(e) => handleFilterChange(category.id, [parseInt(e.target.value) || category.min, rangeValue[1]])}
+                onChange={(e) => handleFilterChange(category.id, [parseInt(e.target.value) || (category.min ?? 0), rangeValue[1]])}
                 className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
               <span className="text-gray-500">-</span>
@@ -429,7 +436,7 @@ export default function FiltrosV3Page() {
                 type="number"
                 placeholder="Max"
                 value={rangeValue[1]}
-                onChange={(e) => handleFilterChange(category.id, [rangeValue[0], parseInt(e.target.value) || category.max])}
+                onChange={(e) => handleFilterChange(category.id, [rangeValue[0], parseInt(e.target.value) || (category.max ?? 0)])}
                 className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
               <span className="text-sm text-gray-500">{category.unit}</span>
@@ -460,10 +467,10 @@ export default function FiltrosV3Page() {
                 key={star}
                 onClick={() => handleFilterChange(category.id, star)}
                 className={`p-1 rounded ${
-                  (value || 0) >= star ? 'text-yellow-400' : 'text-gray-300'
+                  ((typeof value === 'number' ? value : 0) >= star) ? 'text-yellow-400' : 'text-gray-300'
                 } hover:text-yellow-400 transition-colors`}
               >
-                <FiStar className={`w-5 h-5 ${(value || 0) >= star ? 'fill-current' : ''}`} />
+                <FiStar className={`w-5 h-5 ${((typeof value === 'number' ? value : 0) >= star) ? 'fill-current' : ''}`} />
               </button>
             ))}
             {value && (
@@ -475,7 +482,7 @@ export default function FiltrosV3Page() {
       case 'select':
         return (
           <select
-            value={value || 'all'}
+            value={typeof value === 'string' ? value : 'all'}
             onChange={(e) => handleFilterChange(category.id, e.target.value)}
             className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
           >
@@ -494,9 +501,9 @@ export default function FiltrosV3Page() {
               <label key={option.id} className="flex items-center space-x-3 cursor-pointer group">
                 <input
                   type="checkbox"
-                  checked={value?.includes(option.id) || false}
+                  checked={isStringArray(value) ? value.includes(option.id) : false}
                   onChange={(e) => {
-                    const currentValue = value || [];
+                    const currentValue: string[] = isStringArray(value) ? value : [];
                     const newValue = e.target.checked
                       ? [...currentValue, option.id]
                       : currentValue.filter((v: string) => v !== option.id);
@@ -769,10 +776,12 @@ export default function FiltrosV3Page() {
               >
                 {/* Image */}
                 <div className={viewMode === 'list' ? 'w-40 h-32 flex-shrink-0' : 'aspect-video'}>
-                  <img
+                  <Image
                     src={treatment.image}
                     alt={treatment.name}
-                    className="w-full h-full object-cover rounded-xl"
+                    fill
+                    className="object-cover rounded-xl"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   {treatment.discount && (
                     <div className="absolute top-3 left-3">

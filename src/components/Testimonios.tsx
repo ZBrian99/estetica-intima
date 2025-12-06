@@ -1,7 +1,6 @@
-'use client';
-import { useState } from 'react';
+"use client";
 import Image from 'next/image';
-import { Star, Quote, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 
 interface Testimonio {
 	id: string;
@@ -18,8 +17,6 @@ interface Testimonio {
 }
 
 const Testimonios = () => {
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
 
 	// Testimonios hardcodeados
 	const testimonios: Testimonio[] = [
@@ -64,21 +61,6 @@ const Testimonios = () => {
 		},
 	];
 
-	const itemsPerSlide = 3;
-	const totalSlides = Math.ceil(testimonios.length / itemsPerSlide);
-
-	const nextSlide = () => {
-		setCurrentIndex((prev) => (prev + 1) % totalSlides);
-	};
-
-	const prevSlide = () => {
-		setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
-	};
-
-	const getCurrentSlideItems = () => {
-		const startIndex = currentIndex * itemsPerSlide;
-		return testimonios.slice(startIndex, startIndex + itemsPerSlide);
-	};
 
 	const renderStars = (rating: number) => {
 		return [...Array(5)].map((_, i) => (
@@ -160,7 +142,7 @@ const Testimonios = () => {
 							</div>
 
 							{/* Comment */}
-							<p className='text-gray-700 leading-relaxed mb-4 italic'>"{testimonio.comentario}"</p>
+                            <p className='text-gray-700 leading-relaxed mb-4 italic'>&quot;{testimonio.comentario}&quot;</p>
 
 							{/* Date */}
 							<div className='text-xs text-gray-500'>

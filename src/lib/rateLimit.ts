@@ -1,58 +1,58 @@
 import { Ratelimit } from '@upstash/ratelimit';
+import type { Duration } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 
-// Configuración de Redis
-const redis = Redis.fromEnv();
+type LimitResult = { success: boolean; limit: number; remaining: number; reset: number };
+export interface Limiter {
+  limit(identifier: string): Promise<LimitResult>;
+}
+
+class NoopLimiter implements Limiter {
+  private max: number;
+  constructor(max = 1000) { this.max = max; }
+  async limit(): Promise<LimitResult> {
+    const now = Date.now();
+    return { success: true, limit: this.max, remaining: this.max, reset: now + 60_000 };
+  }
+}
+
+const isDev = process.env.NODE_ENV !== 'production';
+const redis = isDev ? null : Redis.fromEnv();
 
 // Configuración de rate limits por tipo de endpoint
-export const rateLimits = {
-	// Endpoints de autenticación (permite varios intentos)
-	auth: new Ratelimit({
-		redis,
-		limiter: Ratelimit.slidingWindow(2, '1 m'),
-		analytics: true,
-		prefix: 'ratelimit:auth',
-	}),
+const makeLimiter = (limit: number, window: Duration, prefix: string): Limiter => {
+  if (isDev || !redis) return new NoopLimiter(limit);
+  return new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(limit, window),
+    analytics: true,
+    prefix,
+  }) as unknown as Limiter;
+};
+
+export const rateLimits: Record<string, Limiter> = {
+  // Endpoints de autenticación (permite varios intentos)
+  auth: makeLimiter(2, '1 m', 'ratelimit:auth'),
 
 	// Endpoints de creación/modificación (generoso para uso normal)
-	create: new Ratelimit({
-		redis,
-		limiter: Ratelimit.slidingWindow(50, '15 m'),
-		analytics: true,
-		prefix: 'ratelimit:create',
-	}),
+  create: makeLimiter(50, '15 m', 'ratelimit:create'),
 
 	// Endpoints de búsqueda y filtros
-	search: new Ratelimit({
-		redis,
-		limiter: Ratelimit.slidingWindow(150, '15 m'),
-		analytics: true,
-		prefix: 'ratelimit:search',
-	}),
+  search: makeLimiter(150, '15 m', 'ratelimit:search'),
 
 	// Endpoints públicos generales
-	public: new Ratelimit({
-		redis,
-		limiter: Ratelimit.slidingWindow(300, '15 m'),
-		analytics: true,
-		prefix: 'ratelimit:public',
-	}),
+  public: makeLimiter(300, '15 m', 'ratelimit:public'),
 
 	// Endpoints de administración (libertad total para admin)
-	admin: new Ratelimit({
-		redis,
-		limiter: Ratelimit.slidingWindow(1000, '15 m'),
-		analytics: true,
-		prefix: 'ratelimit:admin',
-	}),
+  admin: makeLimiter(1000, '15 m', 'ratelimit:admin'),
 };
 
 // Función para determinar qué rate limit aplicar según la ruta
-export function getRateLimitForPath(pathname: string, method?: string): Ratelimit {
-	// Endpoints de administración - límites más altos
-	if (pathname.startsWith('/api/admin')) {
-		return rateLimits.admin;
-	}
+export function getRateLimitForPath(pathname: string, method?: string): Limiter {
+  // Endpoints de administración - límites más altos
+  if (pathname.startsWith('/api/admin')) {
+    return rateLimits.admin;
+  }
 
 	// Endpoints de autenticación - límites moderados
 	if (pathname.includes('/auth') || pathname.includes('/login') || pathname.includes('/register')) {
@@ -72,8 +72,8 @@ export function getRateLimitForPath(pathname: string, method?: string): Ratelimi
 		return rateLimits.search;
 	}
 
-	// Por defecto, usar límite público
-	return rateLimits.public;
+  // Por defecto, usar límite público
+  return rateLimits.public;
 }
 
 // Función para obtener identificador único por usuario/IP
